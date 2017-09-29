@@ -8,7 +8,7 @@ Josué Rocha Lima, Túlio Coqueiro, Caio Silva Gonçalves
 
 # To do
 
-- [ ] Configure project to be used in NetBeans.
+- [X] Configure project to be used in NetBeans. - Josué
 - [ ] Armazenar a última vez que um servidor foi acessado. - Caio
 - [ ] HTMLs mal formados - Caio
 - [ ] Inserir páginas coletadas na fila de coletados - Túlio
