@@ -7,16 +7,20 @@ package crawler.escalonadorCurtoPrazo;
 
 import com.trigonic.jrobotx.Record;
 import com.trigonic.jrobotx.RobotExclusion;
+import crawler.ColetorUtil;
 import crawler.URLAddress;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author jr
  */
 public class PageFetcher extends Thread{
-    
     private Escalonador escalonador;
-    private RobotExclusion robotExclusion;
+    private RobotExclusion robotExclusion = new RobotExclusion();
     
     public PageFetcher(Escalonador escalonador){
         this.escalonador = escalonador;
@@ -26,7 +30,6 @@ public class PageFetcher extends Thread{
     public void run(){
         URLAddress currentUrl;
         Record record;
-        robotExclusion = new RobotExclusion();
         
         while(true){
             currentUrl = escalonador.getURL(); //Requesting page from page scheduler
@@ -41,9 +44,19 @@ public class PageFetcher extends Thread{
                 }
                 
             }
-            
-            if(record.allows(currentUrl.getPath())){ //Checking if collection is allowed
-                   System.out.println("PAGE ALLOWS COLLECTING " + currentUrl.getAddress());
+            System.out.println(currentUrl.getPath());
+            if(record.allows(currentUrl.getPath())){  //Checking if collection is allowed
+                try {
+                    InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
+                    String pageContent = ColetorUtil.consumeStream(stream);
+                    System.out.println("COLETOU");
+                    //System.out.println(pageContent);
+                    
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
+                }
+                
             }
             
         }
