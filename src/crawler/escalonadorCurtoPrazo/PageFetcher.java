@@ -32,6 +32,7 @@ public class PageFetcher extends Thread {
 
     private Escalonador escalonador;
     private RobotExclusion robotExclusion = new RobotExclusion();
+    Logger logger = Logger.getLogger(PageFetcher.class);
 
     public PageFetcher(Escalonador escalonador) {
         this.escalonador = escalonador;
@@ -41,7 +42,7 @@ public class PageFetcher extends Thread {
     public void run() {
         URLAddress currentUrl;
         Record record;
-        
+
         while (true) {
             currentUrl = escalonador.getURL(); //Requesting page from page scheduler
 
@@ -56,21 +57,22 @@ public class PageFetcher extends Thread {
                     String pageContent = ColetorUtil.consumeStream(stream);
 
                     List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
-                    for (String link : linkList) {                        
-                        if(link.length() > 1 && link.substring(0, 2).equals("//")){
-                            
+                    for (String link : linkList) {
+                        if (link.length() > 1 && link.substring(0, 2).equals("//")) {
+
                             link = Constants.HTTP + ":" + link;
-                            
-                        }else if(!ColetorUtil.isAbsoluteURL(link)){
+
+                        } else if (!ColetorUtil.isAbsoluteURL(link)) {
                             link = currentUrl.getDomain() + link;
                         }
-                        try{
-                            escalonador.adicionaNovaPagina(new URLAddress(link,1));
-                        }catch(Exception ex){
-                            System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                        try {
+                            escalonador.adicionaNovaPagina(new URLAddress(link, 1));
+                        } catch (Exception ex) {
+                            logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
+                            //System.out.println(PrintColor.RED + link + PrintColor.RESET);
                         }
                     }
-                    
+
                     System.out.println("COLLECTED: " + currentUrl.getAddress());
                 }
             } catch (Exception ex) {

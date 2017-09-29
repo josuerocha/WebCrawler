@@ -5,8 +5,16 @@
  */
 package crawler;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
@@ -17,8 +25,8 @@ import org.htmlcleaner.TagNode;
  */
 public class HtmlProcessor {
     
-        private static HtmlProcessor htmlProcessor = new HtmlProcessor();
-        private static HtmlCleaner htmlCleaner = new HtmlCleaner();
+        private static HtmlProcessor htmlProcessor;
+        private static HtmlCleaner htmlCleaner;
         
         public static HtmlProcessor getInstance(){
             if(htmlProcessor == null){
@@ -28,23 +36,31 @@ public class HtmlProcessor {
             return htmlProcessor;
         }
         
-        public HtmlProcessor(){
+        private HtmlProcessor(){
+            htmlCleaner = new HtmlCleaner();
             CleanerProperties props = htmlCleaner.getProperties();
+            props.setAllowHtmlInsideAttributes(true);
+            props.setAllowMultiWordAttributes(true);
+            props.setRecognizeUnicodeChars(true);
+            props.setOmitComments(true);
         }
         
-        public List<String> extractLinks(String pageContent){
+        public List<String> extractLinks(String pageContent) {
+            
             TagNode rootNode = htmlCleaner.clean(pageContent);
             
-            List<String> links = new ArrayList<String> ();
-            TagNode linkElements[] = rootNode.getElementsByName("href",true);
+            List<String> links = new ArrayList<> ();
+            TagNode linkElements[] = rootNode.getElementsByName("a",true);
             
             for ( TagNode node : linkElements){
-                String link = node.getAttributeByName ("href");
+
+                String link = node.getAttributeByName("href");
                 if(link != null && link.length() > 0){
                     links.add(link);
                 }
             }
             
             return links;
+           
         }
 }
