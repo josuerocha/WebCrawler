@@ -7,6 +7,7 @@ package crawler;
 
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
 
 /**
  *
@@ -17,5 +18,11 @@ public class HtmlProcessor {
         
         public HtmlProcessor(){
             CleanerProperties props = htmlCleaner.getProperties();
+        }
+        
+        public String cleanHtml(String pageContent){
+            TagNode cleanedPage = htmlCleaner.clean(pageContent);
+            cleanedPage.
+            
         }
 }
