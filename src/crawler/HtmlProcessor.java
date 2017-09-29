@@ -5,6 +5,7 @@
  */
 package crawler;
 
+import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 
 /**
@@ -12,9 +13,9 @@ import org.htmlcleaner.HtmlCleaner;
  * @author jr
  */
 public class HtmlProcessor {
-        HtmlCleaner htmlCleaner = new HtmlCleaner();
+        private static HtmlCleaner htmlCleaner = new HtmlCleaner();
         
         public HtmlProcessor(){
-            
+            CleanerProperties props = htmlCleaner.getProperties();
         }
 }
