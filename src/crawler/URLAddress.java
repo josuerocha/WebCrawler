@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 public class URLAddress {
 	private URL address;
 	private int depth;
+        
 	public URLAddress(String url,int depth) throws MalformedURLException
 	{
 		
@@ -45,8 +46,14 @@ public class URLAddress {
 
 	public String getPath() {
 		// TODO Auto-generated method stub
-		return address.getPath().length()==0?"/":"";
+		//return address.getPath().length()==0?"/":"";
+                return address.getPath();
 	}
+        
+        public URL getUrlRobotsTxt() throws MalformedURLException{
+            
+            return new URL(address.getProtocol() + "://" + address.getHost() + "/robots.txt");
+        }
 	
 	
 	

@@ -12,10 +12,18 @@ import crawler.Servidor;
 import crawler.URLAddress;
 import crawler.escalonadorCurtoPrazo.Escalonador;
 import crawler.escalonadorCurtoPrazo.EscalonadorSimples;
+import crawler.escalonadorCurtoPrazo.PageFetcher;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EscalonadorSimplesTeste {
 
-    private static Escalonador e = new EscalonadorSimples();
+    private static Escalonador e;
+    
+    public EscalonadorSimplesTeste() throws MalformedURLException{
+        e = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.huffingtonpost.com/"});
+    }
 
     @Test
     public synchronized void testServidor() {
@@ -85,9 +93,16 @@ public class EscalonadorSimplesTeste {
     }
 
     public static void main(String[] args) throws Exception {
-        EscalonadorSimplesTeste teste = new EscalonadorSimplesTeste();
-        teste.testServidor();
-        //teste.testAdicionaRemovePagina();
+        EscalonadorSimples escalonador = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.huffingtonpost.com/"});
+        List<PageFetcher> fetchers = new ArrayList<PageFetcher>();
+        int cores = Runtime.getRuntime().availableProcessors();
+        
+        for(int i=0; i<cores ; i++){
+            fetchers.add(new PageFetcher(escalonador));
+            fetchers.get(i).start();
+        }
+        
+        
         
     }
 }

@@ -15,7 +15,7 @@ Josué Rocha Lima, Túlio Coqueiro, Caio Silva Gonçalves
 - [ ] Extrair links das páginas coletadas. - Túlio
 - [ ] Existência de páginas. - Túlio
 - [ ] Page encoding verification - Josué
-- [ ] Robot exclusion protocol (Protocolo de exclusão de robôs) - Josué
+- [X] Robot exclusion protocol (Protocolo de exclusão de robôs) - Josué
 
 
 # Use instructions
