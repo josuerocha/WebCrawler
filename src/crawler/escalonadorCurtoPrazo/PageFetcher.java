@@ -5,11 +5,13 @@
  */
 package crawler.escalonadorCurtoPrazo;
 
+import com.trigonic.jrobotx.Constants;
 import com.trigonic.jrobotx.Record;
 import com.trigonic.jrobotx.RobotExclusion;
 import crawler.ColetorUtil;
 import crawler.HtmlProcessor;
 import crawler.URLAddress;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
+import util.PrintColor;
 
 /**
  *
@@ -55,13 +58,17 @@ public class PageFetcher extends Thread {
                     List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
                     for (String link : linkList) {                        
                         if(link.length() > 1 && link.substring(0, 2).equals("//")){
-                            link = URLAddress.formatURL(link);
+                            
+                            link = Constants.HTTP + ":" + link;
                             
                         }else if(!ColetorUtil.isAbsoluteURL(link)){
                             link = currentUrl.getDomain() + link;
                         }
-                        
-                        escalonador.adicionaNovaPagina(new URLAddress(link,1));
+                        try{
+                            escalonador.adicionaNovaPagina(new URLAddress(link,1));
+                        }catch(Exception ex){
+                            System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                        }
                     }
                     
                     System.out.println("COLLECTED: " + currentUrl.getAddress());
