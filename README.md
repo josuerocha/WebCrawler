@@ -10,11 +10,11 @@ Josué Rocha Lima, Túlio Coqueiro, Caio Silva Gonçalves
 
 - [X] Configure project to be used in NetBeans. - Josué
 - [ ] Armazenar a última vez que um servidor foi acessado. - Caio
-- [ ] HTMLs mal formados - Caio
+- [X] HTMLs mal formados - Caio
 - [ ] Inserir páginas coletadas na fila de coletados - Túlio
-- [ ] Extrair links das páginas coletadas. - Túlio
+- [X] Extrair links das páginas coletadas. - Túlio
 - [ ] Existência de páginas. - Túlio
-- [ ] Page encoding verification - Josué
+- [X] Page encoding verification - Josué
 - [X] Robot exclusion protocol (Protocolo de exclusão de robôs) - Josué
 
 

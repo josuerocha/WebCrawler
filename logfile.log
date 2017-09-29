@@ -422,3 +422,26 @@ java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
 2017-09-29 18:23:11 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
 2017-09-29 18:23:11 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
 2017-09-29 18:23:18 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:(function(){var s=document.createElement('script');s.src='//preferences.truste.com/webservices/js?domain=turner.com&amp;type=turner&amp;js=responsive';s.onreadystatechange=function(){if(this.readyState=='loaded'||this.readyState=='complete'){view(trusteId);}};s.onload=function(){view(trusteId);};document.getElementsByTagName('head')[0].appendChild(s);})()[0m
+2017-09-29 18:36:13 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:51)
+2017-09-29 18:36:17 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: www.gq.com.aujavascript: false[0m
+2017-09-29 18:36:18 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
+2017-09-29 18:36:22 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
+2017-09-29 18:36:22 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
+2017-09-29 18:36:29 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
+2017-09-29 18:36:29 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
+2017-09-29 18:36:30 ERROR crawler.escalonadorCurtoPrazo.PageFetcher     - [31mINVALID LINK: cnn.comjavascript:void(0);[0m
+2017-09-29 18:36:57 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:51)

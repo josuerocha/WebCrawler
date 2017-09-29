@@ -59,9 +59,7 @@ public class PageFetcher extends Thread {
                     List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
                     for (String link : linkList) {
                         if (link.length() > 1 && link.substring(0, 2).equals("//")) {
-
                             link = Constants.HTTP + ":" + link;
-
                         } else if (!ColetorUtil.isAbsoluteURL(link)) {
                             link = currentUrl.getDomain() + link;
                         }
