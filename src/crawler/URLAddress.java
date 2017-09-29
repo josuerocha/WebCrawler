@@ -55,7 +55,9 @@ public class URLAddress {
             return new URL(address.getProtocol() + "://" + address.getHost() + "/robots.txt");
         }
 	
-	
+	public URL getUrlObj(){
+            return this.address;
+        }
 	
 	public static void main(String[] args) throws MalformedURLException, UnknownHostException
 	{

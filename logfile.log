@@ -1,0 +1,144 @@
+2017-09-29 11:45:07 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:36)
+2017-09-29 11:59:39 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:00:56 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:03:38 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.huffingtonpost.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.huffingtonpost.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:03:39 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:05:53 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:39)
+2017-09-29 12:06:28 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:39)
+2017-09-29 12:12:22 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:39)
+2017-09-29 12:15:06 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.huffingtonpost.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.huffingtonpost.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:15:08 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:16:54 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:17:07 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:17:48 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:21:21 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:22:20 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 12:25:12 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 13:04:26 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)
+2017-09-29 13:08:17 INFO  com.trigonic.jrobotx.RobotExclusion     - Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:40)

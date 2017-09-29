@@ -18,49 +18,39 @@ import org.apache.log4j.Logger;
  *
  * @author jr
  */
-public class PageFetcher extends Thread{
+public class PageFetcher extends Thread {
+
     private Escalonador escalonador;
     private RobotExclusion robotExclusion = new RobotExclusion();
-    
-    public PageFetcher(Escalonador escalonador){
+
+    public PageFetcher(Escalonador escalonador) {
         this.escalonador = escalonador;
     }
-    
+
     @Override
-    public void run(){
+    public void run() {
         URLAddress currentUrl;
         Record record;
-        
-        while(true){
+
+        while (true) {
             currentUrl = escalonador.getURL(); //Requesting page from page scheduler
-            
-            if((record = escalonador.getRecordAllowRobots(currentUrl)) == null ){ //Getting robots.txt record from domain
-                try{
+
+            try {
+                if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
                     record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), "BrutusBot"); //requesting robots.txt from URL
                     escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
-                }catch(Exception ex){
-                    System.out.println(ex.getMessage());
-                    ex.printStackTrace();
                 }
-                
-            }
-            System.out.println(currentUrl.getPath());
-            if(record.allows(currentUrl.getPath())){  //Checking if collection is allowed
-                try {
+
+                if (record != null && record.allows(currentUrl.getPath())) {  //Checking if collection is allowed
                     InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
                     String pageContent = ColetorUtil.consumeStream(stream);
-                    System.out.println("COLETOU");
+                    System.out.println("COLETOU: " + currentUrl.getAddress());
                     //System.out.println(pageContent);
-                    
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                    ex.printStackTrace();
                 }
-                
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
             }
-            
         }
     }
-    
-    
 }
