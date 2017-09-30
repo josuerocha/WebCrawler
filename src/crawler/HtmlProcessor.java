@@ -27,6 +27,7 @@ public class HtmlProcessor {
     
         private static HtmlProcessor htmlProcessor;
         private static HtmlCleaner htmlCleaner;
+        private static String jsPattern = new String("(.)*javascript(.)*");
         
         public static HtmlProcessor getInstance(){
             if(htmlProcessor == null){
@@ -55,7 +56,7 @@ public class HtmlProcessor {
             for ( TagNode node : linkElements){
 
                 String link = node.getAttributeByName("href");
-                if(link != null && link.length() > 0){
+                if(link != null && link.length() > 0 && !link.matches(jsPattern)){
                     links.add(link);
                 }
             }
