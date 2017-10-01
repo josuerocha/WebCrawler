@@ -43,32 +43,34 @@ public class PageFetcher extends Thread {
         URLAddress currentUrl;
         Record record;
 
-        while (true) {
+        while (!escalonador.finalizouColeta()) {
             currentUrl = escalonador.getURL(); //Requesting page from page scheduler
-            //System.out.println("TESTE: " + currentUrl);
-            //System.out.println("http://cnn.com".equals(currentUrl.toString()));
+
             try {
-                if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
-                    record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), "BrutusBot"); //requesting robots.txt from URL
-                    escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
-                }
-
-                if (record == null || record.allows(currentUrl.getPath())) {  //Checking if collection is allowed
-                    InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
-                    String pageContent = ColetorUtil.consumeStream(stream);
-
-                    List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
-                    for (String link : linkList) {
-  
-                        try {
-                            escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain(), 1));
-                        } catch (Exception ex) {
-                            logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
-                            //System.out.println(PrintColor.RED + link + PrintColor.RESET);
-                        }
+                if (currentUrl != null) {
+                    if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
+                        record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), "BrutusBot"); //requesting robots.txt from URL
+                        escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
                     }
 
-                    System.out.println("COLLECTED: " + currentUrl.getAddress());
+                    if (record == null || record.allows(currentUrl.getPath())) {  //Checking if collection is allowed
+                        InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
+                        String pageContent = ColetorUtil.consumeStream(stream);
+                        escalonador.countFetchedPage();
+
+                        List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
+                        for (String link : linkList) {
+
+                            try {
+                                escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain(), 1));
+                            } catch (Exception ex) {
+                                logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
+                                //System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                            }
+                        }
+
+                        System.out.println("COLLECTED: " + currentUrl.getAddress());
+                    }
                 }
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

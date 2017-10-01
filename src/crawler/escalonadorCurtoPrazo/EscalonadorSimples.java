@@ -19,16 +19,16 @@ import crawler.Servidor;
 import crawler.URLAddress;
 
 public class EscalonadorSimples implements Escalonador {
+
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
     static final int LIMITE_PAGINAS = 500;
     static final int SERVER_ACCESS_PAUSE = 30000;
-    
+
     private int contadorPaginas;
     public Set<String> pagVisitada = new HashSet<>();
     public Map<Servidor, List<URLAddress>> fila = new LinkedHashMap<>();
     public Map<String, Record> mapRobots = new HashMap<>();
-    
 
     public EscalonadorSimples(String[] seeds) throws MalformedURLException {
         for (String url : seeds) {
@@ -42,14 +42,14 @@ public class EscalonadorSimples implements Escalonador {
         while (!this.finalizouColeta()) {
             try {
                 for (Servidor s : fila.keySet()) {
-                    if(s.getTimeSinceLastAcess() >= SERVER_ACCESS_PAUSE){
-                    List<URLAddress> urlList = fila.get(s);
-                    if (!urlList.isEmpty()) {
-                        url = urlList.remove(0);
-                        pagVisitada.add(url.toString());
-                        s.acessadoAgora();
-                        return url;
-                    }
+                    if (s.getTimeSinceLastAcess() >= SERVER_ACCESS_PAUSE) {
+                        List<URLAddress> urlList = fila.get(s);
+                        if (!urlList.isEmpty()) {
+                            url = urlList.remove(0);
+                            pagVisitada.add(url.toString());
+                            s.acessadoAgora();
+                            return url;
+                        }
                     }
                 }
 
