@@ -1,5 +1,6 @@
 package crawler;
 
+import com.trigonic.jrobotx.Constants;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +13,10 @@ public class URLAddress {
 
     public URLAddress(String url, int depth) throws MalformedURLException {
 
+        if (url.length() > 1 && url.substring(0, 2).equals("//")) {
+            url = Constants.HTTP + ":" + url;
+        }
+        
         this.address = new URL(formatURL(url));
         this.depth = depth;
     }
@@ -34,7 +39,8 @@ public class URLAddress {
      * @param urlString
      * @return
      */
-    public static boolean isAbsoluteURL(String urlString) {
+    public boolean isAbsoluteURL() {
+        String urlString = this.getAddress();
         boolean result = false;
         try {
             URL url = new URL(urlString);
