@@ -93,7 +93,7 @@ public class EscalonadorSimplesTeste {
     }
 
     public static void main(String[] args) throws Exception {
-        EscalonadorSimples escalonador = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.g1.com.br/"});
+        EscalonadorSimples escalonador = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.huffingtonpost.com/"});
         List<PageFetcher> fetchers = new ArrayList<PageFetcher>();
         
         int cores = Runtime.getRuntime().availableProcessors();
