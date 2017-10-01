@@ -42,6 +42,7 @@ public class EscalonadorSimples implements Escalonador {
                     List<URLAddress> urlList = fila.get(s);
                     if (!urlList.isEmpty()) {
                         url = urlList.remove(0);
+                        pagVisitada.add(url);
                         s.acessadoAgora();
                         return url;
                     }
