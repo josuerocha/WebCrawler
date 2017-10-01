@@ -12,14 +12,23 @@ public class URLAddress {
     private int depth;
 
     public URLAddress(String url, String possibleDomain, int depth) throws MalformedURLException {
-
+        //System.out.println("LAST INDEX: " + url.substring(url.length()-1));
+        StringBuffer buffer = new StringBuffer();
+        if(url.substring(url.length()-1).equals("/") ){
+            buffer.append(url.substring(0, url.length()-1));
+        }else{
+            buffer.append(url);
+        }
+        
         if (url.length() > 1 && url.substring(0, 2).equals("//")) {
-            url = Constants.HTTP + ":" + url;
-        } else if (!isAbsoluteURL(url)) {
-            url = possibleDomain + url;
+            buffer.insert(0,Constants.HTTP + ":");
+        }else if (!isAbsoluteURL(url)) {
+            buffer.insert(0,possibleDomain);
+        } else{
+            formatBuffer(buffer);
         }
 
-        this.address = new URL(formatURL(url));
+        this.address = new URL(formatURL(buffer.toString()));
         this.depth = depth;
 
     }
@@ -36,6 +45,14 @@ public class URLAddress {
         }
 
         return url;
+    }
+    
+    private StringBuffer formatBuffer(StringBuffer buff) {
+        if (!buff.toString().matches("[a-zA-Z]+://.*")) {
+            buff.insert(0,"http://");
+        }
+
+        return buff;
     }
 
     public String getDomain(String address) throws MalformedURLException {
