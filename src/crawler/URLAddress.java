@@ -11,17 +11,26 @@ public class URLAddress {
     private URL address;
     private int depth;
 
-    public URLAddress(String url, int depth) throws MalformedURLException {
+    public URLAddress(String url, String possibleDomain, int depth) throws MalformedURLException {
 
         if (url.length() > 1 && url.substring(0, 2).equals("//")) {
             url = Constants.HTTP + ":" + url;
+        } else if (!isAbsoluteURL(url)) {
+            url = possibleDomain + url;
         }
-        
+
+        this.address = new URL(formatURL(url));
+        this.depth = depth;
+
+    }
+
+    public URLAddress(String url, int depth) throws MalformedURLException {
+
         this.address = new URL(formatURL(url));
         this.depth = depth;
     }
 
-    public static String formatURL(String url) {
+    private String formatURL(String url) {
         if (!url.matches("[a-zA-Z]+://.*")) {
             url = "http://" + url;
         }
@@ -29,7 +38,7 @@ public class URLAddress {
         return url;
     }
 
-    public static String getDomain(String address) throws MalformedURLException {
+    public String getDomain(String address) throws MalformedURLException {
         return new URL(formatURL(address)).getHost();
     }
 
@@ -39,8 +48,8 @@ public class URLAddress {
      * @param urlString
      * @return
      */
-    public boolean isAbsoluteURL() {
-        String urlString = this.getAddress();
+    public boolean isAbsoluteURL(String urlString) {
+
         boolean result = false;
         try {
             URL url = new URL(urlString);

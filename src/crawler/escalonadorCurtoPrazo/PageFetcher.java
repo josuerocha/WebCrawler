@@ -58,13 +58,9 @@ public class PageFetcher extends Thread {
 
                     List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
                     for (String link : linkList) {
-                        
-                        else if (!ColetorUtil.isAbsoluteURL(link)) {
-                            url = currentUrl.getDomain() + link;
-                        }
-                        
+  
                         try {
-                            escalonador.adicionaNovaPagina(new URLAddress(link, 1));
+                            escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain(), 1));
                         } catch (Exception ex) {
                             logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
                             //System.out.println(PrintColor.RED + link + PrintColor.RESET);
