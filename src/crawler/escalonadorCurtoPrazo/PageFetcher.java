@@ -45,7 +45,8 @@ public class PageFetcher extends Thread {
 
         while (true) {
             currentUrl = escalonador.getURL(); //Requesting page from page scheduler
-
+            //System.out.println("TESTE: " + currentUrl);
+            //System.out.println("http://cnn.com".equals(currentUrl.toString()));
             try {
                 if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
                     record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), "BrutusBot"); //requesting robots.txt from URL
