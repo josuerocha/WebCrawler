@@ -122,10 +122,9 @@ public class EscalonadorSimples implements Escalonador {
             int cont = 0;
             for(URLAddress url : collectedURL){
                 
-                fileWriter.append(url.getAddress() + "\n");
+                fileWriter.write(url.getAddress() + "\n");
                 System.out.println(url.getAddress() + "     " + (++cont));
             }
-            
             
             System.out.println("COLLECTED " + contadorPaginas +  " PAGES");
             System.out.println("LIST CONTAINS " + contadorPaginas +  " PAGES");
