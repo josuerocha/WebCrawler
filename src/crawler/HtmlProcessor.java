@@ -104,10 +104,10 @@ public class HtmlProcessor {
                 
                 System.out.print(" PERMISSIONS " + permission[0] + " " + permission[1]);
                 
-                if(permission[0] == false || permission[1] == false){
+               /* if(permission[0] == false || permission[1] == false){
                     System.exit(1);
                 }
-                
+                */
             }
         }
 
