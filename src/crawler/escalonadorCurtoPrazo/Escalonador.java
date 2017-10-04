@@ -6,6 +6,7 @@ import crawler.URLAddress;
 
 public interface Escalonador {
 	
+        
 	/**
 	 * Metodo para resgatar uma url. Não esquecer que, ao implementar esse método em que os PageFetcher são multithread, 
 	 * voce deve implementar este metodo com o termo "synchronized", para utilizar o monitor e deixar
@@ -50,4 +51,21 @@ public interface Escalonador {
 	 * @return
 	 */
 	public void putRecorded(String domain, Record domainRec);
+        
+        /**
+	 * Adiciona URLs coletadas na em uma lista para posterior relatório de endereços. 
+	 * @param url
+	 * @return
+	 */
+        public void addCollectedURL(URLAddress url);
+        
+        
+        /**
+	 * Salva as URLs coletadas na em um arquivo. 
+	 * @param filename
+	 * @return
+	 */
+        public void saveToFile(String filename);
+        
+        public int getSize();
 }

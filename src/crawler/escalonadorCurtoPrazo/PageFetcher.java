@@ -57,6 +57,8 @@ public class PageFetcher extends Thread {
                         InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
                         String pageContent = ColetorUtil.consumeStream(stream);
                         escalonador.countFetchedPage();
+                        escalonador.addCollectedURL(currentUrl);
+                        System.out.println("COLLECTED: " + currentUrl.getAddress());
 
                         List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
                         for (String link : linkList) {
@@ -66,10 +68,8 @@ public class PageFetcher extends Thread {
                             } catch (Exception ex) {
                                 logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
                                 //System.out.println(PrintColor.RED + link + PrintColor.RESET);
-                            }
+                            }   
                         }
-
-                        System.out.println("COLLECTED: " + currentUrl.getAddress());
                     }
                 }
             } catch (Exception ex) {
