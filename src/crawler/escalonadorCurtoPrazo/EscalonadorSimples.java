@@ -132,6 +132,8 @@ public class EscalonadorSimples implements Escalonador {
         }
         catch(IOException ex){
             System.out.println(PrintColor.RED + "ERROR SAVING FILE" + PrintColor.RESET);
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     
     }
