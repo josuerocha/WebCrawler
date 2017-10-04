@@ -33,4 +33,7 @@ public final class Constants {
     public static final String HTTPS = "https";
     
     public static final String FILENAME = "collectedpages.txt";
+    
+    public static final String NOINDEX = "noindex";
+    public static final String NOFOLLOW = "nofollow";
 }

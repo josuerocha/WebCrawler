@@ -58,13 +58,15 @@ public class PageFetcher extends Thread {
                         String pageContent = ColetorUtil.consumeStream(stream);
                         escalonador.countFetchedPage();
                         escalonador.addCollectedURL(currentUrl);
-                        System.out.println("COLLECTED: " + currentUrl.getAddress());
-
+                        System.out.print("COLLECTED: " + currentUrl.getAddress() + " ");
+                        
+                        boolean[] permission = HtmlProcessor.getInstance().allowsIndexing(pageContent);
+                        System.out.println(" ");
                         List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
                         for (String link : linkList) {
 
                             try {
-                                escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain(), 1));
+                                escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
                             } catch (Exception ex) {
                                 logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
                                 //System.out.println(PrintColor.RED + link + PrintColor.RESET);

@@ -66,6 +66,4 @@ public interface Escalonador {
 	 * @return
 	 */
         public void saveToFile(String filename);
-        
-        public int getSize();
 }

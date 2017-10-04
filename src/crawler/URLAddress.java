@@ -1,5 +1,6 @@
 package crawler;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import com.trigonic.jrobotx.Constants;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -11,7 +12,7 @@ public class URLAddress {
     private URL address;
     private int depth;
 
-    public URLAddress(String url, String possibleDomain, int depth) throws MalformedURLException {
+    public URLAddress(String url, String possibleDomain) throws MalformedURLException {
         //System.out.println("LAST INDEX: " + url.substring(url.length()-1));
         StringBuffer buffer = new StringBuffer();
         if(url.substring(url.length()-1).equals("/") ){
@@ -27,10 +28,9 @@ public class URLAddress {
         } else{
             formatBuffer(buffer);
         }
-
+        
         this.address = new URL(formatURL(buffer.toString()));
-        this.depth = depth;
-
+        this.depth = calculateDepth(this.address.getPath());
     }
 
     public URLAddress(String url, int depth) throws MalformedURLException {
@@ -132,6 +132,17 @@ public class URLAddress {
         System.out.println(url.getHost());
         address = InetAddress.getByName(url.getHost());
         System.out.println(address.getHostAddress());
+    }
+    
+    private int calculateDepth(String path){
+        
+        int count = 0;
+        for(char ch : path.toCharArray()){
+            if(ch == '/'){
+                count++;
+            }
+        }
+        return count;
     }
 
     public String toString() {

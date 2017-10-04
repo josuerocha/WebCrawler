@@ -107,10 +107,7 @@ public class EscalonadorSimplesTeste {
         
         for(PageFetcher fetcher : fetchers){
             fetcher.join();
-            System.out.println(escalonador.getSize());
         }
-        
-        System.out.println("TULIO");
         
         escalonador.saveToFile(Constants.FILENAME);
         
