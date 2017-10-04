@@ -26,7 +26,7 @@ public class EscalonadorSimples implements Escalonador {
 
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
-    static final int LIMITE_PAGINAS = 50;
+    static final int LIMITE_PAGINAS = 96;
     static final int SERVER_ACCESS_PAUSE = 30000;
     
     //VARIABLES
@@ -117,17 +117,18 @@ public class EscalonadorSimples implements Escalonador {
     public synchronized void saveToFile(String filename){
         BufferedWriter fileWriter = null;
         try{
-            fileWriter = new BufferedWriter(new FileWriter(filename));
+            fileWriter = new BufferedWriter(new FileWriter(filename,false));
             
             int cont = 0;
             for(URLAddress url : collectedURL){
                 
-                fileWriter.write(url.getAddress() + "\n");
-                System.out.println(url.getAddress() + "     " + (++cont));
+                fileWriter.write(url.getAddress() );
+                fileWriter.newLine();
+                //System.out.println(url.getAddress() + "     " + (++cont));
             }
             
-            System.out.println("COLLECTED " + contadorPaginas +  " PAGES");
-            System.out.println("LIST CONTAINS " + contadorPaginas +  " PAGES");
+            //System.out.println("COLLECTED " + contadorPaginas +  " PAGES");
+            //System.out.println("LIST CONTAINS " + contadorPaginas +  " PAGES");
             fileWriter.close();
         }
         catch(IOException ex){
@@ -138,8 +139,5 @@ public class EscalonadorSimples implements Escalonador {
     
     }
     
-    public int getSize(){
-        return collectedURL.size();
-    }
 
 }
