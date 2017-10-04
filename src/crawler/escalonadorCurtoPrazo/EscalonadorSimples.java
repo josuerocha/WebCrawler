@@ -26,7 +26,7 @@ public class EscalonadorSimples implements Escalonador {
 
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
-    static final int LIMITE_PAGINAS = 96;
+    static final int LIMITE_PAGINAS = 500000;
     static final int SERVER_ACCESS_PAUSE = 30000;
     
     //VARIABLES
