@@ -1,5 +1,6 @@
 package crawler.test;
 
+import com.trigonic.jrobotx.Constants;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -104,7 +105,13 @@ public class EscalonadorSimplesTeste {
             fetchers.get(i).start();
         }
         
+        for(PageFetcher fetcher : fetchers){
+            fetcher.join();
+        }
         
+        System.out.println("TULIO");
+        
+        escalonador.saveToFile(Constants.FILENAME);
         
     }
 }
