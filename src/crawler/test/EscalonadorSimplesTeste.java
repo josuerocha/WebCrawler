@@ -97,10 +97,10 @@ public class EscalonadorSimplesTeste {
         EscalonadorSimples escalonador = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.huffingtonpost.com/"});
         List<PageFetcher> fetchers = new ArrayList<PageFetcher>();
         
-        int cores = Runtime.getRuntime().availableProcessors();
-        System.out.println("CORES AVAILABLE: " + cores);
+        int threadNo = Runtime.getRuntime().availableProcessors() * 15;
+        System.out.println("THREADS CREATED: " + threadNo);
         
-        for(int i=0; i<cores ; i++){
+        for(int i=0; i<threadNo ; i++){
             fetchers.add(new PageFetcher(escalonador));
             fetchers.get(i).start();
         }
@@ -110,6 +110,5 @@ public class EscalonadorSimplesTeste {
         }
         
         escalonador.saveToFile(Constants.FILENAME);
-        
     }
 }
