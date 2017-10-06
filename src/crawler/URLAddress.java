@@ -11,7 +11,25 @@ public class URLAddress {
 
     private URL address;
     private int depth;
-
+    
+    /**
+     *  Construtor da Classe, inicialmente verifica se no final da url esta apenas uma "/", 
+     *  caso esteja, é retirado a "/" e adicionado a url ao Buffer, essa verificação é 
+     *  feita devido a alguns sites que tem apenas essa "/" depois do link o que faz 
+     *  com que ele seja igual ao site "original", logo para evitar que o coletor colete 
+     *  a mesma pagina é feito essa formatação na url do link.
+     *  Logo apos é verificado se a url inicia com "//", casos de urls mal formatadas, é inserido no
+     *  inicio dela o padrão "http:".
+     *  Caso a verificação acima for falsa, é feita uma outra verificação para saber se a url é absoluta, 
+     *  caso ela não seja é concatenado à variavel buffer o dominio do servidor.
+     *  No ultimo caso é quando o link já esta todo correto/formatado.
+     *  Por fim, é criado criado um novo endereço com essa URL e calculado a profundidade da URL 
+     *  no servidor.
+     * 
+     *
+     * @param url,possibleDomain
+     * @return
+     */
     public URLAddress(String url, String possibleDomain) throws MalformedURLException {
         StringBuffer buffer = new StringBuffer();
         if(url.substring(url.length()-1).equals("/") ){
@@ -31,13 +49,25 @@ public class URLAddress {
         this.address = new URL(formatURL(buffer.toString()));
         this.depth = calculateDepth(this.address.getPath());
     }
-
+    /**
+     *  Construtor extra criado para setar automaticamente a profundidade
+     *
+     * @param 
+     * @return
+     */
     public URLAddress(String url, int depth) throws MalformedURLException {
 
         this.address = new URL(formatURL(url));
         this.depth = depth;
     }
     
+    
+    /**
+     * Formata a URL do link concatenando a string "http://" à url
+     *
+     * @param url
+     * @return url
+     */
     private String formatURL(String url) {
         if (!url.matches("[a-zA-Z]+://.*")) {
             url = "http://" + url;
@@ -62,6 +92,12 @@ public class URLAddress {
         return buff;
     }
     
+    /**
+     * Retorna o servidor de domínio do endereço fornecido
+     *
+     * @param address
+     * @return URL
+     */
     public String getDomain(String address) throws MalformedURLException {
         return new URL(formatURL(address)).getHost();
     }
