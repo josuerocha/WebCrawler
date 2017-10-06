@@ -29,7 +29,13 @@ public class HtmlProcessor {
     private static HtmlProcessor htmlProcessor;
     private static HtmlCleaner htmlCleaner;
     private static String jsPattern = new String("(.)*javascript(.)*");
-
+    
+    /**
+     *  
+     *
+     * @param 
+     * @return htmlProcessor
+     */
     public static HtmlProcessor getInstance() {
         if (htmlProcessor == null) {
             htmlProcessor = new HtmlProcessor();
