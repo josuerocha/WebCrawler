@@ -104,15 +104,14 @@ public class HtmlProcessor {
                             permission[1] = false;
                         }
                         System.out.print("ATTRIBUTES: " + attributes[0] + " " + attributes[1]);
+                        System.out.print(" PERMISSIONS " + permission[0] + " " + permission[1]);
                         break;
                 }
-                
-                System.out.print(" PERMISSIONS " + permission[0] + " " + permission[1]);
-                
-               /* if(permission[0] == false || permission[1] == false){
+
+                /* if(permission[0] == false || permission[1] == false){
                     System.exit(1);
                 }
-                */
+                 */
             }
         }
 

@@ -33,6 +33,7 @@ public class PageFetcher extends Thread {
     private Escalonador escalonador;
     private RobotExclusion robotExclusion = new RobotExclusion();
     Logger logger = Logger.getLogger(PageFetcher.class);
+    HtmlProcessor htmlProcessor = HtmlProcessor.getInstance();
 
     public PageFetcher(Escalonador escalonador) {
         this.escalonador = escalonador;
@@ -56,22 +57,31 @@ public class PageFetcher extends Thread {
                     if (record == null || record.allows(currentUrl.getPath())) {  //Checking if collection is allowed
                         InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
                         String pageContent = ColetorUtil.consumeStream(stream);
-                        escalonador.countFetchedPage();
-                        escalonador.addCollectedURL(currentUrl);
-                        System.out.print("COLLECTED: " + currentUrl.getAddress() + " ");
-                        
-                        boolean[] permission = HtmlProcessor.getInstance().allowsIndexing(pageContent);
-                        System.out.println(" ");
-                        List<String> linkList = HtmlProcessor.getInstance().extractLinks(pageContent);
-                        for (String link : linkList) {
+                        boolean[] permission = htmlProcessor.allowsIndexing(pageContent);
 
-                            try {
-                                escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
-                            } catch (Exception ex) {
-                                logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
-                                //System.out.println(PrintColor.RED + link + PrintColor.RESET);
-                            }   
+                        if (permission[0]) {
+                            escalonador.countFetchedPage();
+                            escalonador.addCollectedURL(currentUrl);
+                            System.out.print(" COLLECTED: " + currentUrl.getAddress() + " ");
+                        }else{
+                            System.out.println(PrintColor.BLUE + "NOT PERMITTED INDEXING" + PrintColor.RESET);
                         }
+
+                        if (permission[1]) {
+                            List<String> linkList = htmlProcessor.extractLinks(pageContent);
+                            for (String link : linkList) {
+                                try {
+                                    escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
+                                } catch (Exception ex) {
+                                    logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
+                                    //System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                                }
+                            }
+                        }else{
+                            System.out.println(PrintColor.BLUE + "NOT PERMITTED FOLLOWING" + PrintColor.RESET);
+                        }
+                        
+                        System.out.println(" ");
                     }
                 }
             } catch (Exception ex) {
