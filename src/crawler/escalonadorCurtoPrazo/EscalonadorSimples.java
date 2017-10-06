@@ -26,7 +26,7 @@ public class EscalonadorSimples implements Escalonador {
     //-Xmx2000m
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
-    static final int LIMITE_PAGINAS = 500000;
+    static final int LIMITE_PAGINAS = 500;
     static final int SERVER_ACCESS_PAUSE = 30000;
     
     //VARIABLES
@@ -45,12 +45,12 @@ public class EscalonadorSimples implements Escalonador {
     @Override
     public synchronized URLAddress getURL() {
         URLAddress url = null;
-        while (!this.finalizouColeta()) {
+        while (!this.finalizouColeta()) { //Enquanto não finalizar a coleta
             try {
-                for (Servidor s : fila.keySet()) {
+                for (Servidor s : fila.keySet()) {//Para cada 
                     if (s.getTimeSinceLastAcess() >= SERVER_ACCESS_PAUSE) {
                         List<URLAddress> urlList = fila.get(s);
-                        if (!urlList.isEmpty()) {
+                        if (!urlList.isEmpty()) {//se a página 
                             url = urlList.remove(0);
                             pagVisitada.add(url.toString());
                             s.acessadoAgora();

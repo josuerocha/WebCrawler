@@ -13,7 +13,6 @@ public class URLAddress {
     private int depth;
 
     public URLAddress(String url, String possibleDomain) throws MalformedURLException {
-        //System.out.println("LAST INDEX: " + url.substring(url.length()-1));
         StringBuffer buffer = new StringBuffer();
         if(url.substring(url.length()-1).equals("/") ){
             buffer.append(url.substring(0, url.length()-1));
@@ -38,7 +37,7 @@ public class URLAddress {
         this.address = new URL(formatURL(url));
         this.depth = depth;
     }
-
+    
     private String formatURL(String url) {
         if (!url.matches("[a-zA-Z]+://.*")) {
             url = "http://" + url;
@@ -46,6 +45,14 @@ public class URLAddress {
 
         return url;
     }
+    /**
+     * Formata a URL do link porém recebendo um Buffer, foi criado com o intuito 
+     * de otimizar o processamento, para evitar a instanciação de um objeto extra na 
+     * hora de realizar a concatenação das strings
+     *
+     * @param buff
+     * @return buff
+     */
     
     private StringBuffer formatBuffer(StringBuffer buff) {
         if (!buff.toString().matches("[a-zA-Z]+://.*")) {
@@ -54,7 +61,7 @@ public class URLAddress {
 
         return buff;
     }
-
+    
     public String getDomain(String address) throws MalformedURLException {
         return new URL(formatURL(address)).getHost();
     }
@@ -85,7 +92,6 @@ public class URLAddress {
     }
 
     public String getDomain() {
-
         return address.getHost();
     }
 
