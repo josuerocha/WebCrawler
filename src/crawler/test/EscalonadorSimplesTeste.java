@@ -15,7 +15,6 @@ import crawler.escalonadorCurtoPrazo.Escalonador;
 import crawler.escalonadorCurtoPrazo.EscalonadorSimples;
 import crawler.escalonadorCurtoPrazo.PageFetcher;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EscalonadorSimplesTeste {
