@@ -23,7 +23,6 @@ import java.io.IOException;
 import util.PrintColor;
 
 public class EscalonadorSimples implements Escalonador {
-    //-Xmx2000m
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
     static final int LIMITE_PAGINAS = 500;
