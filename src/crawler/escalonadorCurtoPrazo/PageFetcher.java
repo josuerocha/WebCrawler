@@ -5,22 +5,13 @@
  */
 package crawler.escalonadorCurtoPrazo;
 
-import com.trigonic.jrobotx.Constants;
 import com.trigonic.jrobotx.Record;
 import com.trigonic.jrobotx.RobotExclusion;
 import crawler.ColetorUtil;
 import crawler.HtmlProcessor;
 import crawler.URLAddress;
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import util.PrintColor;
 
@@ -39,6 +30,10 @@ public class PageFetcher extends Thread {
         this.escalonador = escalonador;
     }
 
+    private synchronized void printStatus(){
+        
+    }
+    
     @Override
     public void run() {
         URLAddress currentUrl;
@@ -62,9 +57,9 @@ public class PageFetcher extends Thread {
                         if (permission[0]) {
                             escalonador.countFetchedPage();
                             escalonador.addCollectedURL(currentUrl);
-                            System.out.print(" COLLECTED: " + currentUrl.getAddress() + " ");
-                        }else{
-                            System.out.println(PrintColor.BLUE + "NOT PERMITTED INDEXING" + PrintColor.RESET);
+                            
+                        } else {
+                            System.out.print(PrintColor.BLUE + " NOT PERMITTED INDEXING" + PrintColor.RESET);
                         }
 
                         if (permission[1]) {
@@ -74,13 +69,11 @@ public class PageFetcher extends Thread {
                                     escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
                                 } catch (Exception ex) {
                                     logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
-                                    //System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                                    System.out.println(PrintColor.RED + link + PrintColor.RESET);
                                 }
                             }
-                        }else{
-                            System.out.println(PrintColor.BLUE + "NOT PERMITTED FOLLOWING" + PrintColor.RESET);
                         }
-                        
+                        System.out.print(" COLLECTED: " + currentUrl.getAddress() + " ");
                         System.out.println(" ");
                     }
                 }
