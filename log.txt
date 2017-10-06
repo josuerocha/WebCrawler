@@ -1,3 +1,11 @@
+Failed to fetch http://www.huffingtonpost.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.huffingtonpost.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
 Failed to fetch http://www.gq.com.au/robots.txt
 java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
@@ -30,6 +38,14 @@ java.net.UnknownHostException: commercial.cnn.com..
 	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
 Failed to fetch http://m.huffpost.com/robots.txt
 java.io.IOException: Server returned HTTP response code: 403 for URL: http://m.huffpost.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://huffingtonpost.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.huffingtonpost.com/robots.txt
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
 	at java.net.URL.openStream(URL.java:1045)
@@ -70,15 +86,6 @@ java.io.FileNotFoundException: http://jobsearch.money.cnn.com/robots.txt
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
 	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
-Failed to fetch https://jfe.qualtrics.com/robots.txt
-java.io.FileNotFoundException: https://jfe.qualtrics.com/robots.txt
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:254)
-	at java.net.URL.openStream(URL.java:1045)
-	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
-	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
-	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
 Failed to fetch http://www.glassdoor.com/robots.txt
 java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.glassdoor.com/robots.txt
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
@@ -95,38 +102,91 @@ java.io.FileNotFoundException: http://email.com/robots.txt
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
 	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
-Failed to fetch http://www.gq.co.za/robots.txt
-java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.gq.co.za/robots.txt
+Failed to fetch https://jfe.qualtrics.com/robots.txt
+java.io.FileNotFoundException: https://jfe.qualtrics.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:254)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://adinfo.aol.com/robots.txt
+java.io.FileNotFoundException: http://adinfo.aol.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://help.channels.aol.com/robots.txt
+java.io.FileNotFoundException: http://help.channels.aol.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch https://i.aol.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 503 for URL: https://i.aol.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:254)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://www.huffpostarabi.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.huffpostarabi.com/robots.txt
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
 	at java.net.URL.openStream(URL.java:1045)
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
 	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
-Failed to fetch http://www.gq.ro/robots.txt
-java.net.UnknownHostException: www.gq.ro
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.net.Socket.connect(Socket.java:589)
-	at java.net.Socket.connect(Socket.java:538)
-	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
-	at sun.net.www.http.HttpClient.<init>(HttpClient.java:211)
-	at sun.net.www.http.HttpClient.New(HttpClient.java:308)
-	at sun.net.www.http.HttpClient.New(HttpClient.java:326)
-	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1202)
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1138)
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1032)
-	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:966)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1546)
+Failed to fetch http://www.ajel.sa/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.ajel.sa/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
 	at java.net.URL.openStream(URL.java:1045)
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
 	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
 	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
-Failed to fetch http://www.menstyle.it/robots.txt
-java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.menstyle.it/robots.txt
+Failed to fetch http://marketingpreferences.aol.com/robots.txt
+java.io.FileNotFoundException: http://marketingpreferences.aol.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch https://appworld.blackberry.com/robots.txt
+java.io.FileNotFoundException: https://appworld.blackberry.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:254)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://www.iab.net/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.iab.net/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://arabi21.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://arabi21.com/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:44)
+Failed to fetch http://m.huffingtonpost.com/robots.txt
+java.io.IOException: Server returned HTTP response code: 403 for URL: http://www.huffingtonpost.com/robots.txt
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1876)
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
 	at java.net.URL.openStream(URL.java:1045)
