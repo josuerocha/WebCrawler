@@ -25,7 +25,7 @@ import util.PrintColor;
 public class EscalonadorSimples implements Escalonador {
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
-    static final int LIMITE_PAGINAS = 50;
+    static final int LIMITE_PAGINAS = 500;
     static final int SERVER_ACCESS_PAUSE = 30000;
     
     //VARIABLES
@@ -44,7 +44,7 @@ public class EscalonadorSimples implements Escalonador {
     @Override
     public synchronized URLAddress getURL() {
         URLAddress url = null;
-        while (!this.finalizouColeta()) {
+        while (!this.finalizouColeta()) { //Enquanto não finalizar a coleta
             try {
                 for (Servidor s : fila.keySet()) {
                     if (s.getTimeSinceLastAcess() >= SERVER_ACCESS_PAUSE) {

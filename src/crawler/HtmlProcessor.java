@@ -46,7 +46,12 @@ public class HtmlProcessor {
         props.setRecognizeUnicodeChars(true);
         props.setOmitComments(true);
     }
-
+    /**
+     * Processa todas as Tags de uma página, achando todas as Tags iniciando com 'a' seguido de 'href' 
+     *
+     * @param pageContent
+     * @return links
+     */
     public List<String> extractLinks(String pageContent) {
 
         TagNode rootNode = htmlCleaner.clean(pageContent);
@@ -65,6 +70,15 @@ public class HtmlProcessor {
         return links;
 
     }
+    /**
+     *  Processa todas as Tags de página, achando todas as Tags iniciando com 'meta', seguido de 'name' 
+     *  logo após é processado de modo a buscar se nessa Tag possui um atributo do tipo 'content'
+     *  e caso tiver descobrir se há ou não o NOINDEX e/ou NOFOLLOW para assim decidir as permissões de 
+     *  acesso a página
+     *
+     * @param pageContent
+     * @return permission
+     */
 
     public boolean[] allowsIndexing(String pageContent) {
 
