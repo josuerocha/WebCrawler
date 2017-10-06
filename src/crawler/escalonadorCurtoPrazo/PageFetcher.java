@@ -10,7 +10,9 @@ import com.trigonic.jrobotx.RobotExclusion;
 import crawler.ColetorUtil;
 import crawler.HtmlProcessor;
 import crawler.URLAddress;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.UnknownHostException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import util.PrintColor;
@@ -45,6 +47,8 @@ public class PageFetcher extends Thread {
                         escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
                     }
 
+                    StringBuffer buff = new StringBuffer();
+
                     if (record == null || record.allows(currentUrl.getPath())) {  //Checking if collection is allowed
                         InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
                         String pageContent = ColetorUtil.consumeStream(stream);
@@ -53,9 +57,9 @@ public class PageFetcher extends Thread {
                         if (permission[0]) {
                             escalonador.countFetchedPage();
                             escalonador.addCollectedURL(currentUrl);
-                            System.out.print(" COLLECTED: " + currentUrl.getAddress() + " ");
+                            buff.append("COLLECTED: " + currentUrl.getAddress() + " ");
                         } else {
-                            System.out.println(PrintColor.BLUE + " NOT PERMITTED INDEXING" + PrintColor.RESET);
+                            buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
                         }
 
                         if (permission[1]) {
@@ -65,16 +69,23 @@ public class PageFetcher extends Thread {
                                     escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
                                 } catch (Exception ex) {
                                     logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
-                                    //System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                                    buff.append(PrintColor.RED + " INVALID LINK:" + link + PrintColor.RESET);
                                 }
                             }
                         } else {
-                            System.out.println(PrintColor.BLUE + "NOT PERMITTED FOLLOWING" + PrintColor.RESET);
+                            buff.append(PrintColor.RED + " NOTFOLLOWED" + PrintColor.RESET);
+
                         }
 
-                        System.out.println(" ");
+                        System.out.println(buff.toString());
                     }
                 }
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex.getMessage());
+                System.out.println(PrintColor.RED + "DISCARDING NONEXISTENT PAGE: " + currentUrl.getAddress() + PrintColor.RESET);
+            } catch (UnknownHostException ex) {
+                System.out.println(ex.getMessage());
+                System.out.println(PrintColor.RED + "UNRESOLVED DOMAIN NAME: " + currentUrl.getAddress() + PrintColor.RESET);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();

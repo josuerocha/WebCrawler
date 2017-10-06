@@ -15,7 +15,6 @@ import crawler.escalonadorCurtoPrazo.Escalonador;
 import crawler.escalonadorCurtoPrazo.EscalonadorSimples;
 import crawler.escalonadorCurtoPrazo.PageFetcher;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EscalonadorSimplesTeste {
@@ -97,7 +96,7 @@ public class EscalonadorSimplesTeste {
         EscalonadorSimples escalonador = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.huffingtonpost.com/"});
         List<PageFetcher> fetchers = new ArrayList<PageFetcher>();
         
-        int threadNo = Runtime.getRuntime().availableProcessors() * 15;
+        int threadNo = Runtime.getRuntime().availableProcessors() /2;
         System.out.println("THREADS CREATED: " + threadNo);
         
         for(int i=0; i<threadNo ; i++){

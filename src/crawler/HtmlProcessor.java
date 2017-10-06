@@ -118,6 +118,8 @@ public class HtmlProcessor {
                         System.out.print("ATTRIBUTES: " + attributes[0] + " " + attributes[1]);
                         System.out.print(" PERMISSIONS " + permission[0] + " " + permission[1]);
                         break;
+                    default:
+                        System.out.println("ATTRIBU");
                 }
             }
         }
