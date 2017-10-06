@@ -30,10 +30,6 @@ public class PageFetcher extends Thread {
         this.escalonador = escalonador;
     }
 
-    private synchronized void printStatus(){
-        
-    }
-    
     @Override
     public void run() {
         URLAddress currentUrl;
@@ -57,9 +53,9 @@ public class PageFetcher extends Thread {
                         if (permission[0]) {
                             escalonador.countFetchedPage();
                             escalonador.addCollectedURL(currentUrl);
-                            
+                            System.out.print(" COLLECTED: " + currentUrl.getAddress() + " ");
                         } else {
-                            System.out.print(PrintColor.BLUE + " NOT PERMITTED INDEXING" + PrintColor.RESET);
+                            System.out.println(PrintColor.BLUE + " NOT PERMITTED INDEXING" + PrintColor.RESET);
                         }
 
                         if (permission[1]) {
@@ -69,11 +65,13 @@ public class PageFetcher extends Thread {
                                     escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
                                 } catch (Exception ex) {
                                     logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
-                                    System.out.println(PrintColor.RED + link + PrintColor.RESET);
+                                    //System.out.println(PrintColor.RED + link + PrintColor.RESET);
                                 }
                             }
+                        } else {
+                            System.out.println(PrintColor.BLUE + "NOT PERMITTED FOLLOWING" + PrintColor.RESET);
                         }
-                        System.out.print(" COLLECTED: " + currentUrl.getAddress() + " ");
+
                         System.out.println(" ");
                     }
                 }
