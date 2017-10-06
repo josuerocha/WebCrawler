@@ -83,7 +83,7 @@ public class HtmlProcessor {
      * @return permission
      */
 
-    public boolean[] allowsIndexing(String pageContent) {
+    public boolean[] allowsIndexing(String pageContent,String test) {
 
         boolean permission[] = {true, true};
 
@@ -98,29 +98,17 @@ public class HtmlProcessor {
                 String content = node.getAttributeByName("content");
                 String attributes[] = content.split(",");
 
-                switch (attributes.length) {
-                    case 1:
-                        if (attributes[0].equalsIgnoreCase(Constants.NOINDEX)) {
-                            permission[0] = false;
-                        }
-                        System.out.print("ATTRIBUTES: " + attributes[0]);
+                for(String attribute : attributes){
+                    if(attribute.equalsIgnoreCase(Constants.NOINDEX)){
+                        permission[0] = false;
+                    }else if(attributes[0].equalsIgnoreCase(Constants.NOINDEX)){
+                        permission[1] = false;
+                    }
+                }
 
-                        break;
-
-                    case 2:
-                        if (attributes[0].equalsIgnoreCase(Constants.NOINDEX)) {
-                            permission[0] = false;
-                        }
-
-                        if (attributes[1].equalsIgnoreCase(Constants.NOFOLLOW)) {
-                            permission[1] = false;
-                        }
                         System.out.print("ATTRIBUTES: " + attributes[0] + " " + attributes[1]);
                         System.out.print(" PERMISSIONS " + permission[0] + " " + permission[1]);
-                        break;
-                    default:
-                        System.out.println("ATTRIBU");
-                }
+                
             }
         }
 
