@@ -123,11 +123,7 @@ public class EscalonadorSimples implements Escalonador {
                 
                 fileWriter.write(url.getAddress() );
                 fileWriter.newLine();
-                //System.out.println(url.getAddress() + "     " + (++cont));
             }
-            
-            //System.out.println("COLLECTED " + contadorPaginas +  " PAGES");
-            //System.out.println("LIST CONTAINS " + contadorPaginas +  " PAGES");
             fileWriter.close();
         }
         catch(IOException ex){

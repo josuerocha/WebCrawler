@@ -79,7 +79,7 @@ public class Servidor {
 		return true;
 	}
 
-	// brutos
+	
 
 	
 	public String getNome()
