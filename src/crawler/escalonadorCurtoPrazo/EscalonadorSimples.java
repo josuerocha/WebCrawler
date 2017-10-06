@@ -47,10 +47,10 @@ public class EscalonadorSimples implements Escalonador {
         URLAddress url = null;
         while (!this.finalizouColeta()) { //Enquanto não finalizar a coleta
             try {
-                for (Servidor s : fila.keySet()) {//Para cada 
+                for (Servidor s : fila.keySet()) {
                     if (s.getTimeSinceLastAcess() >= SERVER_ACCESS_PAUSE) {
                         List<URLAddress> urlList = fila.get(s);
-                        if (!urlList.isEmpty()) {//se a página 
+                        if (!urlList.isEmpty()) {
                             url = urlList.remove(0);
                             pagVisitada.add(url.toString());
                             s.acessadoAgora();
