@@ -22,14 +22,20 @@ import org.htmlcleaner.TagNode;
 
 /**
  *
- * @author jr
+ * @author jr e Tulio Fonseca
  */
 public class HtmlProcessor {
 
     private static HtmlProcessor htmlProcessor;
     private static HtmlCleaner htmlCleaner;
     private static String jsPattern = new String("(.)*javascript(.)*");
-
+    
+    /**
+     *  Usou o padrão Singleton para não permitir o retorno da mesma instâcia de um objeto no código.
+     *
+     * @param 
+     * @return htmlProcessor
+     */
     public static HtmlProcessor getInstance() {
         if (htmlProcessor == null) {
             htmlProcessor = new HtmlProcessor();
@@ -37,7 +43,12 @@ public class HtmlProcessor {
 
         return htmlProcessor;
     }
-
+    /**
+     *  Contrutor da classe, inicializa a API e seta alguns parâmetros da biblioteca.
+     *
+     * @param 
+     * @return 
+     */
     private HtmlProcessor() {
         htmlCleaner = new HtmlCleaner();
         CleanerProperties props = htmlCleaner.getProperties();
@@ -47,7 +58,7 @@ public class HtmlProcessor {
         props.setOmitComments(true);
     }
     /**
-     * Processa todas as Tags de uma página, achando todas as Tags iniciando com 'a' seguido de 'href' 
+     * Processa todas as Tags de uma página, encontrando todas as Tags iniciando com 'a' seguido de 'href' 
      *
      * @param pageContent
      * @return links
@@ -71,7 +82,7 @@ public class HtmlProcessor {
 
     }
     /**
-     *  Processa todas as Tags de página, achando todas as Tags iniciando com 'meta', seguido de 'name' 
+     *  Processa todas as Tags de página, encontrando todas as Tags iniciando com 'meta', seguido de 'name' 
      *  logo após é processado de modo a buscar se nessa Tag possui um atributo do tipo 'content'
      *  e caso tiver descobrir se há ou não o NOINDEX e/ou NOFOLLOW para assim decidir as permissões de 
      *  acesso a página
