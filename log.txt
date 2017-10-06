@@ -1,0 +1,16 @@
+Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:46)
+Failed to fetch http://www.gq.com.au/robots.txt
+java.io.FileNotFoundException: http://www.gq.com.au/robots.txt
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1872)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.URL.openStream(URL.java:1045)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:69)
+	at com.trigonic.jrobotx.RobotExclusion.get(RobotExclusion.java:90)
+	at crawler.escalonadorCurtoPrazo.PageFetcher.run(PageFetcher.java:46)
