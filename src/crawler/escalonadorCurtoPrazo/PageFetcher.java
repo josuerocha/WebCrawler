@@ -83,12 +83,13 @@ public class PageFetcher extends Thread {
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println(ex.getMessage());
-                System.out.println(PrintColor.RED + "DISCARDING NONEXISTENT PAGE: " + currentUrl.getAddress() + PrintColor.RESET);
+                System.out.println(PrintColor.RED + "DESCARTANDO PAGINA NAO EXISTENTE: " + currentUrl.getAddress() + PrintColor.RESET);
             } catch (UnknownHostException ex) {
                 System.out.println(ex.getMessage());
-                System.out.println(PrintColor.RED + "UNRESOLVED DOMAIN NAME: " + currentUrl.getAddress() + PrintColor.RESET);
+                System.out.println(PrintColor.RED + "NOME DE DOMINIO NAO RESOLVIDO: " + currentUrl.getAddress() + PrintColor.RESET);
             } catch (ConnectException ex){
-                System.out.println("Disconnected");
+                System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + PrintColor.RESET);
+                
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();

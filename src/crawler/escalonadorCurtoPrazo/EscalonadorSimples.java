@@ -97,7 +97,7 @@ public class EscalonadorSimples implements Escalonador {
      */
     @Override
     public synchronized boolean adicionaNovaPagina(URLAddress urlAdd) {
-        // TODO Auto-generated method stub
+
         if (!pagVisitada.contains(urlAdd.toString()) && urlAdd.getDepth() < MAXPROFUNDIDADE) {
             Servidor servidor = new Servidor(urlAdd.getDomain());
             if (!fila.containsKey(servidor)) {
