@@ -11,7 +11,7 @@ public interface Escalonador {
 	 * Metodo para resgatar uma url. Não esquecer que, ao implementar esse método em que os PageFetcher são multithread, 
 	 * voce deve implementar este metodo com o termo "synchronized", para utilizar o monitor e deixar
 	 * esta classe threadsafe 
-	 * @return
+	 * @return url
 	 */
 	public URLAddress getURL();
 	
@@ -20,9 +20,16 @@ public interface Escalonador {
 	 * Adiciona uma nova url ao escalonador. Não esquecer que, ao implementar esse método em que os PageFetcher são multithread, 
 	 * voce deve implementar este metodo com o termo "synchronized", para utilizar o monitor e deixar
 	 * esta classe threadsafe  
-	 * @return
+	 * @return adicionado
 	 */
 	public boolean adicionaNovaPagina(URLAddress urlAdd);
+        
+        /** 
+	 * Adiciona uma nova url ao escalonador ignorando se a mesma está na fila de coletados. Utilizada em casos em que há problemas
+         * de conexão e nova tentativa sera feita apos tempo determinado.
+	 * @return adicionado
+	 */
+        public boolean adicionaNovaPaginaSemChecar(URLAddress urlAdd);
 
 	/**
 	 * Verifica que finalizou a coleta (pela quantidade de páginas coletadas)
@@ -66,4 +73,6 @@ public interface Escalonador {
 	 * @return
 	 */
         public void saveToFile(String filename);
+        
+
 }

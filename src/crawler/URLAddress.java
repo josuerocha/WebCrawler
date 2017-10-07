@@ -11,6 +11,7 @@ public class URLAddress {
 
     private URL address;
     private int depth;
+    private int attempts;
     
     /**
      *  Construtor da Classe, inicialmente verifica se no final da url esta apenas uma "/", 
@@ -48,6 +49,7 @@ public class URLAddress {
         
         this.address = new URL(formatURL(buffer.toString()));
         this.depth = calculateDepth(this.address.getPath());
+        this.attempts = 0;
     }
     /**
      *  Construtor extra criado para setar automaticamente a profundidade
@@ -123,6 +125,10 @@ public class URLAddress {
         return result;
     }
 
+    public int getAttempts() {
+        return attempts;
+    }
+    
     public String getProtocol() {
         return this.address.getProtocol();
     }
@@ -152,6 +158,10 @@ public class URLAddress {
 
     public URL getUrlObj() {
         return this.address;
+    }
+    
+    public void incrementAttempts(){
+        this.attempts++;
     }
 
     public static void main(String[] args) throws MalformedURLException, UnknownHostException {

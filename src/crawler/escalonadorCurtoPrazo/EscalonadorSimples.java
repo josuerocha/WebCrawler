@@ -25,6 +25,7 @@ import util.PrintColor;
 public class EscalonadorSimples implements Escalonador {
     //CONSTANTS
     static final int MAXPROFUNDIDADE = 4;
+    static final int MAX_ATTEMPTS = 5;
     static final int LIMITE_PAGINAS = 500;
     static final int SERVER_ACCESS_PAUSE = 30000;
     
@@ -99,6 +100,26 @@ public class EscalonadorSimples implements Escalonador {
     public synchronized boolean adicionaNovaPagina(URLAddress urlAdd) {
 
         if (!pagVisitada.contains(urlAdd.toString()) && urlAdd.getDepth() < MAXPROFUNDIDADE) {
+            Servidor servidor = new Servidor(urlAdd.getDomain());
+            if (!fila.containsKey(servidor)) {
+                List<URLAddress> lista = new ArrayList<>();
+                lista.add(urlAdd);
+                fila.put(servidor, lista);
+            } else {
+                fila.get(servidor).add(urlAdd);
+            }
+            notifyAll();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public synchronized boolean adicionaNovaPaginaSemChecar(URLAddress urlAdd) {
+        
+        if (urlAdd.getDepth() < MAXPROFUNDIDADE && urlAdd.getAttempts() < MAX_ATTEMPTS) {
+            pagVisitada.remove(urlAdd.toString());
             Servidor servidor = new Servidor(urlAdd.getDomain());
             if (!fila.containsKey(servidor)) {
                 List<URLAddress> lista = new ArrayList<>();

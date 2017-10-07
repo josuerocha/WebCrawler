@@ -11,6 +11,7 @@ import crawler.ColetorUtil;
 import crawler.HtmlProcessor;
 import crawler.URLAddress;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -58,7 +59,7 @@ public class PageFetcher extends Thread {
                         if (permission[0]) {
                             escalonador.countFetchedPage();
                             escalonador.addCollectedURL(currentUrl);
-                            buff.insert(0,"COLLECTED: " + currentUrl.getAddress() + " ");
+                            buff.insert(0, PrintColor.GREEN + "COLLECTED: " + currentUrl.getAddress() + " " + PrintColor.RESET);
                         } else {
                             buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
                         }
@@ -88,12 +89,13 @@ public class PageFetcher extends Thread {
                 System.out.println(ex.getMessage());
                 System.out.println(PrintColor.RED + "NOME DE DOMINIO NAO RESOLVIDO: " + currentUrl.getAddress() + PrintColor.RESET);
             } catch (ConnectException ex){
-                System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + PrintColor.RESET);
-                
+                System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + currentUrl.getAttempts()+ PrintColor.RESET);
+                currentUrl.incrementAttempts();
+                escalonador.adicionaNovaPaginaSemChecar(currentUrl);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();
-            }
+            } 
         }
     }
 }
