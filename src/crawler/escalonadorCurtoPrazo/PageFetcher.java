@@ -89,12 +89,12 @@ public class PageFetcher extends Thread {
                 System.out.println(ex.getMessage());
                 System.out.println(PrintColor.RED + "NOME DE DOMINIO NAO RESOLVIDO: " + currentUrl.getAddress() + PrintColor.RESET);
             } catch (ConnectException ex){
-                System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + currentUrl.getAttempts()+ PrintColor.RESET);
+                System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + "TENTATIVAS:" + currentUrl.getAttempts()+ PrintColor.RESET);
                 currentUrl.incrementAttempts();
                 escalonador.adicionaNovaPaginaSemChecar(currentUrl);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
-                ex.printStackTrace();
+                //ex.printStackTrace();
             } 
         }
     }
