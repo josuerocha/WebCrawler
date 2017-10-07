@@ -95,7 +95,7 @@ public class HtmlProcessor {
             String name = node.getAttributeByName("name");
             if (name != null && name.equalsIgnoreCase("robots")) {
 
-                Sting content = node.getAttributeByName("content").replaceAll(" ", "");
+                String content = node.getAttributeByName("content").replaceAll(" ", "");
                 String attributes[] = content.split(",");
 
                 for(String attribute : attributes){
