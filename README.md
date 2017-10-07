@@ -18,7 +18,7 @@ Josué Rocha Lima, Túlio Coqueiro, Caio Silva Gonçalves
 - [X] Robot exclusion protocol (Protocolo de exclusão de robôs) - Josué
 - [ ] Noindex and nofollow criteria.
 - [ ] Code comments.
-- [ ] Crawler webpage.
+- [X] Crawler webpage.
 - [ ] Report.
 
 
