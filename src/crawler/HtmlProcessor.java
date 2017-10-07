@@ -83,7 +83,7 @@ public class HtmlProcessor {
      * @return permission
      */
 
-    public boolean[] allowsIndexing(String pageContent,String test) {
+    public boolean[] allowsIndexing(String pageContent,StringBuffer buff) {
 
         boolean permission[] = {true, true};
 
@@ -104,10 +104,9 @@ public class HtmlProcessor {
                     }else if(attributes[0].equalsIgnoreCase(Constants.NOINDEX)){
                         permission[1] = false;
                     }
+                    
+                    buff.append(attribute + " ");
                 }
-
-                        System.out.print("ATTRIBUTES: " + attributes[0] + " " + attributes[1]);
-                        System.out.print(" PERMISSIONS " + permission[0] + " " + permission[1]);
                 
             }
         }

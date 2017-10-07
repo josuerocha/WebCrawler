@@ -52,7 +52,7 @@ public class PageFetcher extends Thread {
                     if (record == null || record.allows(currentUrl.getPath())) {  //Checking if collection is allowed
                         InputStream stream = ColetorUtil.getUrlStream("BrutusBot", currentUrl.getUrlObj());
                         String pageContent = ColetorUtil.consumeStream(stream);
-                        boolean[] permission = htmlProcessor.allowsIndexing(pageContent);
+                        boolean[] permission = htmlProcessor.allowsIndexing(pageContent,buff);
 
                         if (permission[0]) {
                             escalonador.countFetchedPage();
