@@ -1,9 +1,6 @@
 package crawler.escalonadorCurtoPrazo;
 
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.trigonic.jrobotx.Record;
-import com.trigonic.jrobotx.RobotExclusion;
 
 import crawler.Servidor;
 import crawler.URLAddress;
@@ -114,7 +110,14 @@ public class EscalonadorSimples implements Escalonador {
             return false;
         }
     }
-    
+    /**
+     *  Adiciona a pagina sem verificar se ela já foi adicionada, 
+     *  primeiramente removerá das páginas visitadas, logo em seguida ele adiciona na fila de paginas,
+     *  metodo criado para resolver o erro de conexão perdida.
+     *
+     * @param urlAdd
+     * @return boolean
+     */
     @Override
     public synchronized boolean adicionaNovaPaginaSemChecar(URLAddress urlAdd) {
         
