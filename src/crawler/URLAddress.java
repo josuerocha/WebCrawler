@@ -152,7 +152,6 @@ public class URLAddress {
     }
 
     public URL getUrlRobotsTxt() throws MalformedURLException {
-
         return new URL(address.getProtocol() + "://" + address.getHost() + "/robots.txt");
     }
 
@@ -185,7 +184,12 @@ public class URLAddress {
         address = InetAddress.getByName(url.getHost());
         System.out.println(address.getHostAddress());
     }
-    
+    /**
+     * Calcula a profundidade de um link dado domínio.
+     *
+     * @param path
+     * @return count
+     */
     private int calculateDepth(String path){
         
         int count = 0;
