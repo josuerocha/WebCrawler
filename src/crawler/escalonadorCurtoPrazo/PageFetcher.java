@@ -12,6 +12,7 @@ import crawler.HtmlProcessor;
 import crawler.URLAddress;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -57,7 +58,7 @@ public class PageFetcher extends Thread {
                         if (permission[0]) {
                             escalonador.countFetchedPage();
                             escalonador.addCollectedURL(currentUrl);
-                            buff.append("COLLECTED: " + currentUrl.getAddress() + " ");
+                            buff.insert(0,"COLLECTED: " + currentUrl.getAddress() + " ");
                         } else {
                             buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
                         }
@@ -86,6 +87,8 @@ public class PageFetcher extends Thread {
             } catch (UnknownHostException ex) {
                 System.out.println(ex.getMessage());
                 System.out.println(PrintColor.RED + "UNRESOLVED DOMAIN NAME: " + currentUrl.getAddress() + PrintColor.RESET);
+            } catch (ConnectException ex){
+                System.out.println("Disconnected");
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();
