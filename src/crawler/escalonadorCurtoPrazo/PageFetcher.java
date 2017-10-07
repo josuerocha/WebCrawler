@@ -59,7 +59,7 @@ public class PageFetcher extends Thread {
                         if (permission[0]) {
                             escalonador.countFetchedPage();
                             escalonador.addCollectedURL(currentUrl);
-                            buff.insert(0, PrintColor.GREEN + "COLLECTED: " + currentUrl.getAddress() + " " + PrintColor.RESET);
+                            buff.insert(0, PrintColor.GREEN + "COLLECTED: " + PrintColor.RESET + currentUrl.getAddress() + " " );
                         } else {
                             buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
                         }
