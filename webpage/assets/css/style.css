@@ -221,7 +221,7 @@ a:hover {
     background: url(../../media/images/sprite.png) no-repeat 0 0;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: #324d5b;
+    color: #F20000;
 }
 h1, h2, h3 {
     font-size: 30px;
@@ -349,7 +349,7 @@ footer .logo img {
     margin: 8px 0;
 }
 .copy a {
-    color: #3db39e;
+    color: #F20000;
     font-weight: bold;
 }
 .copy a:hover {
@@ -372,7 +372,7 @@ footer .logo img {
     margin: 0 60px 16px;
 }
 .promo {
-    background: #3db39e;
+    background: #000000;
     color: #ffffff;
 }
 .promo .wrap {
@@ -380,7 +380,6 @@ footer .logo img {
     min-height: 634px;
 }
 .promo-text {
-    width: 460px;
     height: 634px;
     display: table-cell;
     vertical-align: middle;
@@ -399,6 +398,7 @@ footer .logo img {
     font-size: 55px;
     line-height: 60px;
     font-weight: bold;
+    color: #F20000;
 }
 .promo-button {
     display: inline-block;
@@ -464,7 +464,7 @@ footer .logo img {
     font-size: 18px;
     line-height: 20px;
     text-transform: uppercase;
-    color: #2b414d;
+    color: #2b0000;
     font-weight: bold;
     position: relative;
     margin: 0 0 42px;
@@ -477,7 +477,7 @@ footer .logo img {
     margin: 0 auto;
     width: 22px;
     height: 2px;
-    background-color: #cbcfd1;
+    background-color: #3d0000;
     content: "";
     -moz-transition: all 0.15s linear;
     -o-transition: all 0.15s linear;
@@ -485,7 +485,7 @@ footer .logo img {
     transition: all 0.15s linear;
 }
 .feature:hover h4:after {
-    background-color: #3db39e;
+    background-color: #3d0000;
 }
 .ico-help,
 .ico-like,
@@ -552,7 +552,7 @@ footer .logo img {
     display: block;
 }
 .subscribe {
-    background: #26a6d1;
+    background: grey;
     text-align: center;
     color: #ffffff;
     text-align: center;
