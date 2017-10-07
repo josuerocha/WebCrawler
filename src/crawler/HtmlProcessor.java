@@ -8,6 +8,7 @@ package crawler;
 import com.trigonic.jrobotx.Constants;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
@@ -21,6 +22,7 @@ public class HtmlProcessor {
     private static HtmlProcessor htmlProcessor;
     private static HtmlCleaner htmlCleaner;
     private static String jsPattern = new String("(.)*javascript(.)*");
+    Pattern onlyLetters = Pattern.compile("[^a-zA-Z]");
     
     /**
      *  Usou o padrão Singleton para não permitir o retorno da mesma instâcia de um objeto no código.
@@ -95,7 +97,7 @@ public class HtmlProcessor {
             String name = node.getAttributeByName("name");
             if (name != null && name.equalsIgnoreCase("robots")) {
 
-                String content = node.getAttributeByName("content").replaceAll(" ", "");
+                String content = onlyLetters.matcher(node.getAttributeByName("content")).replaceAll("");
                 String attributes[] = content.split(",");
 
                 for(String attribute : attributes){
