@@ -244,7 +244,33 @@ header .logo {
 header .logo a {
     display: inline-block;
 }
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+.table {
+    text-align: center;
+}
+
+
 .social {
+    position: relative !important;
+    top: 100px !important;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #F20000;
+    font-family: 'Allan';    
+    font-size: 60px;
     float: right;
     padding: 2px 0;
 }

@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Josué Rocha</title>
-    <link rel="shortcut icon" href="media/images/favicon.ico">
+    <title>BrutusBot</title>
+    <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
+    <link rel="shortcut icon" href="media/logo_min.png">
     
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -14,44 +15,11 @@
 </head>
 <body class="no-js">
 
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><b>Alerta de E-mail</b></h4>
-      </div>
-      <div class="modal-body" id="modal-corpo">
-        <p><b>O e-mail foi enviado com sucesso.</b></p>
-      </div>
-      <div class="modal-footer">
-        <img id="logo" src="media/logo_brutusbot.png" width="5%" height="100%" alt="BrutusBot">
-        
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
     <section class="main">
-        <header style="background-color: gray;">
+        <header style="background-color: white;">
             <div class="wrap" >
-                <div class="logo">
-                    <a href="/">
-                        <img src="media/logo_brutusbot.png" width="150" height="100" alt="BrutusBot">
-                    </a>
-                </div><!-- logo -->
-                <div class="social">
-                    <ul class="clearfix">
-					    <!-- <a class="home" href="home.html"><img src="media/images/ico-home.ico" width="50" height="40" alt="Home"> </a>
-						<a class="sobre" href="#curriculum"><img src="media/images/ico-info.ico" width="50" height="40" alt="Home"></a>
-   -->
-                    </ul>
-                </div><!--social -->
+                <div class="logo"> <img src="media/logo.png" width="400" height="200" alt="BrutusBot"> </div><!-- logo -->
+                <div class="social"> BrutusBot Web Crawler </div><!--social -->
             </div><!-- wrap -->
         </header>
         <section class="promo">
@@ -60,39 +28,68 @@
                 <div class="promo-text">
 				    <br>
                     <div class="promo-title">Sobre BrutusBot</div>
-                    <p>Coletor de propósito geral desenvolvido como trabalho prático da disciplina de Recuperação de Informação no Centro Federal de Educação Tecnológica de Minas Gerais (CEFET-MG) pelos alunos Josué Rocha Lima, Tulio Fonseca Coqueiro e Caio Gonçalves Silva.</p>
+                    <p>Coletor de propósito geral desenvolvido como trabalho prático da disciplina de Recuperação de Informação no Centro Federal de Educação Tecnológica de Minas Gerais (CEFET-MG) pelos alunos Josué Rocha Lima, Tulio Fonseca Coqueiro e Caio Silva Gonçalves.</p>
 					<br> 
 					<h4> Especificações </h4>
-					<p> BrutusBot coleta apenas páginas públicas e e sempre leva em consideração a política de exclusão de robôs por meio das regras padrão em arquivos <b>robots.txt</b> e <i>meta tags</i> para <i>robots.</p>
+					<p> BrutusBot coleta apenas páginas públicas e e sempre leva em consideração a política de exclusão de robôs por meio das regras padrão em arquivos <b>robots.txt</b> e <i>meta tags</i> para <i>robots. Ao requisitar uma página ou o arquivo <b>robots.txt</b>, sempre é enviada a identificação do User Agent: BrutusBot. </p>
+					<br>
 
-					<br>   
+					<h4> Detalhamento das coletas </h4>
+					<p> As coletas realizadas por BrutusBot têm propósito estritamente didático, possibilitando a seus desenvolvedores aprender técnicas de coleta, indexação e consultas de maneira prática e divertida. </p>
+					<br>
+
+
+					<h4> Datas das coletas </h4>
+					<br>
+					<div style="overflow-x:auto;" class="table">
+
+						<table border="1">
+						<tr>
+						<td><b>Data</b></td>
+						<td><b>Propósito</b></td>
+						</tr>
+						<tr>
+							<td>01/10/2017</td>
+							<td>Teste inicial da aplicação</td>
+						</tr>
+						<tr>
+							<td>03/10/2017</td>
+							<td>Teste de velocidade de coleta da aplicação</td>
+						</tr>
+						<tr>
+							<td>05/10/2017</td>
+							<td>Teste de integração</td>
+						</tr>
+						<tr>
+							<td>06/10/2017</td>
+							<td>Teste de tratamento de erros de conexão</td>
+						</tr>
+						<tr>
+							<td>07/10/2017</td>
+							<td>Teste final</td>
+						</tr>
+						</table>   
+
+					</div>
                     
         </section><!-- promo -->
             
         </section><!-- simple -->
         <section class="subscribe">
             <div class="wrap">
-                <div class="subscribe-title">Envie-me uma mensagem! <img src="media/images/smiley.png" width="50" height="50" alt=""></div>
-                <div class="subscribe-form clearfix" id="form-area">
-                    <form id="meu_formulario" action="../helper/MessageHelper.php?action=enviar" method="post">
-					    <textarea required name = "mensagem" id = "mensagem" placeholder="Sua mensagem" rows="4" cols="50" class="message" ></textarea>
-						<input required name = "nome" id = "nome" type="name" placeholder="Seu nome" class="subscribe-email">
-						<input required name = "assunto" id = "assunto" type="text" placeholder="Assunto" class="subscribe-email">
-						<input required name = "from" id = "from" type="email" placeholder="Seu endereço de e-mail" class="subscribe-email">
-                        <input type="submit" value="Enviar" class="subscribe-button">
-                    </form>
-                </div><!-- subscribe-form -->
+                <div class="subscribe-title">Contato <img src="media/logo_min.png" width="80" height="80" alt=""></div>
+                
             </div><!-- wrap -->
         </section><!-- subscribe -->
         <footer>
             <div class="wrap">
                 <div class="logo">
                     <a href="#">
-                        <img src="media/logo_brutusbot.png" width="50" height="52" alt="JOSUÉ ROCHA">
+                        <img src="media/logo_min.png" width="80" height="80" alt="JOSUÉ ROCHA">
                     </a>
                 </div><!-- logo -->
                 <div class="copy">
-                    <p>Copyright &copy; 2016 <a href="#">Josué Rocha</a></p>
+                    <p>Copyright &copy; 2017 <a href="#">BrutusBot</a></p>
                 </div><!-- copy -->
                 <div class="social">
                     
