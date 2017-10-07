@@ -139,6 +139,9 @@ del {
     height: 0;
     font-size: 0;
 }
+
+
+
 .clearfix:after,
 .wrap:after,
 aside:after,
@@ -261,6 +264,15 @@ th, td {
     text-align: center;
 }
 
+.class{
+
+}
+
+.email{
+    font-family: 'Allan'; 
+    font-size: 40px;
+
+}
 
 .social {
     position: relative !important;
