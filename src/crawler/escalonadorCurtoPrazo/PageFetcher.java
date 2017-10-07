@@ -63,7 +63,7 @@ public class PageFetcher extends Thread {
                         } else {
                             buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
                         }
-
+                        buff.append(permission[0] + " " + permission[1] + " ");
                         if (permission[1]) {
                             List<String> linkList = htmlProcessor.extractLinks(pageContent);
                             for (String link : linkList) {
