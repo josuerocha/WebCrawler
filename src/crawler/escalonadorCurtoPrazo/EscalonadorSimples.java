@@ -35,16 +35,35 @@ public class EscalonadorSimples implements Escalonador {
     public Map<String, Record> mapRobots = new HashMap<>();
     public List<URLAddress> collectedURL = new ArrayList<>();
 
+    
+    /**
+     *  Construtor da Classe, ele tenta adicionar cada URL que esta no vetor mandado a ele na fila de 
+     *  URLs.
+     * 
+     *
+     * @param seeds
+     * @return
+     */
     public EscalonadorSimples(String[] seeds) throws MalformedURLException {
         for (String url : seeds) {
             this.adicionaNovaPagina(new URLAddress(url, 1));
         }
     }
     
+    
+    /**
+     *  Coletar as URL da pagina. Enquanto não finalizar a coleta as threads iram 
+     *  acessar a lista de servidor, desse modo a pagina será adicionada as paginas 
+     *  visitadas e retornará uma URL caso ela não tenha sido adicionada. Tudo respeitando a 
+     *  politica de boas maneiras.
+     *
+     * @param 
+     * @return url
+     */
     @Override
     public synchronized URLAddress getURL() {
         URLAddress url = null;
-        while (!this.finalizouColeta()) { //Enquanto não finalizar a coleta
+        while (!this.finalizouColeta()) {
             try {
                 for (Servidor s : fila.keySet()) {
                     if (s.getTimeSinceLastAcess() >= SERVER_ACCESS_PAUSE) {
@@ -67,7 +86,15 @@ public class EscalonadorSimples implements Escalonador {
         }
         return url;
     }
-
+    
+    /**
+     *  Verifica se a urlAdd fornecida já foi visitada, caso não tenha sido, ela é adicionada
+     *  a um novo servidor e verificada se já foi adicionada a lista de URLs, caso não tenha sido
+     *  ela é adicionada.
+     *
+     * @param urlAdd
+     * @return boolean
+     */
     @Override
     public synchronized boolean adicionaNovaPagina(URLAddress urlAdd) {
         // TODO Auto-generated method stub
@@ -112,7 +139,12 @@ public class EscalonadorSimples implements Escalonador {
         contadorPaginas++;
 
     }
-    
+    /**
+     * Função que salva a lista de URLs em um arquivo em disco.
+     *
+     * @param filename
+     * @return 
+     */
     public synchronized void saveToFile(String filename){
         BufferedWriter fileWriter = null;
         try{
