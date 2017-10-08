@@ -19,7 +19,7 @@ package com.trigonic.jrobotx;
 public final class Constants {
     public static final String ROBOTS_TXT = "/robots.txt";
 
-    public static final String USER_AGENT = "User-agent";
+    public static final String USER_AGENT = "BrutusBot (http://josuerocha.com.br/infoBrutusBot.)";
     public static final String ALLOW = "Allow";
     public static final String DISALLOW = "Disallow";
     public static final String SITEMAP = "Sitemap";
