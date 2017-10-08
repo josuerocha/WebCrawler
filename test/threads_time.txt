@@ -1,6 +1,6 @@
-Machine 1 (Josue): AMD Athlon II X4 645 Processor x 4 cores - 8 GB RAM - 15 Mbps connection
+#Machine 1 (Josue): AMD Athlon II X4 645 Processor x 4 cores - 8 GB RAM - 15 Mbps internet connection
 
-Threads 	Test 1		Test 2 		Test 3 		Test 4		Average
+#Threads 	Test 1		Test 2 		Test 3 		Test 4		Average
 10		92 s		107 s		98 s		105 s		100.5 s
 30		58 s		54 s		53 s		48 s		53.25 s
 50		50 s		57 s		54 s		57 s		54.5  s
@@ -8,4 +8,4 @@ Threads 	Test 1		Test 2 		Test 3 		Test 4		Average
 90		51 s		58 s		50 s		59 s		54.5  s
 100		58 s		50 s		56 s		57 s		68.25 s
 
-Machine 2 (Caio):
+#Machine 2 (Caio):
