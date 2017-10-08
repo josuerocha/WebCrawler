@@ -36,6 +36,7 @@ public class PageFetcher extends Thread {
     private StringBuffer buff;
     private InputStream stream;
     private String pageContent;
+    boolean[] metaTagsPermission;
 
     public PageFetcher(Escalonador escalonador) {
         this.escalonador = escalonador;
@@ -47,7 +48,7 @@ public class PageFetcher extends Thread {
 
     @Override
     public void run() {
-        
+
         while (!escalonador.finalizouColeta()) {
             this.currentUrl = escalonador.getURL(); //Requesting page from page scheduler
             buff.setLength(0);
@@ -58,11 +59,12 @@ public class PageFetcher extends Thread {
                     boolean robotPermission = retrieveRobotsPermission();
 
                     if (robotPermission) {
-                        this.stream = ColetorUtil.getUrlStream(Constants.USER_AGENT, currentUrl.getUrlObj());
-                        this.pageContent = ColetorUtil.consumeStream(stream);
-                        boolean[] permission = htmlProcessor.allowsIndexing(pageContent, buff);
 
-                        processPage(pageContent, permission);
+                        collectPage();
+
+                        metaTagsPermission = htmlProcessor.allowsIndexing(pageContent, buff);
+
+                        processPage(pageContent, metaTagsPermission);
 
                         System.out.println(buff.toString());
                     }
@@ -92,6 +94,11 @@ public class PageFetcher extends Thread {
         }
 
         return record == null || record.allows(currentUrl.getPath());   //Checking if collection is allowed
+    }
+
+    public void collectPage() throws Exception {
+        this.stream = ColetorUtil.getUrlStream(Constants.USER_AGENT, currentUrl.getUrlObj());
+        this.pageContent = ColetorUtil.consumeStream(stream);
     }
 
     public void processPage(String pageContent, boolean[] permission) {
