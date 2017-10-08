@@ -22,7 +22,8 @@ public class HtmlProcessor {
     private static HtmlProcessor htmlProcessor;
     private static HtmlCleaner htmlCleaner;
     private static String jsPattern = new String("(.)*javascript(.)*");
-    Pattern onlyLetters = Pattern.compile("[^a-zA-Z]");
+    Pattern followPattern = Pattern.compile(".*" + Constants.NOFOLLOW + ".*",Pattern.CASE_INSENSITIVE);
+    Pattern noindexPattern = Pattern.compile(".*" + Constants.NOINDEX + ".*",Pattern.CASE_INSENSITIVE);
     
     /**
      *  Usou o padrão Singleton para não permitir o retorno da mesma instâcia de um objeto no código.
