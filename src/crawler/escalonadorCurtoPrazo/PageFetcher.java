@@ -65,7 +65,8 @@ public class PageFetcher extends Thread {
                         metaTagsPermission = htmlProcessor.allowsIndexing(pageContent, buff);
 
                         processPage(pageContent, metaTagsPermission);
-
+                        
+                        buff.append(" FINALIZOU:" + escalonador.finalizouColeta());
                         System.out.println(buff.toString());
                     }
                 }
@@ -80,7 +81,8 @@ public class PageFetcher extends Thread {
                 currentUrl.incrementAttempts();
                 escalonador.adicionaNovaPaginaSemChecar(currentUrl);
             } catch (Exception ex) {
-
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
             }
 
         }
