@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import crawler.PrintColor;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 
 /**
  *
@@ -44,6 +45,7 @@ public class PageFetcher extends Thread {
         robotExclusion = new RobotExclusion();
         htmlProcessor = HtmlProcessor.getInstance();
         buff = new StringBuffer();
+        
     }
 
     @Override
@@ -79,8 +81,14 @@ public class PageFetcher extends Thread {
             } catch (ConnectException ex) {
                 System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + "TENTATIVAS:" + currentUrl.getAttempts() + PrintColor.RESET);
                 currentUrl.incrementAttempts();
-                escalonador.adicionaNovaPaginaSemChecar(currentUrl);
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
+                //escalonador.adicionaNovaPaginaSemChecar(currentUrl);
+            } catch(SocketTimeoutException ex){
+                System.out.println(this.currentUrl);
+                ex.printStackTrace();
             } catch (Exception ex) {
+                System.out.println(this.currentUrl);
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();
             }

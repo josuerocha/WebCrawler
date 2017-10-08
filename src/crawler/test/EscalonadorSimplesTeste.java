@@ -93,6 +93,9 @@ public class EscalonadorSimplesTeste {
     }
 
     public static void main(String[] args) throws Exception {
+        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+        
         EscalonadorSimples escalonador = new EscalonadorSimples(new String[]{"cnn.com","www.gq.com.au/","www.huffingtonpost.com/"});
         List<PageFetcher> fetchers = new ArrayList<PageFetcher>();
         

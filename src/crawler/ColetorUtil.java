@@ -25,6 +25,8 @@ public class ColetorUtil {
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestProperty("User-Agent", userAgent);
+        conn.setConnectTimeout(10000);
+        conn.setReadTimeout(10000);
         return conn.getInputStream();
     }
 
