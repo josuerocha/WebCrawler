@@ -17,7 +17,7 @@ import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.List;
 import org.apache.log4j.Logger;
-import util.PrintColor;
+import crawler.PrintColor;
 
 /**
  *

@@ -16,7 +16,7 @@ import crawler.URLAddress;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import util.PrintColor;
+import crawler.PrintColor;
 
 public class EscalonadorSimples implements Escalonador {
     //CONSTANTS
