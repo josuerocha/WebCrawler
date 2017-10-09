@@ -78,33 +78,16 @@ public class PageFetcher extends Thread {
 
                         collectPage();
 
-                        metaTagsPermission = htmlProcessor.allowsIndexing(pageContent, buff);
+                        metaTagsPermission = htmlProcessor.allowsIndexing(pageContent);
 
-                        processPage(pageContent, metaTagsPermission);
-                        
-                        buff.append(" FINALIZOU:" + escalonador.finalizouColeta());
-                        System.out.println(buff.toString());
+                        processPage(pageContent, metaTagsPermission);                        
                     }
                 }
-            } catch (FileNotFoundException ex) {
-                System.out.println(ex.getMessage());
-                System.out.println(PrintColor.RED + "DESCARTANDO PAGINA NAO EXISTENTE: " + currentUrl.getAddress() + PrintColor.RESET);
-            } catch (UnknownHostException ex) {
-                System.out.println(ex.getMessage());
-                System.out.println(PrintColor.RED + "NOME DE DOMINIO NAO RESOLVIDO: " + currentUrl.getAddress() + PrintColor.RESET);
             } catch (ConnectException ex) {
-                System.out.println(PrintColor.RED + "FALHA DE CONNEXAO. TENTANDO NOVAMENTE  " + currentUrl.getAddress() + "TENTATIVAS:" + currentUrl.getAttempts() + PrintColor.RESET);
                 currentUrl.incrementAttempts();
-                System.out.println(ex.getMessage());
-                ex.printStackTrace();
                 escalonador.adicionaNovaPaginaSemChecar(currentUrl);
-            } catch(SocketTimeoutException ex){
-                System.out.println(this.currentUrl);
-                ex.printStackTrace();
             } catch (Exception ex) {
-                System.out.println(this.currentUrl);
-                System.out.println(ex.getMessage());
-                ex.printStackTrace();
+                
             }
 
         }
@@ -122,7 +105,6 @@ public class PageFetcher extends Thread {
         if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
             record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), Constants.USER_AGENT); //requesting robots.txt from URL
             escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
-            System.out.println(PrintColor.PURPLE + "REGISTRO ENCONTRADO" + PrintColor.RESET);
         }
 
         return record == null || record.allows(currentUrl.getPath());   //Checking if collection is allowed
@@ -152,10 +134,9 @@ public class PageFetcher extends Thread {
             escalonador.countFetchedPage();
             escalonador.addCollectedURL(currentUrl);
             buff.insert(0, PrintColor.BLUE + "COLLECTED: " + PrintColor.RESET + currentUrl.getAddress() + " ");
-        } else {
-            buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
-        }
-        buff.append(permission[0] + " " + permission[1] + " ");
+            System.out.println(buff.toString());
+        } 
+        
         if (permission[1]) //permissãA claso de extração de links
         {
             List<String> linkList = htmlProcessor.extractLinks(pageContent);
@@ -164,12 +145,8 @@ public class PageFetcher extends Thread {
                     escalonador.adicionaNovaPagina(new URLAddress(link, currentUrl.getDomain()));
                 } catch (Exception ex) {
                     logger.error(PrintColor.RED + "INVALID LINK: " + link + PrintColor.RESET);
-                    buff.append(PrintColor.RED + " INVALID LINK:" + link + PrintColor.RESET);
                 }
             }
-        } else {
-            buff.append(PrintColor.RED + " NOTFOLLOWED" + PrintColor.RESET);
-
         }
     }
 

@@ -94,7 +94,7 @@ public class HtmlProcessor {
      * @return permission
      */
 
-    public boolean[] allowsIndexing(String pageContent, StringBuffer buff) {
+    public boolean[] allowsIndexing(String pageContent) {
 
         boolean permission[] = {true, true};
 
@@ -116,7 +116,6 @@ public class HtmlProcessor {
                     permission[1] = false;
                 }
                     
-                buff.append(PrintColor.GREEN + content + PrintColor.RESET + PrintColor.RESET);
             }
         }
 
