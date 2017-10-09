@@ -12,19 +12,17 @@ import crawler.ColetorUtil;
 import crawler.HtmlProcessor;
 import crawler.URLAddress;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import crawler.PrintColor;
-import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 
 /**
  *
- * @author jr
+ * @author jr e Tulio F
  */
 public class PageFetcher extends Thread {
 
@@ -38,22 +36,38 @@ public class PageFetcher extends Thread {
     private InputStream stream;
     private String pageContent;
     boolean[] metaTagsPermission;
-
+    
+    
+    /**
+     *  Cria um robot e um buff para dispensar a necessidade de criar outro toda hora.
+     *  O contrutor tambem coloca um objeto para receber o escalonar para poder utiliza-lo na Classe.
+     *
+     * @param escalonador
+     * @return
+     */
     public PageFetcher(Escalonador escalonador) {
         this.escalonador = escalonador;
-
         robotExclusion = new RobotExclusion();
         htmlProcessor = HtmlProcessor.getInstance();
         buff = new StringBuffer();
         
     }
 
+    
+    /**
+     * Sera o ponto de partida da thread, ele atua como o pipeline geral da coleta, coletando a 
+     * pagina logo apos coletando as metaTags, e por fim olhando as permissoes de 
+     * coletar/extrair os links das páginas.
+     *
+     * @param 
+     * @return
+     */
     @Override
     public void run() {
 
         while (!escalonador.finalizouColeta()) {
             this.currentUrl = escalonador.getURL(); //Requesting page from page scheduler
-            buff.setLength(0);
+            buff.setLength(0);// limpar o buff
 
             try {
                 if (this.currentUrl != null) {
@@ -95,9 +109,16 @@ public class PageFetcher extends Thread {
 
         }
     }
-
+    
+     /**
+     * Verifica as permissões dos Robots.txt. Caso ja tenha as permissoes ja salva no escalonador, 
+     * ele ja acessa e verifica as permissoes disponiveis. Caso não tenha, ele vai mandar 
+     * a requisição pedindo pelo Robots.txt do servidor.
+     *
+     * @param 
+     * @return boolean
+     */
     public boolean retrieveRobotsPermission() throws Exception {
-
         if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
             record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), Constants.USER_AGENT); //requesting robots.txt from URL
             escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
@@ -106,14 +127,28 @@ public class PageFetcher extends Thread {
 
         return record == null || record.allows(currentUrl.getPath());   //Checking if collection is allowed
     }
-
+    
+    /**
+     * Coletar a página.
+     *
+     * @param 
+     * @return
+     */
     public void collectPage() throws Exception {
         this.stream = ColetorUtil.getUrlStream(Constants.USER_AGENT, currentUrl.getUrlObj());
         this.pageContent = ColetorUtil.consumeStream(stream);
     }
 
+    /**
+     * Verifica as permissoes de coleta e de extraçoes de links, 
+     * caso tenha ele realiza a extração/coleta.
+     *
+     * @param pageContent, permission
+     * @return
+     */
     public void processPage(String pageContent, boolean[] permission) {
-        if (permission[0]) {
+        if (permission[0]) // permissão de coleta
+        { 
             escalonador.countFetchedPage();
             escalonador.addCollectedURL(currentUrl);
             buff.insert(0, PrintColor.BLUE + "COLLECTED: " + PrintColor.RESET + currentUrl.getAddress() + " ");
@@ -121,7 +156,8 @@ public class PageFetcher extends Thread {
             buff.append(PrintColor.RED + " NOTINDEXING" + PrintColor.RESET);
         }
         buff.append(permission[0] + " " + permission[1] + " ");
-        if (permission[1]) {
+        if (permission[1]) //permissãA claso de extração de links
+        {
             List<String> linkList = htmlProcessor.extractLinks(pageContent);
             for (String link : linkList) {
                 try {
