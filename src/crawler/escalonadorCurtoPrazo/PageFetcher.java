@@ -101,6 +101,7 @@ public class PageFetcher extends Thread {
         if ((record = escalonador.getRecordAllowRobots(currentUrl)) == null) { //Getting robots.txt record from domain
             record = robotExclusion.get(currentUrl.getUrlRobotsTxt(), Constants.USER_AGENT); //requesting robots.txt from URL
             escalonador.putRecorded(currentUrl.getDomain(), record); //saving requested robots.tx
+            System.out.println(PrintColor.PURPLE + "REGISTRO ENCONTRADO" + PrintColor.RESET);
         }
 
         return record == null || record.allows(currentUrl.getPath());   //Checking if collection is allowed
