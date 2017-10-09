@@ -8,4 +8,12 @@
 90		51 s		58 s		50 s		59 s		54.5  s
 100		58 s		50 s		56 s		57 s		68.25 s
 
-#Machine 2 (Caio):
+#Machine 2 (Caio): AMD Fx 6300 Six-Core Processor - 8 GB RAM - Average of 5 Mbps connection
+
+Threads 	Test 1		Test 2 		Test 3 		Test 4		Average
+10		107 s		121 s		109 s		137 s		118.5 s
+30		87 s		91 s		102 s		83 s		90.75 s
+50		70 s		84 s		82 s		76 s		78 s
+70		58 s		80 s		93 s		78 s		77.52 s
+90		82 s		72 s		76 s		74 s		76 s
+100		62 s		62 s		70 s		76 s		67.5 s
