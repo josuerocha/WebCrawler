@@ -12,12 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.clapper.util.html.HTMLUtil;
-
 import ptstemmer.Stemmer;
-<<<<<<< HEAD
-=======
 import ptstemmer.exceptions.PTStemmerException;
->>>>>>> 5a390cae164e2aada188c415349df9caaff52893
 import ptstemmer.implementations.OrengoStemmer;
 
 
