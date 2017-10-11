@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.clapper.util.html.HTMLUtil;
+
 import ptstemmer.Stemmer;
 import ptstemmer.exceptions.PTStemmerException;
 import ptstemmer.implementations.OrengoStemmer;
