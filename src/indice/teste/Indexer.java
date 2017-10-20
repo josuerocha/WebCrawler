@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package indice.teste;
+import util.StringUtil;
 import util.ArquivoUtil;
-import util.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.regex.Matcher;
@@ -38,7 +38,11 @@ public class Indexer {
      * @return
      */
     public void getFiles(){
+<<<<<<< HEAD
         
+=======
+                
+>>>>>>> 9598fbe46de98120e49735579317222a1291c2f5
         for(File subdir : rootdir.listFiles(File::isDirectory)){
             for(File htmlFile : subdir.listFiles()){
                
@@ -67,7 +71,8 @@ public class Indexer {
      * @return
      */
     public void indexDocument(String content,int docId){
-        //content = cleanFile();
+        content = StringUtil.replaceAcento(content);
+        content = content.toLowerCase();
     }
     
     public static void main(String[] args) {
