@@ -13,27 +13,35 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author jr
+ * @author jr e Tulio Fonseca
  */
 public class Indexer {
     
     private Pattern docIdPattern = Pattern.compile("([0-9])*");
     private File rootdir;
     private String dirpath;
-    
+    /**
+     *  
+     *
+     * @param 
+     * @return
+     */
     public Indexer(String dirpath){
         this.dirpath = dirpath;
         rootdir = new File(dirpath);
         
     }
-    
+    /**
+     *  
+     *
+     * @param 
+     * @return
+     */
     public void getFiles(){
-        
-        BufferedReader bufferedReader;
         
         for(File subdir : rootdir.listFiles(File::isDirectory)){
             for(File htmlFile : subdir.listFiles()){
-                
+               
                 try{
                     String content = ArquivoUtil.leTexto(htmlFile);
                     
@@ -52,7 +60,12 @@ public class Indexer {
         }
     }
     
-    
+    /**
+     *  
+     *
+     * @param 
+     * @return
+     */
     public void indexDocument(String content,int docId){
         //content = cleanFile();
     }
