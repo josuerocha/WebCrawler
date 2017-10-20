@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package indice.teste;
-import StringUtil;
+import util.StringUtil;
 import util.ArquivoUtil;
 import java.io.BufferedReader;
 import java.io.File;
