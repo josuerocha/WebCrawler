@@ -5,9 +5,10 @@
  */
 package indice.teste;
 
+import ArquivoUtil;
+import util.*;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,11 +36,7 @@ public class Indexer {
             for(File htmlFile : subdir.listFiles()){
                 
                 try{
-                    bufferedReader = new BufferedReader(new FileReader(htmlFile));
-                    String content;
-                    while(( content = bufferedReader.readLine()) != null){
-                        
-                    }
+                    String content = ArquivoUtil.leTexto(htmlFile);
                     
                     System.out.println(htmlFile.getName());
                     Matcher matcher = docIdPattern.matcher(htmlFile.getName());
@@ -58,7 +55,7 @@ public class Indexer {
     
     
     public void indexDocument(String content,int docId){
-        
+        content = cleanFile();
     }
     
     public static void main(String[] args) {
