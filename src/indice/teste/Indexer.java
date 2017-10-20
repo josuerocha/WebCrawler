@@ -38,11 +38,7 @@ public class Indexer {
      * @return
      */
     public void getFiles(){
-<<<<<<< HEAD
-        
-=======
-                
->>>>>>> 9598fbe46de98120e49735579317222a1291c2f5
+
         for(File subdir : rootdir.listFiles(File::isDirectory)){
             for(File htmlFile : subdir.listFiles()){
                
