@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package indice.teste;
-
-import ArquivoUtil;
+import util.ArquivoUtil;
 import util.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -55,7 +54,7 @@ public class Indexer {
     
     
     public void indexDocument(String content,int docId){
-        content = cleanFile();
+        //content = cleanFile();
     }
     
     public static void main(String[] args) {
