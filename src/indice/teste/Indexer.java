@@ -14,10 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author jr e Tulio Fonseca
- */
+
 public class Indexer {
 
     private Pattern docIdPattern = Pattern.compile("([0-9])*");
@@ -73,6 +70,8 @@ public class Indexer {
         content = content.toLowerCase();
         
         Map<String, Integer> termFrequency = getTermFrequency(content);
+        
+        
         
     }
 
