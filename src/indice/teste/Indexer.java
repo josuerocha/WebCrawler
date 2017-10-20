@@ -13,25 +13,39 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author jr
+ * @author jr e Tulio Fonseca
  */
 public class Indexer {
     
     private Pattern docIdPattern = Pattern.compile("([0-9])*");
     private File rootdir;
     private String dirpath;
-    
+    /**
+     *  
+     *
+     * @param 
+     * @return
+     */
     public Indexer(String dirpath){
         this.dirpath = dirpath;
         rootdir = new File(dirpath);
         
     }
-    
+    /**
+     *  
+     *
+     * @param 
+     * @return
+     */
     public void getFiles(){
+<<<<<<< HEAD
+        
+=======
                 
+>>>>>>> 9598fbe46de98120e49735579317222a1291c2f5
         for(File subdir : rootdir.listFiles(File::isDirectory)){
             for(File htmlFile : subdir.listFiles()){
-                
+               
                 try{
                     String content = ArquivoUtil.leTexto(htmlFile);
                     
@@ -50,7 +64,12 @@ public class Indexer {
         }
     }
     
-    
+    /**
+     *  
+     *
+     * @param 
+     * @return
+     */
     public void indexDocument(String content,int docId){
         content = StringUtil.replaceAcento(content);
         content = content.toLowerCase();
