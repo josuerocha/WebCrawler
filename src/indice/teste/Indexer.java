@@ -71,7 +71,9 @@ public class Indexer {
     public void indexDocument(String content, int docId) {
         content = StringUtil.replaceAcento(content);
         content = content.toLowerCase();
-
+        
+        Map<String, Integer> termFrequency = getTermFrequency(content);
+        
     }
 
     public Map<String, Integer> getTermFrequency(String content) {
