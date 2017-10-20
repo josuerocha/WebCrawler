@@ -54,6 +54,12 @@ public class Indexer {
     public void indexDocument(String content,int docId){
         content = StringUtil.replaceAcento(content);
         content = content.toLowerCase();
+        
+        String[] terms = content.split("");
+        
+        for(String term : terms){
+            
+        }
     }
     
     public static void main(String[] args) {
