@@ -17,14 +17,15 @@ import java.util.regex.Pattern;
 
 public class Indexer {
 
-    private Pattern docIdPattern = Pattern.compile("([0-9])*");
-    private File rootdir;
-    private String dirpath;
-
+    private Pattern docIdPattern = Pattern.compile("([0-9])*"); // Nome dos arquivos que sejam apenas numeros.
+    private File rootdir; // Diretorio raiz
+    private String dirpath; // String que recebe o caminho do diretorio dos arquivos
     /**
+     *  Construtor da classe Indexer, ele recebe o caminho do diretorio dos arquivos e 
+     *  inicia o diretorio raiz dos arquivos.
      *
-     *
-     * @param @return
+     * @param 
+     * @return
      */
     public Indexer(String dirpath) {
         this.dirpath = dirpath;
@@ -32,10 +33,11 @@ public class Indexer {
 
     }
 
-    /**
+    /** 
+     * Função responsavel por ler todos os arquivos das pastas no diretorio e indexa-los.
      *
-     *
-     * @param @return
+     * @param 
+     * @return
      */
     public void getFiles() {
 
@@ -61,9 +63,12 @@ public class Indexer {
     }
 
     /**
+     *  Função que recebe um texto (content) e executa as funções de retirar os acentos e deixa-las no 
+     *  diminutivo, ignorar as stopwords e stemmer, alem de calcular a frequencia de 
+     *  cada termo ja tratado no documento.
      *
-     *
-     * @param @return
+     * @param content,docId
+     * @return
      */
     public void indexDocument(String content, int docId) {
         content = StringUtil.replaceAcento(content);
