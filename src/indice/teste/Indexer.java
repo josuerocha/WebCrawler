@@ -11,8 +11,12 @@ import ptstemmer.Stemmer;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import ptstemmer.exceptions.PTStemmerException;
+import ptstemmer.implementations.OrengoStemmer;
 
 
 public class Indexer {
@@ -31,7 +35,11 @@ public class Indexer {
     public Indexer(String dirpath) {
         this.dirpath = dirpath;
         rootdir = new File(dirpath);
-        ptStemmer = new OrengoStemmer();
+        try {
+            ptStemmer = new OrengoStemmer();
+        } catch (PTStemmerException ex) {
+            Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 
