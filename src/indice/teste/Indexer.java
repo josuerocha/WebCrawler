@@ -7,7 +7,7 @@ package indice.teste;
 
 import util.StringUtil;
 import util.ArquivoUtil;
-import java.io.BufferedReader;
+import ptstemmer.Stemmer;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,7 @@ public class Indexer {
     private Pattern docIdPattern = Pattern.compile("([0-9])*"); // Nome dos arquivos que sejam apenas numeros.
     private File rootdir; // Diretorio raiz
     private String dirpath; // String que recebe o caminho do diretorio dos arquivos
+    private Stemmer ptStemmer;
     /**
      *  Construtor da classe Indexer, ele recebe o caminho do diretorio dos arquivos e 
      *  inicia o diretorio raiz dos arquivos.
@@ -30,7 +31,7 @@ public class Indexer {
     public Indexer(String dirpath) {
         this.dirpath = dirpath;
         rootdir = new File(dirpath);
-
+        ptStemmer = new OrengoStemmer();
     }
 
     /** 
@@ -86,8 +87,9 @@ public class Indexer {
         String[] terms = content.split("[\\D\\W]");
 
         for (String term : terms) {
-            term = 
+            
             if (!StringUtil.isStopWord(term)) {
+                term = ptStemmer.getWordStem(term);
                 if (termFrequency.containsKey(term)) {
                     Integer frequency = termFrequency.get(term) + 1;
                     termFrequency.put(term, frequency);
