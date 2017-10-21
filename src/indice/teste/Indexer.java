@@ -99,7 +99,17 @@ public class Indexer {
         }
 
     }
-
+    /**
+     *  Função que dado um texto (content), faz seu processamento, separando as palavras por caracter 
+     *  especial, em seguida percorre o vetor dos termos verificando se uma palavra é uma stopword, caso 
+     *  seja a mesma é ignorada se não for, é aplicado a função do ptStemmer para extrair o prefixo e 
+     *  deixar apenas o radical da palavra, logo apos é verificado se a palavra ja foi adicionada no Map de
+     *  terfrequencias, caso já esteja adicionado a frequencia do termo é adicionado mais um , caso não 
+     *  esteja o termo é adicionado no Map com frequencia igual a um .
+     *
+     * @param content
+     * @return Map<String, Integer>
+     */
     public Map<String, Integer> getTermFrequency(String content) {
         Map<String, Integer> termFrequency = new HashMap<>();
 
@@ -122,7 +132,12 @@ public class Indexer {
 
         return termFrequency;
     }
-    
+    /**
+     * Verificar se o termo não é uma palavra sem caracteres
+     *
+     * @param term
+     * @return boolean
+     */
     public boolean termIsEmpty(String term){
         return term.length()==0;        
     }
