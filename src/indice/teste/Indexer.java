@@ -61,12 +61,16 @@ public class Indexer {
             for (File htmlFile : subdir.listFiles()) {
 
                 try {
-                    String content = ArquivoUtil.leTexto(htmlFile);
-                    
+                    // Lê conteudo do arquivo HTML
+                    String content = ArquivoUtil.leTexto(htmlFile);                    
                     System.out.println(htmlFile.getName());
+                    
+                    // Obtem o id do documento, a partir dos numeros do nome do arquivo
                     Matcher matcher = docIdPattern.matcher(htmlFile.getName());
                     matcher.find();
-                    int docId = Integer.parseInt(matcher.group());                    
+                    int docId = Integer.parseInt(matcher.group());
+                    
+                    // Indexa o texto do documento
                     indexDocument(HTMLUtil.textFromHTML(content), docId);
 
                 } catch (Exception ex) {
@@ -74,7 +78,6 @@ public class Indexer {
                 }
 
             }
-
         }
     }
 
@@ -94,6 +97,7 @@ public class Indexer {
         // Obtendo Map de ocorrencias de termos no documento
         Map<String, Integer> termFrequency = getTermFrequency(content);
         
+        //Indexa cada termo do documento com sua respectiva frequencia
         for (String term : termFrequency.keySet()) {           
             indice.index(term, docId, termFrequency.get(term));
         }
@@ -116,20 +120,23 @@ public class Indexer {
         String[] terms = content.split("[\\D\\W]");
 
         for (String term : terms) {
-            
+            //Verifica se o termo esta vazio
             if(termIsEmpty(term)) continue;
+            
+            //Verifica se o termo é uma stopword(Se for, é ignorado)
             if (!StringUtil.isStopWord(term)) {
                 term = ptStemmer.getWordStem(term);
+                //Verifica se o termo ja esta no Map
                 if (termFrequency.containsKey(term)) {
+                    //Atualiza a frequencia
                     Integer frequency = termFrequency.get(term) + 1;
                     termFrequency.put(term, frequency);
                 } else {
+                    // Inicia a frequencia com o valor 1
                     termFrequency.put(term, 1);
                 }
             }
         }
-            
-
         return termFrequency;
     }
     /**
@@ -137,7 +144,8 @@ public class Indexer {
      *
      * @param term
      * @return boolean
-     */
+     */    
+    
     public boolean termIsEmpty(String term){
         return term.length()==0;        
     }
