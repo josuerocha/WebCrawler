@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  *         Window - Preferences - Java - Code Style - Code Templates
  */
 public class StringUtil {
-	private static String END_STOP_WORDS = "/home/hasan/data/dumps/stopWords.csv";
+	private static String END_STOP_WORDS = "config/stopWords.csv";
 	// private static String END_STOP_WORDS =
 	// "/home/curupira/hasan/stopWords.csv";
 	public static final String APENAS_ACENTOS = ((char) 225) + "-"

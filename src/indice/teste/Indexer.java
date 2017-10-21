@@ -81,6 +81,7 @@ public class Indexer {
         String[] terms = content.split("[\\D\\W]");
 
         for (String term : terms) {
+            term = 
             if (!StringUtil.isStopWord(term)) {
                 if (termFrequency.containsKey(term)) {
                     Integer frequency = termFrequency.get(term) + 1;
