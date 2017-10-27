@@ -17,11 +17,16 @@ public class IndiceSimples extends Indice {
     private static final long serialVersionUID = 1L;
 
     private Map<String, List<Ocorrencia>> mapIndice = new HashMap<>();
-
+    /**
+     * Construtor da classe IndiceSimples
+     *
+     * @param 
+     * @return
+     */
     public IndiceSimples() {
 
     }
-
+    
     @Override
     public void index(String termo, int docId, int freqTermo) {
         if (!mapIndice.containsKey(termo)) {
@@ -32,7 +37,12 @@ public class IndiceSimples extends Indice {
             mapIndice.get(termo).add(new Ocorrencia(docId, freqTermo));
         }
     }
-
+    /**
+     * Faz uma busca do termo no map de indices e retorna um Map com o numero de Documentos por Termo
+     *
+     * @param 
+     * @return Map<String, Integer>
+     */
     @Override
     public Map<String, Integer> getNumDocPerTerm() {
 
@@ -43,7 +53,14 @@ public class IndiceSimples extends Indice {
         return map;
 
     }
-
+    /**
+     * Faz uma busca do termo no map de indices para cada ocorrencia ele busca na lista de ocorrencias
+     * se o id da ocorrencia nao estiver adicionado no Documento, então ele adiciona. Por fim, retorna 
+     * o tamanho do Documento.
+     *
+     * @param 
+     * @return setDocumento.size()
+     */
     @Override
     public int getNumDocumentos() {
 
@@ -62,7 +79,13 @@ public class IndiceSimples extends Indice {
 
         return setDocumento.size();
     }
-
+    /**
+     * Faz uma busca do termo no map de indices e adiciona no Hash o termo, por fim retorna o Hash da 
+     * lista de termos.
+     *
+     * @param 
+     * @return Set<String> set
+     */
     @Override
     public Set<String> getListTermos() {
 
@@ -72,7 +95,12 @@ public class IndiceSimples extends Indice {
         }
         return set;
     }
-
+    /**
+     * Retorna a lista de ocorrencia dado um termo.
+     *
+     * @param 
+     * @return List<Ocorrencia> mapIndice
+     */
     @Override
     public List<Ocorrencia> getListOccur(String termo) {
         return mapIndice.get(termo);

@@ -42,7 +42,12 @@ public class IndiceLight extends Indice {
 
         return novoVetor;
     }
-
+    /**
+     * Construtor da classe IndiceLight, ele inicializa os arrays com o valor do initCap
+     *
+     * @param initCap
+     * @return
+     */
     public IndiceLight(int initCap) {
 
         arrDocId = new int[initCap];
@@ -50,7 +55,12 @@ public class IndiceLight extends Indice {
         arrFreqTermo = new int[initCap];
         posicaoIndice = new HashMap<String, PosicaoVetor>();
     }
-
+    /**
+     * Função que retorna o numero de documentos
+     *
+     * @param 
+     * @return int
+     */
     @Override
     public int getNumDocumentos() {
         Set<Integer> docs = new HashSet<>();
@@ -99,7 +109,12 @@ public class IndiceLight extends Indice {
         arrFreqTermo[lastIdx] = freqTermo;
 
     }
-
+    /**
+     * Função que retorna o numero de documentos por termo
+     *
+     * @param 
+     * @return Map<String, Integer>
+     */
     @Override
     public Map<String, Integer> getNumDocPerTerm() {
         Map<String, Integer> numDocPerTerm = new HashMap<>();
@@ -110,7 +125,12 @@ public class IndiceLight extends Indice {
         
         return numDocPerTerm;
     }
-
+    /**
+     * Função que retorna a lista de Termos
+     *
+     * @param 
+     * @return Set<String>
+     */
     @Override
     public Set<String> getListTermos() {
         Set<String> termList = new HashSet<>();
@@ -121,7 +141,13 @@ public class IndiceLight extends Indice {
         
         return termList;
     }
-
+    
+    /**
+     * Função que retorna a lista de Ocorrencias dado um termo
+     *
+     * @param termo
+     * @return List<Ocorrencia>
+     */
     @Override
     public List<Ocorrencia> getListOccur(String termo) {
         
@@ -182,13 +208,18 @@ public class IndiceLight extends Indice {
         arrTermoPorId[lastId].setNumDocumentos(numDocs);
 
     }
-
+    /**
+     * Função que ordena o indice
+     *
+     * @param 
+     * @return 
+     */
     public void ordenaIndice() {
         quickSort(0, lastIdx);
         //insertionSort();
 
     }
-
+////////////////////////////////////////////Algoritmo de Ordenação///////////////////////////////////////
     /**
      * Algoritmo qucksort baseado em Cormen et. al, Introduction to Algorithms e
      * adaptado para utilizar a partição com o pivot aleatório
@@ -258,7 +289,9 @@ public class IndiceLight extends Indice {
         this.arrTermId[posJ] = termAux;
 
     }
-
+////////////////////////////////////////////FIM//////////////////////////////////////////////////////////
+    
+///////////////////////////// Funções Set e Get/////////////////////////////////////////////////////////
     public void setArrs(int[] arrDocId, int[] arrTermId, int[] arrFreqTermo) {
         this.arrDocId = Arrays.copyOf(arrDocId, arrDocId.length);
         this.arrTermId = Arrays.copyOf(arrTermId, arrTermId.length);
@@ -278,5 +311,5 @@ public class IndiceLight extends Indice {
     public int[] getArrFreq() {
         return this.arrFreqTermo;
     }
-
+////////////////////////////////////////////FIM//////////////////////////////////////////////////////////
 }
