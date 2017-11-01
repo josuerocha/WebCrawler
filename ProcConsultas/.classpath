@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/home/profhasan/Dropbox/aulas/RI/libs_coletor/juniversalchardet-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/home/profhasan/Dropbox/aulas/RI/libs_coletor/htmlcleaner-2.16.jar"/>
+	<classpathentry kind="lib" path="/home/profhasan/Dropbox/aulas/RI/libs_coletor/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/home/profhasan/Dropbox/aulas/RI/libs_coletor/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="/home/profhasan/Dropbox/aulas/RI/libs_coletor/ocutil-2.4.2.jar"/>
+	<classpathentry kind="lib" path="/home/profhasan/Dropbox/projetos_eclipse/libs/PTStemmer_v2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
