@@ -5,6 +5,7 @@
  */
 package indice.teste;
 
+import crawler.PrintColor;
 import indice.estrutura.Indice;
 import indice.estrutura.IndiceLight;
 import util.StringUtil;
@@ -37,9 +38,9 @@ public class Indexer {
      * @return
      */
     public Indexer(String dirpath) {
-        this.dirpath = dirpath;        
+        this.dirpath = dirpath;
         rootdir = new File(dirpath);
-        
+
         try {
             ptStemmer = new OrengoStemmer();
             indice = new IndiceLight(15000);
@@ -56,35 +57,39 @@ public class Indexer {
      * @return
      */
     public void getFiles() {
+        if (rootdir.exists()) {
+            for (File subdir : rootdir.listFiles(File::isDirectory)) {
+                for (File htmlFile : subdir.listFiles()) {
 
-        for (File subdir : rootdir.listFiles(File::isDirectory)) {
-            for (File htmlFile : subdir.listFiles()) {
+                    try {
+                        // Lê conteudo do arquivo HTML
+                        String content = ArquivoUtil.leTexto(htmlFile);
+                        System.out.println(htmlFile.getName());
 
-                try {
-                    // Lê conteudo do arquivo HTML
-                    String content = ArquivoUtil.leTexto(htmlFile);                    
-                    System.out.println(htmlFile.getName());
-                    
-                    // Obtem o id do documento, a partir dos numeros do nome do arquivo
-                    Matcher matcher = docIdPattern.matcher(htmlFile.getName());
-                    matcher.find();
-                    int docId = Integer.parseInt(matcher.group());
-                    
-                    // Indexa o texto do documento
-                    indexDocument(HTMLUtil.textFromHTML(content), docId);
+                        // Obtem o id do documento, a partir dos numeros do nome do arquivo
+                        Matcher matcher = docIdPattern.matcher(htmlFile.getName());
+                        matcher.find();
+                        int docId = Integer.parseInt(matcher.group());
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                        // Indexa o texto do documento
+                        indexDocument(HTMLUtil.textFromHTML(content), docId);
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
                 }
-
             }
+        } else {
+            System.out.println(PrintColor.RED + "ERRO: O diretório especificado não existe");
         }
     }
 
     /**
-     * Função que recebe um texto (content) e executa as funções de retirar os
-     * acentos e deixa-las no diminutivo, ignorar as stopwords e stemmer, alem
-     * de calcular a frequencia de cada termo ja tratado no documento.
+     * Função que recebe o conteúdo da página (content) e executa as funções de
+     * retirar os acentos e substituição de maiusculas por minusculas, ignorar
+     * as stopwords e stemmer, alem de calcular a frequencia de cada termo ja
+     * tratado no documento.
      *
      * @param content,docId
      * @return
@@ -93,23 +98,26 @@ public class Indexer {
         // Pre-processamento do conteudo das paginas
         content = StringUtil.replaceAcento(content);
         content = content.toLowerCase();
-        
+
         // Obtendo Map de ocorrencias de termos no documento
         Map<String, Integer> termFrequency = getTermFrequency(content);
-        
+
         //Indexa cada termo do documento com sua respectiva frequencia
-        for (String term : termFrequency.keySet()) {           
+        for (String term : termFrequency.keySet()) {
             indice.index(term, docId, termFrequency.get(term));
         }
 
     }
+
     /**
-     *  Função que dado um texto (content), faz seu processamento, separando as palavras por caracter 
-     *  especial, em seguida percorre o vetor dos termos verificando se uma palavra é uma stopword, caso 
-     *  seja a mesma é ignorada se não for, é aplicado a função do ptStemmer para extrair o prefixo e 
-     *  deixar apenas o radical da palavra, logo apos é verificado se a palavra ja foi adicionada no Map de
-     *  terfrequencias, caso já esteja adicionado a frequencia do termo é adicionado mais um , caso não 
-     *  esteja o termo é adicionado no Map com frequencia igual a um .
+     * Função que dado um texto (content), faz seu processamento, separando as
+     * palavras por caracter especial, em seguida percorre o vetor dos termos
+     * verificando se uma palavra é uma stopword, caso seja a mesma é ignorada
+     * se não for, é aplicado a função do ptStemmer para extrair o prefixo e
+     * deixar apenas o radical da palavra, logo apos é verificado se a palavra
+     * ja foi adicionada no Map de terfrequencias, caso já esteja adicionado a
+     * frequencia do termo é adicionado mais um , caso não esteja o termo é
+     * adicionado no Map com frequencia igual a um .
      *
      * @param content
      * @return Map<String, Integer>
@@ -121,8 +129,10 @@ public class Indexer {
 
         for (String term : terms) {
             //Verifica se o termo esta vazio
-            if(termIsEmpty(term)) continue;
-            
+            if (termIsEmpty(term)) {
+                continue;
+            }
+
             //Verifica se o termo é uma stopword(Se for, é ignorado)
             if (!StringUtil.isStopWord(term)) {
                 term = ptStemmer.getWordStem(term);
@@ -139,19 +149,20 @@ public class Indexer {
         }
         return termFrequency;
     }
+
     /**
      * Verificar se o termo não é uma palavra sem caracteres
      *
      * @param term
      * @return boolean
-     */    
-    
-    public boolean termIsEmpty(String term){
-        return term.length()==0;        
+     */
+
+    public boolean termIsEmpty(String term) {
+        return term.length() == 0;
     }
 
     public static void main(String[] args) {
-        String wikipath = "wikiSample";
+        String wikipath = "dataset/wikiSample";
         Indexer indexer = new Indexer(wikipath);
         indexer.getFiles();
 

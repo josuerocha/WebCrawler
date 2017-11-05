@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  *         Window - Preferences - Java - Code Style - Code Templates
  */
 public class StringUtil {
-	private static String END_STOP_WORDS = "config/stopWords.csv";
+	private static String END_STOP_WORDS = "properties/stopwords.csv";
 	// private static String END_STOP_WORDS =
 	// "/home/curupira/hasan/stopWords.csv";
 	public static final String APENAS_ACENTOS = ((char) 225) + "-"
@@ -97,8 +97,9 @@ public class StringUtil {
 			}
 			objPatternStopWord = Pattern.compile("[^a-z]("+strRegExp.toString()+")[^a-z]",Pattern.CASE_INSENSITIVE);
 			
-			
+                        System.out.println("CARREGOU");
 			return listaPalavras.split(",");
+                        
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
