@@ -99,5 +99,8 @@ public class TesteIndiceLight {
 		System.out.println("ok");
 	}
 
-	
+        public static void main(String[] args) {
+            TesteIndiceLight teste = new TesteIndiceLight();
+            teste.testOrdenacao();
+        }
 }

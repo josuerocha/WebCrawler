@@ -20,7 +20,7 @@ public class TesteEstruturaIndice {
 	@Before
 	public void iniciaIndice(){
 		indiceTeste = new IndiceSimples();
-		//indiceTeste = new IndiceLight(1000);
+		//indiceTeste = new IndiceLight(15000);
 		
 		//casa apareceu 10 vezes no doc. 1
 		indiceTeste.index("casa",1,10);
@@ -146,6 +146,15 @@ public class TesteEstruturaIndice {
 
 	
 	}
+        
+        public static void main(String[] args) {
+            TesteEstruturaIndice teste = new TesteEstruturaIndice();
+            teste.iniciaIndice();
+            teste.testGetNumDocumentos();
+            teste.testGetListTermos();
+            teste.testGetNumDocPerTerm();
+            teste.testGetListOccur();
+        }
 	
 
 }

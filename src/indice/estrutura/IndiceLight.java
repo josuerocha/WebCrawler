@@ -30,7 +30,6 @@ public class IndiceLight extends Indice {
      * Armazena o ultimo id de termo criado. Utilizado para criar um id
      * incremental dos termos.
      */
-
     public int[] aumentaCapacidadeVetor(int[] vetor, double d) {
 
         int novoTamanho = (int) (vetor.length * (1.0 + d));
@@ -42,8 +41,10 @@ public class IndiceLight extends Indice {
 
         return novoVetor;
     }
+
     /**
-     * Construtor da classe IndiceLight, ele inicializa os arrays com o valor do initCap
+     * Construtor da classe IndiceLight, ele inicializa os arrays com o valor do
+     * initCap
      *
      * @param initCap
      * @return
@@ -55,20 +56,23 @@ public class IndiceLight extends Indice {
         arrFreqTermo = new int[initCap];
         posicaoIndice = new HashMap<String, PosicaoVetor>();
     }
+
     /**
      * Função que retorna o numero de documentos
      *
-     * @param 
+     * @param
      * @return int
      */
     @Override
     public int getNumDocumentos() {
+        
         Set<Integer> docs = new HashSet<>();
         for (int i : arrDocId) {
-            if (!docs.contains(i)) {
+            if (!docs.contains(i) && i != 0) {
                 docs.add(i);
             }
         }
+        
         return docs.size();
     }
 
@@ -109,39 +113,41 @@ public class IndiceLight extends Indice {
         arrFreqTermo[lastIdx] = freqTermo;
 
     }
+
     /**
      * Função que retorna o numero de documentos por termo
      *
-     * @param 
+     * @param
      * @return Map<String, Integer>
      */
     @Override
     public Map<String, Integer> getNumDocPerTerm() {
         Map<String, Integer> numDocPerTerm = new HashMap<>();
-        
-        for(String str : posicaoIndice.keySet()){
-           numDocPerTerm.put(str, posicaoIndice.get(str).getNumDocumentos()) ;
+
+        for (String str : posicaoIndice.keySet()) {
+            numDocPerTerm.put(str, posicaoIndice.get(str).getNumDocumentos());
         }
-        
+
         return numDocPerTerm;
     }
+
     /**
      * Função que retorna a lista de Termos
      *
-     * @param 
+     * @param
      * @return Set<String>
      */
     @Override
     public Set<String> getListTermos() {
         Set<String> termList = new HashSet<>();
-        
-        for(String str : posicaoIndice.keySet()){
+
+        for (String str : posicaoIndice.keySet()) {
             termList.add(str);
         }
-        
+
         return termList;
     }
-    
+
     /**
      * Função que retorna a lista de Ocorrencias dado um termo
      *
@@ -150,69 +156,106 @@ public class IndiceLight extends Indice {
      */
     @Override
     public List<Ocorrencia> getListOccur(String termo) {
-        
+
         List<Ocorrencia> listOccur = new ArrayList<>();
         int initialPos = posicaoIndice.get(termo).getPosInicial();
         int qtdDocs = posicaoIndice.get(termo).getNumDocumentos();
-        
-        
-        for(int i = initialPos ; i < initialPos+qtdDocs; i++){
-           listOccur.add(new Ocorrencia(arrDocId[i],arrFreqTermo[i]));
+
+        for (int i = initialPos; i < initialPos + qtdDocs; i++) {
+            listOccur.add(new Ocorrencia(arrDocId[i], arrFreqTermo[i]));
         }
-        
+
         return listOccur;
     }
 
     /**
      * Ao concluir a indexação, deve-se ordenar o indice de acordo com o id do
      * termo. Logo após, atualize a posicaoInicial e numOcorrencia de cada termo
-     * no Map posicaoIndice.
-     *
-     * Dica: ao percorrer os vetores, para saber qual instancia PosicaoVetor um
-     * id de termo se refere, crie um vetor que relaciona o id do termo (como
-     * indice) e a instancia PosicaoVetor que esta no mapa posicaoIndice.
-     * Percorra o mapa posicaoIndice para obter essa relação. Ou seja, cosidere
-     * que o arrTermoPorId é o vetor criado. Este vetor possuirá o tamanho
-     * lastTermId+1 (pois o id do termo é incremental) você povoará o este vetor
-     * da seguinte forma: para cada termo pertencente em posicaoIndice:
-     * arrTermoPorId[posicaoIndice.get(termo).getIdTermo()] =
-     * posicaoIndice.get(termo);
+ no Map posicaoIndice.
+
+ Dica: ao percorrer os vetores, para saber qual instancia PosicaoVetor um
+ id de termo se refere, crie um vetor que relaciona o id do termo (como
+ indice) e a instancia PosicaoVetor que esta no mapa posicaoIndice.
+ Percorra o mapa posicaoIndice para obter essa relação. Ou seja, cosidere
+ que o PosicaoVetorIndexado é o vetor criado. Este vetor possuirá o tamanho
+ lastTermId+1 (pois o id do termo é incremental) você povoará o este vetor
+ da seguinte forma: para cada termo pertencente em posicaoIndice:
+ PosicaoVetorIndexado[posicaoIndice.get(termo).getIdTermo()] =
+ posicaoIndice.get(termo);
      *
      */
     @Override
     public void concluiIndexacao() {
-        PosicaoVetor[] arrTermoPorId = new PosicaoVetor[lastTermId + 1];
+        PosicaoVetor[] PosicaoVetorIndexado = new PosicaoVetor[lastTermId + 1];
         //Map<Integer,PosicaoVetor> idToPos = new HashMap<Integer,PosicaoVetor>();
         ordenaIndice();
 
-        for (String str : posicaoIndice.keySet()) {
+        for (String termo : posicaoIndice.keySet()) {
             //idToPos.put(posicaoIndice.get(str).getIdTermo(), posicaoIndice.get(str));
-            arrTermoPorId[posicaoIndice.get(str).getIdTermo()] = posicaoIndice.get(str);
+            PosicaoVetorIndexado[posicaoIndice.get(termo).getIdTermo()] = posicaoIndice.get(termo);
         }
+        /*
+        System.out.println("SIZE: " + PosicaoVetorIndexado.length);
         //int posInicial = 0;
-        int lastId = 0;
-
-        int numDocs = 0;
-        for (int i = 0; i < arrTermId.length; i++) {
-            if (lastId == arrTermId[i]) {
-                numDocs++;
-            } else {
-                arrTermoPorId[lastId].setNumDocumentos(numDocs);
-                numDocs = 1;
-                //posInicial = i;
-                arrTermoPorId[lastId].setPosInicial(i);
-                lastId++;
+        
+        for(PosicaoVetor aff : PosicaoVetorIndexado){
+            if(aff != null){
+                System.out.print(aff.getIdTermo() + " ");
+            }else{
+                System.out.print("null" + " ");
             }
-
+            
         }
-        arrTermoPorId[lastId].setNumDocumentos(numDocs);
+        System.out.println(" \n");
+        System.out.println("ARRTERMID");
+        
+        for(int aff : arrTermId){
+            System.out.print(aff + " ");
+        }
+        System.out.println(" \n");
+        */
+        int lastId = arrTermId[0];
 
+        int numDocs = 1;
+        int lastIterator = -1;
+        int initPos = 0;
+        for (int i = 1; i < arrTermId.length; i++) {
+            //System.out.println("NUMDOCS " + numDocs + " Iter " + i);
+            if(arrTermId[i] == 0){
+                lastIterator = i;
+                break;
+            }else if (lastId == arrTermId[i]) {
+                numDocs++;
+            }
+            else { 
+                    
+                    initPos = i-numDocs;
+                    
+                    PosicaoVetorIndexado[lastId].setNumDocumentos(numDocs);
+                    PosicaoVetorIndexado[lastId].setPosInicial(initPos);
+                    
+                    //System.out.println("< " + initPos + " ," + numDocs + ">");
+                    numDocs = 1;
+                    if(arrTermId[i] != 0){
+                        lastId = arrTermId[i];
+                    }
+                    lastIterator = i;
+                    
+            }
+        }
+        
+        
+        PosicaoVetorIndexado[lastId].setNumDocumentos(numDocs);
+        PosicaoVetorIndexado[lastId].setPosInicial(lastIterator-numDocs);
+        //System.out.println("< " + (lastIterator-numDocs) + " ," + numDocs + ">");
+        
     }
+
     /**
      * Função que ordena o indice
      *
-     * @param 
-     * @return 
+     * @param
+     * @return
      */
     public void ordenaIndice() {
         quickSort(0, lastIdx);
@@ -220,6 +263,7 @@ public class IndiceLight extends Indice {
 
     }
 ////////////////////////////////////////////Algoritmo de Ordenação///////////////////////////////////////
+
     /**
      * Algoritmo qucksort baseado em Cormen et. al, Introduction to Algorithms e
      * adaptado para utilizar a partição com o pivot aleatório
@@ -290,7 +334,7 @@ public class IndiceLight extends Indice {
 
     }
 ////////////////////////////////////////////FIM//////////////////////////////////////////////////////////
-    
+
 ///////////////////////////// Funções Set e Get/////////////////////////////////////////////////////////
     public void setArrs(int[] arrDocId, int[] arrTermId, int[] arrFreqTermo) {
         this.arrDocId = Arrays.copyOf(arrDocId, arrDocId.length);
