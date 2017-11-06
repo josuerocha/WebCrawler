@@ -129,10 +129,12 @@ public class Indexer {
     public Map<String, Integer> getTermFrequency(String content) {
         Map<String, Integer> termFrequency = new HashMap<>();
 
-        String[] terms = content.split("[\\D\\W]");
+        
+        String[] terms = content.split("[\\W]+");
 
         for (String term : terms) {
             //Verifica se o termo esta vazio
+            
             if (termIsEmpty(term)) {
                 continue;
             }
