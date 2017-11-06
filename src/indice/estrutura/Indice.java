@@ -60,7 +60,7 @@ public abstract class Indice implements Serializable {
 	 * Conclui a indexação, fazendo algum processamento (se necessário)
 	 */
 	public void concluiIndexacao(){
-		
+		saveToFile("indice.txt");
 	}
 	
 	/**
@@ -78,6 +78,11 @@ public abstract class Indice implements Serializable {
 	public static Indice leIndice(File arq){
 		return null;
 	}
+        
+        public void saveToFile(String filename){
+            
+        }
+        
 	public String toString(){
 		StringBuffer str = new StringBuffer();
 		for(String termo : getListTermos()){

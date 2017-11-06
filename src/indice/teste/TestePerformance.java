@@ -18,8 +18,8 @@ public class TestePerformance {
 	@Test
 	public void testIndexPerformance() {
 		long usedMemNow,usedMemBefore;
-		//indiceTeste = new IndiceSimples();
-		indiceTeste = new IndiceLight(15000);
+		indiceTeste = new IndiceSimples();
+		//indiceTeste = new IndiceLight(50);
 		
 		
 		//cria um vocabulario de 25*25*25 (15625) palavras
@@ -79,4 +79,8 @@ public class TestePerformance {
 		System.out.println("Uso de memória para indexar: "+(usedMemNow-usedMemBefore)/(1024.0*1024.0)+" mb");
 	}
 
+        public static void main(String[] args) {
+            TestePerformance test = new TestePerformance();
+            test.testIndexPerformance();
+        }
 }

@@ -8,6 +8,7 @@ package indice.teste;
 import crawler.PrintColor;
 import indice.estrutura.Indice;
 import indice.estrutura.IndiceLight;
+import indice.estrutura.IndiceSimples;
 import util.StringUtil;
 import util.ArquivoUtil;
 import ptstemmer.Stemmer;
@@ -43,7 +44,8 @@ public class Indexer {
 
         try {
             ptStemmer = new OrengoStemmer();
-            indice = new IndiceLight(15000);
+            //indice = new IndiceLight(15000);
+            indice = new IndiceSimples();
         } catch (PTStemmerException ex) {
             Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,6 +85,8 @@ public class Indexer {
         } else {
             System.out.println(PrintColor.RED + "ERRO: O diretório especificado não existe");
         }
+        
+        indice.concluiIndexacao();
     }
 
     /**
@@ -165,7 +169,7 @@ public class Indexer {
         String wikipath = "dataset/wikiSample";
         Indexer indexer = new Indexer(wikipath);
         indexer.getFiles();
-
+        
     }
 
 }

@@ -1,5 +1,10 @@
 package indice.estrutura;
 
+import crawler.PrintColor;
+import crawler.URLAddress;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,6 +109,30 @@ public class IndiceSimples extends Indice {
     @Override
     public List<Ocorrencia> getListOccur(String termo) {
         return mapIndice.get(termo);
+    }
+    
+    public void saveToFile(String filename){
+        BufferedWriter fileWriter = null;
+        try{
+            fileWriter = new BufferedWriter(new FileWriter(filename,false));
+            
+            int cont = 0;
+            for(String key : mapIndice.keySet()){
+                
+                fileWriter.write( key + " ");
+                for(Ocorrencia occur : mapIndice.get(key)){
+                    fileWriter.write("< " + occur.getDocId() + "," + occur.getFreq() + "> ");
+                }
+                
+                fileWriter.newLine();
+            }
+            fileWriter.close();
+        }
+        catch(IOException ex){
+            System.out.println(PrintColor.RED + "ERROR SAVING FILE" + PrintColor.RESET);
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
 }
