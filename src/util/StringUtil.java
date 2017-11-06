@@ -97,7 +97,7 @@ public class StringUtil {
 			}
 			objPatternStopWord = Pattern.compile("[^a-z]("+strRegExp.toString()+")[^a-z]",Pattern.CASE_INSENSITIVE);
 			
-                        System.out.println("CARREGOU");
+                        //System.out.println("CARREGOU");
 			return listaPalavras.split(",");
                         
 		} catch (FileNotFoundException e)
