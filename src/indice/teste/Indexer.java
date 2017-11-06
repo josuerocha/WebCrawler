@@ -19,9 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.clapper.util.html.HTMLUtil;
 import ptstemmer.exceptions.PTStemmerException;
 import ptstemmer.implementations.OrengoStemmer;
+import org.jsoup.Jsoup;
 
 public class Indexer {
 
@@ -30,6 +30,7 @@ public class Indexer {
     private String dirpath; // String que recebe o caminho do diretorio dos arquivos
     private Stemmer ptStemmer;
     private Indice indice;
+    private int pageCount = 0;
 
     /**
      * Construtor da classe Indexer, ele recebe o caminho do diretorio dos
@@ -44,7 +45,7 @@ public class Indexer {
 
         try {
             ptStemmer = new OrengoStemmer();
-            //indice = new IndiceLight(15000);
+            //indice = new IndiceLight(15000000);
             indice = new IndiceSimples();
         } catch (PTStemmerException ex) {
             Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +67,8 @@ public class Indexer {
                     try {
                         // Lê conteudo do arquivo HTML
                         String content = ArquivoUtil.leTexto(htmlFile);
-                        System.out.println(htmlFile.getName());
+                        System.out.println(" ");
+                        System.out.print(PrintColor.BLUE + htmlFile.getName() + PrintColor.RESET);
 
                         // Obtem o id do documento, a partir dos numeros do nome do arquivo
                         Matcher matcher = docIdPattern.matcher(htmlFile.getName());
@@ -74,7 +76,9 @@ public class Indexer {
                         int docId = Integer.parseInt(matcher.group());
 
                         // Indexa o texto do documento
-                        indexDocument(HTMLUtil.textFromHTML(content), docId);
+                        content = Jsoup.parse(content).text();
+                        //System.out.println(content);
+                        indexDocument(content, docId);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -110,7 +114,8 @@ public class Indexer {
         for (String term : termFrequency.keySet()) {
             indice.index(term, docId, termFrequency.get(term));
         }
-
+        
+        pageCount++;
     }
 
     /**
@@ -128,11 +133,13 @@ public class Indexer {
      */
     public Map<String, Integer> getTermFrequency(String content) {
         Map<String, Integer> termFrequency = new HashMap<>();
-
-        String[] terms = content.split("[\\W]+");
+        
+        String[] terms = content.split("[\\W^ç]+");
+        System.out.println(" " + terms.length);
 
         for (String term : terms) {
             //Verifica se o termo esta vazio
+            
             if (termIsEmpty(term)) {
                 continue;
             }
@@ -140,6 +147,7 @@ public class Indexer {
             //Verifica se o termo é uma stopword(Se for, é ignorado)
             if (!StringUtil.isStopWord(term)) {
                 term = ptStemmer.getWordStem(term);
+                //System.out.print(term + " ");
                 //Verifica se o termo ja esta no Map
                 if (termFrequency.containsKey(term)) {
                     //Atualiza a frequencia
@@ -164,12 +172,30 @@ public class Indexer {
     public boolean termIsEmpty(String term) {
         return term.length() == 0;
     }
+    
+    public static long usedMemory() {
+        return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
 
     public static void main(String[] args) {
+        long usedMemBefore = usedMemory(); 
+        long initTime = System.currentTimeMillis();
+        
         String wikipath = "dataset/wikiSample";
         Indexer indexer = new Indexer(wikipath);
         indexer.getFiles();
         
+        long finalTime = System.currentTimeMillis();;
+        long usedMemAfter = usedMemory();
+        
+        long usedMem = usedMemAfter - usedMemBefore;
+        System.out.println("Used memory: " + (usedMem / 1024 / 1024) + "MB");
+        System.out.println("Execution time: " + ((finalTime - initTime) / 1000) + " s");
+        System.out.println("Number of collected pages: " + indexer.getPageCount());
     }
 
 }

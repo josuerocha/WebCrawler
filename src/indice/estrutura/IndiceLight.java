@@ -1,5 +1,9 @@
 package indice.estrutura;
 
+import crawler.PrintColor;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -249,6 +253,7 @@ public class IndiceLight extends Indice {
         PosicaoVetorIndexado[lastId].setPosInicial(lastIterator-numDocs);
         //System.out.println("< " + (lastIterator-numDocs) + " ," + numDocs + ">");
         
+        saveToFile("indice.txt");
     }
 
     /**
@@ -332,6 +337,49 @@ public class IndiceLight extends Indice {
         this.arrFreqTermo[posJ] = freqAux;
         this.arrTermId[posJ] = termAux;
 
+    }
+    
+    public void saveToFile(String filename){
+        BufferedWriter fileWriter = null;
+        try{
+            fileWriter = new BufferedWriter(new FileWriter(filename,false));
+            
+            int cont = 0;
+            for(String key : posicaoIndice.keySet()){
+                
+                fileWriter.write( key + " ");
+                PosicaoVetor posicaoVetor = posicaoIndice.get(key);
+                fileWriter.write("<" + posicaoVetor.getIdTermo() + "," + posicaoVetor.getPosInicial() + "," + posicaoVetor.getNumDocumentos()+ ">");
+                fileWriter.newLine();
+            }
+            
+            fileWriter.newLine();
+            fileWriter.write("DOCIDS ");
+            for(int id : arrDocId){
+                fileWriter.write(id + " ");
+            }
+            
+            fileWriter.newLine();
+            fileWriter.write("TERMIDS ");
+            for(int id : arrTermId){
+                fileWriter.write(id + " ");
+            }
+            
+            fileWriter.newLine();
+            fileWriter.write("FREQUENCY ");
+            for(int id : arrFreqTermo){
+                fileWriter.write(id + " ");
+            }
+            
+            fileWriter.newLine();
+            
+            fileWriter.close();
+        }
+        catch(IOException ex){
+            System.out.println(PrintColor.RED + "ERROR SAVING FILE" + PrintColor.RESET);
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 ////////////////////////////////////////////FIM//////////////////////////////////////////////////////////
 

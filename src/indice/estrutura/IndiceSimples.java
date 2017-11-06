@@ -111,6 +111,7 @@ public class IndiceSimples extends Indice {
         return mapIndice.get(termo);
     }
     
+    @Override
     public void saveToFile(String filename){
         BufferedWriter fileWriter = null;
         try{
@@ -121,7 +122,7 @@ public class IndiceSimples extends Indice {
                 
                 fileWriter.write( key + " ");
                 for(Ocorrencia occur : mapIndice.get(key)){
-                    fileWriter.write("< " + occur.getDocId() + "," + occur.getFreq() + "> ");
+                    fileWriter.write("<" + occur.getDocId() + "," + occur.getFreq() + "> ");
                 }
                 
                 fileWriter.newLine();
