@@ -13,6 +13,8 @@ import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import crawler.PrintColor;
+import org.htmlcleaner.PrettyXmlSerializer;
+import org.htmlcleaner.XmlSerializer;
 
 /**
  *
@@ -122,4 +124,18 @@ public class HtmlProcessor {
         return permission;
 
     }
+    
+    public String extractText(String pageContent) {
+        TagNode rootNode = htmlCleaner.clean(pageContent);
+        CleanerProperties cleanerProperties = htmlCleaner.getProperties();
+        cleanerProperties.setOmitXmlDeclaration(true);
+
+// use the getAsString method on an XmlSerializer class
+        XmlSerializer xmlSerializer = new PrettyXmlSerializer(cleanerProperties);
+        String        html          = xmlSerializer.getAsString(rootNode);
+        
+        return html;
+    }
+    
+    
 }

@@ -19,9 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.clapper.util.html.HTMLUtil;
 import ptstemmer.exceptions.PTStemmerException;
 import ptstemmer.implementations.OrengoStemmer;
+import org.jsoup.Jsoup;
 
 public class Indexer {
 
@@ -44,7 +44,7 @@ public class Indexer {
 
         try {
             ptStemmer = new OrengoStemmer();
-            //indice = new IndiceLight(15000);
+            //indice = new IndiceLight(15000000);
             indice = new IndiceSimples();
         } catch (PTStemmerException ex) {
             Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +66,8 @@ public class Indexer {
                     try {
                         // Lê conteudo do arquivo HTML
                         String content = ArquivoUtil.leTexto(htmlFile);
-                        System.out.println(htmlFile.getName());
+                        System.out.println(" ");
+                        System.out.print(PrintColor.BLUE + htmlFile.getName() + PrintColor.RESET);
 
                         // Obtem o id do documento, a partir dos numeros do nome do arquivo
                         Matcher matcher = docIdPattern.matcher(htmlFile.getName());
@@ -74,7 +75,9 @@ public class Indexer {
                         int docId = Integer.parseInt(matcher.group());
 
                         // Indexa o texto do documento
-                        indexDocument(HTMLUtil.textFromHTML(content), docId);
+                        content = Jsoup.parse(content).text();
+                        //System.out.println(content);
+                        indexDocument(content, docId);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -128,9 +131,9 @@ public class Indexer {
      */
     public Map<String, Integer> getTermFrequency(String content) {
         Map<String, Integer> termFrequency = new HashMap<>();
-
         
         String[] terms = content.split("[\\W]+");
+        System.out.println(" " + terms.length);
 
         for (String term : terms) {
             //Verifica se o termo esta vazio
@@ -142,6 +145,7 @@ public class Indexer {
             //Verifica se o termo é uma stopword(Se for, é ignorado)
             if (!StringUtil.isStopWord(term)) {
                 term = ptStemmer.getWordStem(term);
+                //System.out.print(term + " ");
                 //Verifica se o termo ja esta no Map
                 if (termFrequency.containsKey(term)) {
                     //Atualiza a frequencia
