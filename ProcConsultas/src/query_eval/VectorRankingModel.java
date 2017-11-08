@@ -16,15 +16,19 @@ public class VectorRankingModel implements RankingModel
 	
 	public static double tf(int freqTerm)
 	{
-		
+		if(freqTerm > 0){
+			return 1 + Math.log(freqTerm);
+		}else{
+			return 0;
+		}
 	}
 	public static double idf(int numDocs,int numDocsTerm)
 	{
-
+		return Math.log(numDocs / numDocsTerm);
 	}
 	public static double tfIdf(int numDocs,int freqTerm,int numDocsTerm)
 	{
-
+		return tf(freqTerm)*idf(numDocs,numDocsTerm);
 	}
 	public VectorRankingModel(IndicePreCompModelo idxPrecomp)
 	{
@@ -44,6 +48,7 @@ public class VectorRankingModel implements RankingModel
 			Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs) {
 		
 		Map<Integer,Double> dj_weight = new HashMap<Integer,Double>();
+		
 		
 		return null;
 	}

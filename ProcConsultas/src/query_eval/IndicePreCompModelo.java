@@ -41,7 +41,12 @@ public class IndicePreCompModelo{
 	 * @param oc
 	 */
 	public void updateSumSquaredForNorm(int numDocsTerm, Ocorrencia oc) {
-		
+		double tfidfSquared = Math.pow(VectorRankingModel.tfIdf(this.numDocumentos, oc.getFreq(), numDocsTerm), 2) ;
+		if(normaPorDocumento.containsKey(oc.getDocId())){			
+			normaPorDocumento.put(oc.getDocId(), normaPorDocumento.get(oc.getDocId()) + tfidfSquared);			
+		}else{
+			normaPorDocumento.put(oc.getDocId(), tfidfSquared);
+		}	
 	}
 	/**
 	 * Atualiza o tamPorDocumento com mais uma cocorrencia 
@@ -66,7 +71,26 @@ public class IndicePreCompModelo{
 	 * @param idx
 	 */
 	private void precomputeValues(Indice idx) {
-
+		this.numDocumentos = idx.getNumDocumentos();
+		
+		for(String termo: idx.getListTermos()){
+			for(Ocorrencia occur : idx.getListOccur(termo)){
+				updateDocTam(occur);
+				updateSumSquaredForNorm(idx.getListOccur(termo).size(),occur);			
+			}
+		
+		}
+		
+		for(String doc : idx.getNumDocPerTerm().keySet()){
+			this.avgLenPerDocument += idx.getNumDocPerTerm().get(doc);
+		}
+		this.avgLenPerDocument /= this.numDocumentos;
+		
+		for(Integer docid : normaPorDocumento.keySet()){
+			normaPorDocumento.put(docid, Math.sqrt(this.normaPorDocumento.get(docid))); 
+		}
+		
+		
 	}
 
 
