@@ -49,8 +49,27 @@ public class VectorRankingModel implements RankingModel
 		
 		Map<Integer,Double> dj_weight = new HashMap<Integer,Double>();
 		
+		double wiq;
+		double wij;
+		Ocorrencia ocur;
+		for(String term : mapQueryOcur.keySet()) {
+			ocur = mapQueryOcur.get(term);
+			wiq = tfIdf(idxPrecompVals.getNumDocumentos(), ocur.getFreq(), 
+					lstOcorrPorTermoDocs.get(term).size() );
+			
+			for(Ocorrencia docOcur : lstOcorrPorTermoDocs.get(term)) {
+				wij = tfIdf(idxPrecompVals.getNumDocumentos(), docOcur.getFreq(), 
+						lstOcorrPorTermoDocs.get(term).size());
+				
+				dj_weight.put(docOcur.getDocId(), wij * wiq + dj_weight.get(term));
+			}
+		}
+		for(Integer djId : dj_weight.keySet()) {
+			Double novoPeso = dj_weight.get(djId)/idxPrecompVals.getNormaPorDocumento().get(djId);
+			dj_weight.put(djId, novoPeso) ;
+		}
 		
-		return null;
+		return UtilQuery.getOrderedList(dj_weight);
 	}
 	
 	

@@ -26,17 +26,18 @@ public class BM25RankingModel implements RankingModel
 	 * @param numDocsArticle
 	 * @return
 	 */
-	public double idf(int numDocs,int numDocsArticle)
-	{
-		return 0.0;
+	public double idf(int numDocs,int numDocsArticle){	
+		return Math.log((numDocs - numDocsArticle + 0.5)/ (numDocsArticle + 0.5));
 	}
 	/**
 	 * Calcula o beta_{i,j}
 	 * @param freqTerm
 	 * @return
 	 */
-	public double beta_ij(int freqTermDoc) {
-		return 0;
+	public double beta_ij(int docId, int freqTermDoc) {
+		int docLength = this.idxPrecompVals.getDocumentLength(docId);
+		double docsAvg = this.idxPrecompVals.getAvgLenPerDocument();
+		return ((k1 +1) * freqTermDoc) / (k1 * ((1 - b) + (b*docLength/docsAvg)) + freqTermDoc);
 	}
 	
 	/**
@@ -49,13 +50,24 @@ public class BM25RankingModel implements RankingModel
 	 */
 	@Override
 	public List<Integer> getOrderedDocs(Map<String, Ocorrencia> mapQueryOcur,
-			Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs) {
-		
-		
+		Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs) {
+	
 		Map<Integer,Double> dj_weight = new HashMap<Integer,Double>();
 		
+		double idf;
+		double bij;
+		Ocorrencia ocur;
+		for(String term : mapQueryOcur.keySet()) {
+			ocur = mapQueryOcur.get(term);
+			idf = idf(idxPrecompVals.getNumDocumentos(), lstOcorrPorTermoDocs.get(term).size() );
+			
+			for(Ocorrencia docOcur : lstOcorrPorTermoDocs.get(term)) {
+				bij = beta_ij(docOcur.getDocId(), docOcur.getFreq());				
+				dj_weight.put(docOcur.getDocId(), bij * idf + dj_weight.get(term));
+			}
+		}		
 		
-		
+		return UtilQuery.getOrderedList(dj_weight);
 
 	}
 	
