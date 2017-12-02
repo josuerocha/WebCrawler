@@ -13,7 +13,10 @@ import util.StringUtil;
 import util.ArquivoUtil;
 import ptstemmer.Stemmer;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +34,9 @@ public class Indexer {
     private Stemmer ptStemmer;
     private Indice indice;
     private int pageCount = 0;
+    
+    
+    private static Map<Integer, String> docIdPerTitle = new HashMap<>();
 
     /**
      * Construtor da classe Indexer, ele recebe o caminho do diretorio dos
@@ -89,7 +95,7 @@ public class Indexer {
         } else {
             System.out.println(PrintColor.RED + "ERRO: O diretório especificado não existe");
         }
-        
+
         indice.concluiIndexacao();
     }
 
@@ -114,7 +120,7 @@ public class Indexer {
         for (String term : termFrequency.keySet()) {
             indice.index(term, docId, termFrequency.get(term));
         }
-        
+
         pageCount++;
     }
 
@@ -133,13 +139,13 @@ public class Indexer {
      */
     public Map<String, Integer> getTermFrequency(String content) {
         Map<String, Integer> termFrequency = new HashMap<>();
-        
+
         String[] terms = content.split("[\\W^ç]+");
         System.out.println(" " + terms.length);
 
         for (String term : terms) {
             //Verifica se o termo esta vazio
-            
+
             if (termIsEmpty(term)) {
                 continue;
             }
@@ -168,11 +174,10 @@ public class Indexer {
      * @param term
      * @return boolean
      */
-
     public boolean termIsEmpty(String term) {
         return term.length() == 0;
     }
-    
+
     public static long usedMemory() {
         return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
     }
@@ -181,21 +186,51 @@ public class Indexer {
         return pageCount;
     }
 
-    public static void main(String[] args) {
-        long usedMemBefore = usedMemory(); 
-        long initTime = System.currentTimeMillis();
+    public Indice getIndice() {
+        return this.indice;
+    }
+
+    public void getTitlePerDocs(String docsTitlesPath) {
+        File docsTitlesFile = new File(docsTitlesPath);
+        String content = "";
+        if(docsTitlesFile.exists()){
+            try {
+                content = ArquivoUtil.leTexto(docsTitlesFile);
+                String lines[] = content.split("\n");                
+                for(String line : lines){
+                    String id_Title[] = line.split(";");
+                    //posicao 0 -> docId  posicao 1 -> doc title
+                    docIdPerTitle.put(Integer.parseInt(id_Title[0]), id_Title[1]);                    
+                }  
+                
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }            
+        }
         
-        String wikipath = "dataset/wikiSample";
-        Indexer indexer = new Indexer(wikipath);
-        indexer.getFiles();
+    }
+    
+    public List<String> getResultsTitles(List<Integer> resultsIds){
         
-        long finalTime = System.currentTimeMillis();;
+        List<String> results = new ArrayList<>();
+        for(Integer docId : resultsIds){
+            String docTitle = docIdPerTitle.get(docId);
+            results.add(docTitle);
+        }
+        return results;        
+    }
+
+    public void inicialize() {        
+        long usedMemBefore = usedMemory();
+        //long initTime = System.currentTimeMillis();                
+        getFiles();
+        //long finalTime = System.currentTimeMillis();;
         long usedMemAfter = usedMemory();
-        
         long usedMem = usedMemAfter - usedMemBefore;
         System.out.println("Used memory: " + (usedMem / 1024 / 1024) + "MB");
-        System.out.println("Execution time: " + ((finalTime - initTime) / 1000) + " s");
-        System.out.println("Number of collected pages: " + indexer.getPageCount());
+        //System.out.println("Execution time: " + ((finalTime - initTime) / 1000) + " s");
+        System.out.println("Number of collected pages: " + getPageCount());
+        System.out.println("________________________________________________");
     }
 
 }

@@ -134,6 +134,7 @@ public class IndiceSimples extends Indice {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
-    }
+    }    
+  
 
 }
