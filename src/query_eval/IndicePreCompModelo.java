@@ -41,7 +41,7 @@ public class IndicePreCompModelo{
 	 * @param oc
 	 */
 	public void updateSumSquaredForNorm(int numDocsTerm, Ocorrencia oc) {
-		double tfidfSquared = Math.pow(VectorRankingModel.tfIdf(this.numDocumentos, oc.getFreq(), numDocsTerm), 2) ;
+		double tfidfSquared = Math.pow(VectorRankingModel.tfIdf(this.numDocumentos, oc.getFreq(), numDocsTerm), 2);
 		if(normaPorDocumento.containsKey(oc.getDocId())){			
 			normaPorDocumento.put(oc.getDocId(), normaPorDocumento.get(oc.getDocId()) + tfidfSquared);			
 		}else{

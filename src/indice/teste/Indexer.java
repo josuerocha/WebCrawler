@@ -230,6 +230,7 @@ public class Indexer {
         System.out.println("Used memory: " + (usedMem / 1024 / 1024) + "MB");
         //System.out.println("Execution time: " + ((finalTime - initTime) / 1000) + " s");
         System.out.println("Number of collected pages: " + getPageCount());
+        System.out.println(PrintColor.GREEN + "CARREGAMENTO DO ÍNDICE COMPLETADO" + PrintColor.RESET);
         System.out.println("________________________________________________");
     }
 
