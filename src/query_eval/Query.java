@@ -1,5 +1,6 @@
 package query_eval;
 
+import InterfaceGrafica.TelaConsulta;
 import crawler.PrintColor;
 import indice.estrutura.Ocorrencia;
 import indice.teste.Indexer;
@@ -21,10 +22,9 @@ public class Query {
     private static Stemmer ptStemmer;
     private Indexer indexer;
     private OPERATOR boolOperator = null;
+    private IndicePreCompModelo idxPrecomp;
     
-    
-    public void inicialize(int model, String query) {
-        
+    public void preprocess(){
         try {
             ptStemmer = new OrengoStemmer();
         } catch (PTStemmerException ex) {
@@ -32,19 +32,21 @@ public class Query {
         }
         
         String wikipath = "dataset/wikiSample"; 
-        Indexer indexer = new Indexer(wikipath);
+        indexer = new Indexer(wikipath);
         //Carregamento completo do índice
         indexer.inicialize();
         
         // Preprocessamento de valores necessários para o modelo vetorial e BM25
-        //IndicePreCompModelo idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
+        //idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
         
         //Preprocessamento dos documentos relevantes nas coleções de referência
             
         //Preprocessamento dos títulos por documentos
         String docsTitlesPath = "dataset/titlePerDoc.dat";
-        indexer.getTitlePerDocs(docsTitlesPath);     
-
+        indexer.getTitlePerDocs(docsTitlesPath);   
+    }
+    public void inicialize(int model, String query) {
+                
         // ciclotimia popolazione
         String terms[] = query.split("[\\W^ç]+");
 
@@ -85,7 +87,7 @@ public class Query {
             System.out.println(docTitle);
         }
         
-        System.out.println("Tempo de busca: " + ((finalTime - initTime) / 1000) + " s");
+        System.out.println(PrintColor.GREEN + "Tempo de busca: " + ((finalTime - initTime) / 1000) + " s" + PrintColor.RESET);
     }
     
     public List<String> getResults(){

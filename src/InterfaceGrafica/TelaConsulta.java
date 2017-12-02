@@ -16,7 +16,7 @@ import query_eval.Query;
  */
 public class TelaConsulta extends javax.swing.JFrame {
 
-    private Query query = new Query();
+    private static Query query = new Query();
 
     /**
      * Creates new form TelaConsulta
@@ -24,7 +24,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     public TelaConsulta() {
         initComponents();
         buttonAND.setSelected(true);
-        
+
     }
 
     /**
@@ -177,10 +177,13 @@ public class TelaConsulta extends javax.swing.JFrame {
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
-        if (!textConsulta.getText().equals("")) {            
+        if (!textConsulta.getText().equals("")) {
             if (button1.isSelected()) {
-                if(buttonAND.isSelected()) query.setOperator(OPERATOR.AND);
-                else if(buttonOR.isSelected()) query.setOperator(OPERATOR.OR);                
+                if (buttonAND.isSelected()) {
+                    query.setOperator(OPERATOR.AND);
+                } else if (buttonOR.isSelected()) {
+                    query.setOperator(OPERATOR.OR);
+                }
                 query.inicialize(1, textConsulta.getText());
 
             } else if (button2.isSelected()) {
@@ -200,7 +203,7 @@ public class TelaConsulta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonSearchActionPerformed
 
-   
+
     private void textConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textConsultaActionPerformed
@@ -253,10 +256,11 @@ public class TelaConsulta extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() {                
+                query.preprocess();
                 new TelaConsulta().setVisible(true);
             }
         });
