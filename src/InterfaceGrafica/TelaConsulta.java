@@ -7,6 +7,7 @@ package InterfaceGrafica;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import query_eval.BooleanRankingModel.OPERATOR;
 import query_eval.Query;
 
 /**
@@ -22,7 +23,8 @@ public class TelaConsulta extends javax.swing.JFrame {
      */
     public TelaConsulta() {
         initComponents();
-
+        buttonAND.setSelected(true);
+        
     }
 
     /**
@@ -35,6 +37,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lista = new javax.swing.JList<>();
@@ -44,6 +47,8 @@ public class TelaConsulta extends javax.swing.JFrame {
         button2 = new javax.swing.JRadioButton();
         button3 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
+        buttonAND = new javax.swing.JRadioButton();
+        buttonOR = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Máquina de Busca");
@@ -77,6 +82,11 @@ public class TelaConsulta extends javax.swing.JFrame {
 
         buttonGroup1.add(button2);
         button2.setText("Vetorial");
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(button3);
         button3.setText("BM25");
@@ -87,6 +97,19 @@ public class TelaConsulta extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Digite sua pesquisa aqui:");
+
+        buttonGroup2.add(buttonAND);
+        buttonAND.setText("AND");
+        buttonAND.setEnabled(false);
+        buttonAND.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonANDActionPerformed(evt);
+            }
+        });
+
+        buttonGroup2.add(buttonOR);
+        buttonOR.setText("OR");
+        buttonOR.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,7 +129,11 @@ public class TelaConsulta extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(button2)
                                 .addGap(18, 18, 18)
-                                .addComponent(button3))))
+                                .addComponent(button3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonAND)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonOR))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1))
@@ -128,6 +155,10 @@ public class TelaConsulta extends javax.swing.JFrame {
                     .addComponent(button2)
                     .addComponent(button3))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAND)
+                    .addComponent(buttonOR))
+                .addGap(27, 27, 27)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,8 +177,10 @@ public class TelaConsulta extends javax.swing.JFrame {
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
-        if(!textConsulta.getText().equals("")){
+        if (!textConsulta.getText().equals("")) {            
             if (button1.isSelected()) {
+                if(buttonAND.isSelected()) query.setOperator(OPERATOR.AND);
+                else if(buttonOR.isSelected()) query.setOperator(OPERATOR.OR);                
                 query.inicialize(1, textConsulta.getText());
 
             } else if (button2.isSelected()) {
@@ -156,10 +189,10 @@ public class TelaConsulta extends javax.swing.JFrame {
             } else if (button3.isSelected()) {
                 query.inicialize(3, textConsulta.getText());
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma Modelagem de Dados");                
+                JOptionPane.showMessageDialog(null, "Selecione uma Modelagem de Dados");
             }
             DefaultListModel model = new DefaultListModel();
-            for (String result : query.getResults()) {            
+            for (String result : query.getResults()) {
                 model.addElement(result);
             }
             lista.setModel(model);
@@ -167,17 +200,32 @@ public class TelaConsulta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonSearchActionPerformed
 
+   
     private void textConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textConsultaActionPerformed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
+        buttonAND.setEnabled(true);
+        buttonOR.setEnabled(true);
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        buttonAND.setEnabled(false);
+        buttonOR.setEnabled(false);
     }//GEN-LAST:event_button3ActionPerformed
+
+    private void buttonANDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonANDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonANDActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+        // TODO add your handling code here:        
+        buttonAND.setEnabled(false);
+        buttonOR.setEnabled(false);
+    }//GEN-LAST:event_button2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +266,10 @@ public class TelaConsulta extends javax.swing.JFrame {
     private javax.swing.JRadioButton button1;
     private javax.swing.JRadioButton button2;
     private javax.swing.JRadioButton button3;
+    private javax.swing.JRadioButton buttonAND;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JRadioButton buttonOR;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
