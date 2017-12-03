@@ -11,7 +11,7 @@ import util.ArquivoUtil;
 public class Avaliacao {
 
     private double precisao[] = new double[4];
-    private double[] revocacao = new double[4];
+    private double revocacao[] = new double[4];
     private List<Integer> docsRelevantes = new ArrayList<>();
 
     public void preProcessa(String docsRelevPath) {
@@ -35,51 +35,51 @@ public class Avaliacao {
     }
 
     public void avalia(List<Integer> results) {
-        List<Integer> fracaoRelevantes;
+        List<Integer> fracaoResults;
 
-        if (docsRelevantes.size() >= 5) {
+        if (results.size() >= 5) {
             //Precisao @5
-            fracaoRelevantes = docsRelevantes.subList(0, 4);
-            double retorno[] = calcula(results, fracaoRelevantes);
+            fracaoResults = results.subList(0, 4);
+            double retorno[] = calcula(fracaoResults);
             precisao[0] = retorno[0];
             revocacao[0] = retorno[1];
-            System.out.println("SAIU IF 1");
+            //System.out.println("SAIU IF 1");
 
-            if (docsRelevantes.size() >= 10) {
+            if (results.size() >= 10) {
                 //Precisao @10
-                fracaoRelevantes = docsRelevantes.subList(0, 9);
-                retorno = calcula(results, fracaoRelevantes);                
+                fracaoResults = results.subList(0, 9);
+                retorno = calcula(fracaoResults);                
                 precisao[1] = retorno[0];
                 revocacao[1] = retorno[1];
-                System.out.println("SAIU IF 2");                
+                //System.out.println("SAIU IF 2");                
 
-                if (docsRelevantes.size() >= 25) {
+                if (results.size() >= 25) {
                     //Precisao @25
-                    fracaoRelevantes = docsRelevantes.subList(0, 24);
-                    retorno = calcula(results, fracaoRelevantes);
+                    fracaoResults = results.subList(0, 24);
+                    retorno = calcula(fracaoResults);
                     precisao[2] = retorno[0];
                     revocacao[2] = retorno[1];
-                    System.out.println("SAIU IF 3");
+                   // System.out.println("SAIU IF 3");
 
-                    if (docsRelevantes.size() >= 50) {
+                    if (results.size() >= 50) {
                         //Precisao @50
-                        fracaoRelevantes = docsRelevantes.subList(0, 49);
-                        retorno = calcula(results, fracaoRelevantes);
+                        fracaoResults = results.subList(0, 49);
+                        retorno = calcula(fracaoResults);
                         precisao[3] = retorno[0];
-                        revocacao[4] = retorno[1];
-                        System.out.println("SAIU IF 4");
+                        revocacao[3] = retorno[1];
+                        //System.out.println("SAIU IF 4");
                     }
                 }
             }
         }
     }
 
-    public double[] calcula(List<Integer> results, List<Integer> fracaoRelevantes) {
+    public double[] calcula(List<Integer> fracaoResults) {
         List<Integer> intersection = new ArrayList<>();
         double retorno[] = new double[2];
         double precisao, revocacao;
-        for (Integer docResult : results) {
-            if (fracaoRelevantes.contains(docResult)) {
+        for (Integer docResult : fracaoResults) {
+            if (docsRelevantes.contains(docResult)) {
                 intersection.add(docResult);
             }
         }
@@ -88,8 +88,8 @@ public class Avaliacao {
             precisao = 0;
             revocacao = 0;
         } else {
-            precisao = (double) intersection.size() / results.size();
-            revocacao = (double) intersection.size() / fracaoRelevantes.size();
+            precisao = (double) intersection.size() / fracaoResults.size();
+            revocacao = (double) intersection.size() / docsRelevantes.size();
         }
         retorno[0] = precisao;
         retorno[1] = revocacao;

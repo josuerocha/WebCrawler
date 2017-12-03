@@ -42,7 +42,7 @@ public class Query {
         idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
         
         //Preprocessamento dos documentos relevantes nas coleções de referência
-        String docsRelevantesPath = "dataset/docsRelevantes/Belo Horizonte.dat";
+        String docsRelevantesPath = "dataset/docsRelevantes/Irlanda.dat";
         avaliacao.preProcessa(docsRelevantesPath);
             
         //Preprocessamento dos títulos por documentos

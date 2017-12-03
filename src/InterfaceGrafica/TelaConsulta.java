@@ -25,6 +25,8 @@ public class TelaConsulta extends javax.swing.JFrame {
      */
     public TelaConsulta() {
         initComponents();
+        buttonAND.setEnabled(true);
+        buttonOR.setEnabled(true);        
         buttonAND.setSelected(true);
 
     }
