@@ -5,6 +5,8 @@
  */
 package InterfaceGrafica;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import query_eval.BooleanRankingModel.OPERATOR;
@@ -49,6 +51,22 @@ public class TelaConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         buttonAND = new javax.swing.JRadioButton();
         buttonOR = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        precision5 = new javax.swing.JTextField();
+        precision10 = new javax.swing.JTextField();
+        precision25 = new javax.swing.JTextField();
+        precision50 = new javax.swing.JTextField();
+        recall25 = new javax.swing.JTextField();
+        recall50 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        recall5 = new javax.swing.JTextField();
+        recall10 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Máquina de Busca");
@@ -73,6 +91,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(button1);
+        button1.setSelected(true);
         button1.setText("Boolean");
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +130,59 @@ public class TelaConsulta extends javax.swing.JFrame {
         buttonOR.setText("OR");
         buttonOR.setEnabled(false);
 
+        jLabel3.setText("Precision @5");
+
+        jLabel4.setText("Precision @10");
+
+        jLabel5.setText("Precision @25");
+
+        jLabel6.setText("Precision @50");
+
+        precision5.setEditable(false);
+        precision5.setToolTipText("");
+
+        precision10.setEditable(false);
+
+        precision25.setEditable(false);
+        precision25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precision25ActionPerformed(evt);
+            }
+        });
+
+        precision50.setEditable(false);
+        precision50.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precision50ActionPerformed(evt);
+            }
+        });
+
+        recall25.setEditable(false);
+
+        recall50.setEditable(false);
+        recall50.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recall50ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Recall @5");
+
+        jLabel8.setText("Recall @10");
+
+        jLabel9.setText("Recall @25");
+
+        jLabel10.setText("Recall @50");
+
+        recall5.setEditable(false);
+
+        recall10.setEditable(false);
+        recall10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recall10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,10 +211,38 @@ public class TelaConsulta extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7)
+                            .addComponent(recall5)
+                            .addComponent(precision5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8)
+                            .addComponent(recall10)
+                            .addComponent(precision10))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(recall25, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(precision25))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(precision50)
+                            .addComponent(recall50))))
+                .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,10 +264,34 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addComponent(textConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(precision5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(precision10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(precision25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(precision50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(recall5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recall10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recall25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recall50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 110, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -178,31 +302,53 @@ public class TelaConsulta extends javax.swing.JFrame {
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
         if (!textConsulta.getText().equals("")) {
+
             if (button1.isSelected()) {
                 if (buttonAND.isSelected()) {
                     query.setOperator(OPERATOR.AND);
                 } else if (buttonOR.isSelected()) {
                     query.setOperator(OPERATOR.OR);
                 }
-                query.inicialize(1, textConsulta.getText());
+                query.start(1, textConsulta.getText());
 
             } else if (button2.isSelected()) {
-                query.inicialize(2, textConsulta.getText());
+                query.start(2, textConsulta.getText());
 
             } else if (button3.isSelected()) {
-                query.inicialize(3, textConsulta.getText());
+                query.start(3, textConsulta.getText());
             } else {
                 JOptionPane.showMessageDialog(null, "SELECIONE A MODELAGEM DE DADOS");
             }
-            DefaultListModel model = new DefaultListModel();            
+            DefaultListModel model = new DefaultListModel();
             for (String result : query.getResults()) {
                 model.addElement(result);
             }
-            if(query.getResults().isEmpty()){
+            if (query.getResults().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "NÃO FORAM ENCONTRADOS RESULTADOS PARA SUA PESQUISA");
             }
             lista.setModel(model);
+            // Print Precisao e Regressao
+            double precisao[] = query.getAvaliacao().getPrecisao();
+            double revocacao[] = query.getAvaliacao().getRevocacao();
+            DecimalFormat df = new DecimalFormat("###.###");
+            df.setRoundingMode(RoundingMode.UP);
+            
+            switch (precisao.length) {
+                case 4:
+                    precision50.setText(df.format(100*precisao[3]) + " %");
+                    recall50.setText(df.format(100*revocacao[3]) + " %");
+                case 3:
+                    precision25.setText(df.format(100*precisao[2]) + " %");
+                    recall25.setText(df.format(100*revocacao[2]) + " %");
+                case 2:
+                    precision10.setText(df.format(100*precisao[1]) + " %");
+                    recall10.setText(df.format(100*revocacao[1]) + " %");
+                case 1:
+                    precision5.setText(df.format(100*precisao[0]) + " %");
+                    recall5.setText(df.format(100*revocacao[0]) + " %");
+            }
         }
+
 
     }//GEN-LAST:event_buttonSearchActionPerformed
 
@@ -233,6 +379,22 @@ public class TelaConsulta extends javax.swing.JFrame {
         buttonOR.setEnabled(false);
     }//GEN-LAST:event_button2ActionPerformed
 
+    private void precision50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precision50ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precision50ActionPerformed
+
+    private void recall50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recall50ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_recall50ActionPerformed
+
+    private void recall10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recall10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_recall10ActionPerformed
+
+    private void precision25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precision25ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precision25ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -259,10 +421,10 @@ public class TelaConsulta extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {                
+            public void run() {
                 query.preprocess();
                 new TelaConsulta().setVisible(true);
             }
@@ -279,9 +441,25 @@ public class TelaConsulta extends javax.swing.JFrame {
     private javax.swing.JRadioButton buttonOR;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> lista;
+    private javax.swing.JTextField precision10;
+    private javax.swing.JTextField precision25;
+    private javax.swing.JTextField precision5;
+    private javax.swing.JTextField precision50;
+    private javax.swing.JTextField recall10;
+    private javax.swing.JTextField recall25;
+    private javax.swing.JTextField recall5;
+    private javax.swing.JTextField recall50;
     private javax.swing.JTextField textConsulta;
     // End of variables declaration//GEN-END:variables
 }

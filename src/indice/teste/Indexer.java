@@ -231,7 +231,7 @@ public class Indexer {
         //System.out.println("Execution time: " + ((finalTime - initTime) / 1000) + " s");
         System.out.println("Number of collected pages: " + getPageCount());
         System.out.println(PrintColor.GREEN + "CARREGAMENTO DO ÍNDICE COMPLETADO" + PrintColor.RESET);
-        System.out.println("________________________________________________");
+        System.out.println(PrintColor.RED + "_______________________________________________________________________" + PrintColor.RESET);
     }
 
 }

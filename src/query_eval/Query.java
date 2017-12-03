@@ -19,10 +19,12 @@ import util.StringUtil;
 
 public class Query {
     private List<String> resultsTitles;
+    private List<Integer> resultsIds;
     private static Stemmer ptStemmer;
     private Indexer indexer;
     private OPERATOR boolOperator = null;
     private IndicePreCompModelo idxPrecomp;
+    private Avaliacao avaliacao = new Avaliacao();
     
     public void preprocess(){
         try {
@@ -40,6 +42,8 @@ public class Query {
         idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
         
         //Preprocessamento dos documentos relevantes nas coleções de referência
+        String docsRelevantesPath = "dataset/docsRelevantes/Belo Horizonte.dat";
+        avaliacao.preProcessa(docsRelevantesPath);
             
         //Preprocessamento dos títulos por documentos
         String docsTitlesPath = "dataset/titlePerDoc.dat";
@@ -47,7 +51,7 @@ public class Query {
     }
     
     
-    public void inicialize(int model, String query) {
+    public void start(int model, String query) {
                 
         // ciclotimia popolazione
         String terms[] = query.split("[\\W^ç]+");
@@ -89,16 +93,31 @@ public class Query {
                     rank = new BM25RankingModel(idxPrecomp, b, k);
                     break;
         }
-        List<Integer> resultsIds = rank.getOrderedDocs(mapQueryOcur, lstOcorrPorTermoDocs);
+        resultsIds = rank.getOrderedDocs(mapQueryOcur, lstOcorrPorTermoDocs);
         resultsTitles = indexer.getResultsTitles(resultsIds);
         long finalTime = System.currentTimeMillis();
-        System.out.println(PrintColor.BLUE + "\n\n RESULTADOS" + PrintColor.RESET);
+        //System.out.println(PrintColor.BLUE + "\n\n RESULTADOS" + PrintColor.RESET);
         
-        for (String docTitle : resultsTitles) {
-            System.out.println(docTitle);
-        }
-        
+        //for (String docTitle : resultsTitles) {
+        //    System.out.println(docTitle);
+        //}        
         System.out.println(PrintColor.GREEN + "Tempo de busca: " + ((finalTime - initTime) / 1000) + " s" + PrintColor.RESET);
+        
+        avaliacao.avalia(resultsIds);
+        System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[0] + "\t");
+        System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[1] + "\t");
+        System.out.print(PrintColor.RED + "Precisão: " + avaliacao.getPrecisao()[2] + "\t");
+        //System.out.println(PrintColor.RED + "Precisão: " + avaliacao.getPrecisao()[3] + "\t" + PrintColor.RESET);
+        
+        System.out.print(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[0] + "\t");
+        System.out.print(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[1] + "\t");
+        System.out.println(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[2] + "\t");
+        //System.out.println(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[3] + "\t" + PrintColor.RESET);
+        System.out.println(PrintColor.RED + "_______________________________________________________________________" + PrintColor.RESET);
+    }
+    
+    public Avaliacao getAvaliacao(){
+        return avaliacao;
     }
     
     public List<String> getResults(){
