@@ -23,9 +23,7 @@ public class IndicePreCompModelo {
 
     public IndicePreCompModelo(Indice idx) {
         this.idx = idx;
-
         precomputeValues(idx);
-
     }
 
     /**
@@ -79,21 +77,21 @@ public class IndicePreCompModelo {
                 updateDocTam(occur);
                 updateSumSquaredForNorm(idx.getListOccur(termo).size(), occur);
             }
-            System.out.println("SAIU FOR 0");
+            //System.out.println("SAIU FOR 0");
 
         }
-        System.out.println("SAIU FOR 1");
+        //System.out.println("SAIU FOR 1");
 
         for (Integer tamDoc : tamPorDocumento.keySet()) {
             this.avgLenPerDocument += tamDoc;
         }
-        System.out.println("SAIU FOR 2");
+        //System.out.println("SAIU FOR 2");
         this.avgLenPerDocument /= this.numDocumentos;
 
         for (Integer docid : normaPorDocumento.keySet()) {
             normaPorDocumento.put(docid, Math.sqrt(this.normaPorDocumento.get(docid)));
         }
-        System.out.println("SAIU FOR 3");
+        //System.out.println("SAIU FOR 3");
 
     }
 

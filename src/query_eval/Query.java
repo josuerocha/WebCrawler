@@ -54,12 +54,20 @@ public class Query {
 
         Map<String, Ocorrencia> mapQueryOcur = new HashMap<>();
         Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs = new HashMap<>();
-
+        int count = 0;
         for (String term : terms) {
+            count = 0;
             if (!StringUtil.isStopWord(term)) {
                 term = StringUtil.replaceAcento(term);
                 term = term.toLowerCase();
                 term = ptStemmer.getWordStem(term);
+                if(!mapQueryOcur.containsKey(term)){
+                //docid = -1 -> consulta
+                    mapQueryOcur.put(term, new Ocorrencia(1,-1));                    
+                }else{
+                    count = mapQueryOcur.get(term).getFreq() + 1;
+                    mapQueryOcur.get(term).setFreq(count);
+                }
                 System.out.println(PrintColor.RED + "termo: " + term + PrintColor.RESET);
                 List<Ocorrencia> listOcur = indexer.getIndice().getListOccur(term);
                 lstOcorrPorTermoDocs.put(term, listOcur);

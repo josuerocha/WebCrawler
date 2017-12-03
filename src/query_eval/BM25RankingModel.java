@@ -62,12 +62,15 @@ public class BM25RankingModel implements RankingModel {
         for (String term : mapQueryOcur.keySet()) {
             ocur = mapQueryOcur.get(term);
             idf = idf(idxPrecompVals.getNumDocumentos(), lstOcorrPorTermoDocs.get(term).size());
+            System.out.println("SAIU LINHA 1");
 
             for (Ocorrencia docOcur : lstOcorrPorTermoDocs.get(term)) {
                 bij = beta_ij(docOcur.getDocId(), docOcur.getFreq());
-                dj_weight.put(docOcur.getDocId(), bij * idf + dj_weight.get(term));
+                dj_weight.put(docOcur.getDocId(), bij * idf);
             }
+            System.out.println("SAIU FOR 1");
         }
+        System.out.println("SAIU FOR 2");
 
         return UtilQuery.getOrderedList(dj_weight);
 
