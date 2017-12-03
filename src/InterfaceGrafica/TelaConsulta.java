@@ -192,11 +192,14 @@ public class TelaConsulta extends javax.swing.JFrame {
             } else if (button3.isSelected()) {
                 query.inicialize(3, textConsulta.getText());
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma Modelagem de Dados");
+                JOptionPane.showMessageDialog(null, "SELECIONE A MODELAGEM DE DADOS");
             }
-            DefaultListModel model = new DefaultListModel();
+            DefaultListModel model = new DefaultListModel();            
             for (String result : query.getResults()) {
                 model.addElement(result);
+            }
+            if(query.getResults().isEmpty()){
+                JOptionPane.showMessageDialog(null, "NÃO FORAM ENCONTRADOS RESULTADOS PARA SUA PESQUISA");
             }
             lista.setModel(model);
         }

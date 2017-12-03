@@ -84,8 +84,8 @@ public class IndicePreCompModelo {
         }
         System.out.println("SAIU FOR 1");
 
-        for (String doc : idx.getNumDocPerTerm().keySet()) {
-            this.avgLenPerDocument += idx.getNumDocPerTerm().get(doc);
+        for (Integer tamDoc : tamPorDocumento.keySet()) {
+            this.avgLenPerDocument += tamDoc;
         }
         System.out.println("SAIU FOR 2");
         this.avgLenPerDocument /= this.numDocumentos;

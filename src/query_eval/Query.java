@@ -37,7 +37,7 @@ public class Query {
         indexer.inicialize();
         
         // Preprocessamento de valores necessários para o modelo vetorial e BM25
-        //idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
+        idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
         
         //Preprocessamento dos documentos relevantes nas coleções de referência
             
@@ -45,6 +45,8 @@ public class Query {
         String docsTitlesPath = "dataset/titlePerDoc.dat";
         indexer.getTitlePerDocs(docsTitlesPath);   
     }
+    
+    
     public void inicialize(int model, String query) {
                 
         // ciclotimia popolazione
@@ -58,6 +60,7 @@ public class Query {
                 term = StringUtil.replaceAcento(term);
                 term = term.toLowerCase();
                 term = ptStemmer.getWordStem(term);
+                System.out.println(PrintColor.RED + "termo: " + term + PrintColor.RESET);
                 List<Ocorrencia> listOcur = indexer.getIndice().getListOccur(term);
                 lstOcorrPorTermoDocs.put(term, listOcur);
             }
@@ -71,11 +74,11 @@ public class Query {
                     rank = new BooleanRankingModel(boolOperator);
                     break;
             case 2:
-            //        rank = new VectorRankingModel(idxPrecomp);
+                    rank = new VectorRankingModel(idxPrecomp);
                     break;
             case 3: 
                     double b = 0.75; int k = 1;
-            //        rank = new BM25RankingModel(idxPrecomp, b, k);
+                    rank = new BM25RankingModel(idxPrecomp, b, k);
                     break;
         }
         List<Integer> resultsIds = rank.getOrderedDocs(mapQueryOcur, lstOcorrPorTermoDocs);

@@ -85,7 +85,6 @@ public class BooleanRankingModel implements RankingModel {
             }
             docs.retainAll(newList);
         }
-
         return docs;
     }
 
