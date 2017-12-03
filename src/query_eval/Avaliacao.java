@@ -21,7 +21,7 @@ public class Avaliacao {
         if (docsRelevFile.exists()) {
             try {
                 content = ArquivoUtil.leTexto(docsRelevFile).trim();
-                System.out.println(PrintColor.PURPLE + content + PrintColor.RESET);
+                //System.out.println(PrintColor.PURPLE + content + PrintColor.RESET);
                 String vector[] = content.split(",");
                 for (String docId : vector) {
                     docsRelevantes.add(Integer.parseInt(docId));

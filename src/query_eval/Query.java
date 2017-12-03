@@ -42,9 +42,13 @@ public class Query {
         idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
         
         //Preprocessamento dos documentos relevantes nas coleções de referência
-        String docsRelevantesPath = "dataset/docsRelevantes/Irlanda.dat";
-        avaliacao.preProcessa(docsRelevantesPath);
-            
+        String docsRelevantesIrlanda = "dataset/docsRelevantes/Irlanda.dat";
+        avaliacao.preProcessa(docsRelevantesIrlanda);
+        String docsRelevantesBh = "dataset/docsRelevantes/Belo Horizonte.dat";
+        avaliacao.preProcessa(docsRelevantesBh);
+        String docsRelevantesSp = "dataset/docsRelevantes/São Paulo.dat";
+        avaliacao.preProcessa(docsRelevantesSp);
+        
         //Preprocessamento dos títulos por documentos
         String docsTitlesPath = "dataset/titlePerDoc.dat";
         indexer.getTitlePerDocs(docsTitlesPath);   
@@ -106,7 +110,7 @@ public class Query {
         avaliacao.avalia(resultsIds);
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[0] + "\t");
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[1] + "\t");
-        System.out.print(PrintColor.RED + "Precisão: " + avaliacao.getPrecisao()[2] + "\t");
+        System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[2] + "\t");
         //System.out.println(PrintColor.RED + "Precisão: " + avaliacao.getPrecisao()[3] + "\t" + PrintColor.RESET);
         
         System.out.print(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[0] + "\t");
