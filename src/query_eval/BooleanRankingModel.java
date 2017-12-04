@@ -80,10 +80,13 @@ public class BooleanRankingModel implements RankingModel {
         while (it.hasNext()) {
             term = (String) it.next();
             List<Ocorrencia> newList = lstOcorrPorTermoDocs.get(term);
+            System.out.println("NEWLIST SIZE: " + newList.size());
             for (Ocorrencia ocor : lstOcorrPorTermoDocs.get(term)) {
                 docs.add(ocor.getDocId());
             }
+            System.out.println("DOCS SIZE ANTES: " + docs.size());
             docs.retainAll(newList);
+            System.out.println("DOCS SIZE DEPOIS: " + docs.size());
         }
         return docs;
     }

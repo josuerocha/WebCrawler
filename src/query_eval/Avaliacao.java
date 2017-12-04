@@ -24,7 +24,9 @@ public class Avaliacao {
                 //System.out.println(PrintColor.PURPLE + content + PrintColor.RESET);
                 String vector[] = content.split(",");
                 for (String docId : vector) {
-                    docsRelevantes.add(Integer.parseInt(docId));
+                    if (!docsRelevantes.contains(docId)) {
+                        docsRelevantes.add(Integer.parseInt(docId));
+                    }
                 }
 
             } catch (IOException ex) {
@@ -40,18 +42,17 @@ public class Avaliacao {
         if (results.size() >= 5) {
             //Precisao @5
             fracaoResults = results.subList(0, 4);
+            System.out.println("fracaoResults SIZE: " + fracaoResults.size());
             double retorno[] = calcula(fracaoResults);
             precisao[0] = retorno[0];
             revocacao[0] = retorno[1];
-            //System.out.println("SAIU IF 1");
 
             if (results.size() >= 10) {
                 //Precisao @10
                 fracaoResults = results.subList(0, 9);
-                retorno = calcula(fracaoResults);                
+                retorno = calcula(fracaoResults);
                 precisao[1] = retorno[0];
                 revocacao[1] = retorno[1];
-                //System.out.println("SAIU IF 2");                
 
                 if (results.size() >= 25) {
                     //Precisao @25
@@ -59,7 +60,6 @@ public class Avaliacao {
                     retorno = calcula(fracaoResults);
                     precisao[2] = retorno[0];
                     revocacao[2] = retorno[1];
-                   // System.out.println("SAIU IF 3");
 
                     if (results.size() >= 50) {
                         //Precisao @50
@@ -67,7 +67,7 @@ public class Avaliacao {
                         retorno = calcula(fracaoResults);
                         precisao[3] = retorno[0];
                         revocacao[3] = retorno[1];
-                        //System.out.println("SAIU IF 4");
+
                     }
                 }
             }
@@ -94,8 +94,7 @@ public class Avaliacao {
         retorno[0] = precisao;
         retorno[1] = revocacao;
         return retorno;
-    }    
-    
+    }
 
     public double[] getPrecisao() {
         return precisao;

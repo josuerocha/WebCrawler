@@ -111,12 +111,12 @@ public class Query {
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[0] + "\t");
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[1] + "\t");
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[2] + "\t");
-        //System.out.println(PrintColor.RED + "Precisão: " + avaliacao.getPrecisao()[3] + "\t" + PrintColor.RESET);
+        System.out.println(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[3] + "\t" + PrintColor.RESET);
         
         System.out.print(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[0] + "\t");
         System.out.print(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[1] + "\t");
         System.out.println(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[2] + "\t");
-        //System.out.println(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[3] + "\t" + PrintColor.RESET);
+        System.out.println(PrintColor.GREEN + "Revocacao: " + avaliacao.getRevocacao()[3] + "\t" + PrintColor.RESET);
         System.out.println(PrintColor.RED + "_______________________________________________________________________" + PrintColor.RESET);
     }
     

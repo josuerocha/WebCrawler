@@ -55,7 +55,7 @@ public class VectorRankingModel implements RankingModel {
 
             for (Ocorrencia docOcur : lstOcorrPorTermoDocs.get(term)) {
                 wij = tfIdf(idxPrecompVals.getNumDocumentos(), docOcur.getFreq(),
-                        lstOcorrPorTermoDocs.get(term).size());
+                        lstOcorrPorTermoDocs.get(term).size());        
 
                 dj_weight.put(docOcur.getDocId(), wij * wiq / this.idxPrecompVals.getNormaDocumento(docOcur.getDocId()));
             }
@@ -67,5 +67,6 @@ public class VectorRankingModel implements RankingModel {
 
         return UtilQuery.getOrderedList(dj_weight);
     }
+   
 
 }
