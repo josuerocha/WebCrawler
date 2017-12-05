@@ -13,7 +13,13 @@ public class Avaliacao {
     private double precisao[] = new double[4];
     private double revocacao[] = new double[4];
     private List<Integer> docsRelevantes = new ArrayList<>();
-
+    /**
+     * Função inicial que é exucutada ao iniciar a tela de consulta, 
+     * ler os arquivos (BeloHorizonte.bat, Irlanda.bat e SaoPaulo.bat) e salva em uma lista.
+     *
+     * @param docsRelevPath
+     * @return
+     */
     public void preProcessa(String docsRelevPath) {
 
         File docsRelevFile = new File(docsRelevPath);
@@ -35,7 +41,12 @@ public class Avaliacao {
         }
 
     }
-
+    /**
+     * Função que realiza a avaliação da precisão da lista de resultados.
+     *
+     * @param results
+     * @return
+     */
     public void avalia(List<Integer> results) {
         List<Integer> fracaoResults;
 
@@ -73,7 +84,12 @@ public class Avaliacao {
             }
         }
     }
-
+    /**
+     * Calcula a precisão e revocação dada uma lista parcial de resultados.
+     *
+     * @param results
+     * @return
+     */
     public double[] calcula(List<Integer> fracaoResults) {
         List<Integer> intersection = new ArrayList<>();
         double retorno[] = new double[2];

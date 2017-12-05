@@ -25,7 +25,15 @@ public class Query {
     private OPERATOR boolOperator = null;
     private IndicePreCompModelo idxPrecomp;
     private Avaliacao avaliacao = new Avaliacao();
-    
+    /**
+     * Faz o indexamento das paginas localizadas em dataset/wikiSample, 
+     * em seguida preprocessa de valores necessários para o modelo vetorial e BM25,
+     *depois preprocessa dos documentos relevantes nas coleções de referência,
+     *por fim preprocessa dos títulos por documentos.
+     *
+     * @param 
+     * @return
+     */
     public void preprocess(){
         try {
             ptStemmer = new OrengoStemmer();
@@ -54,7 +62,16 @@ public class Query {
         indexer.getTitlePerDocs(docsTitlesPath);   
     }
     
-    
+    /**
+     * Realiza a consulta do termo dado de acordo com o modelo solicitado, 
+     * 1 para Booleano, 2 para Vetorial ou 3 para BM25. Antes de fazer a consulta 
+     * o termo passado é processado de modo a retirar os caracteres especiais, 
+     * as Stopwords e as Letras maiúsculas Logo apos, é feito a consulta.
+     *
+     * @param model
+     * @param query
+     * @return
+     */
     public void start(int model, String query) {
                 
         // ciclotimia popolazione
