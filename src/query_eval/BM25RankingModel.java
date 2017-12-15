@@ -54,7 +54,7 @@ public class BM25RankingModel implements RankingModel {
     public List<Integer> getOrderedDocs(Map<String, Ocorrencia> mapQueryOcur,
             Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs) {
 
-        Map<Integer, Double> dj_weight = new HashMap<Integer, Double>();
+        Map<Integer, Double> dj_weight = new HashMap<>();
 
         double idf;
         double bij;

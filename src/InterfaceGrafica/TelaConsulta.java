@@ -12,10 +12,7 @@ import javax.swing.JOptionPane;
 import query_eval.BooleanRankingModel.OPERATOR;
 import query_eval.Query;
 
-/**
- *
- * @author Caio Silva
- */
+
 public class TelaConsulta extends javax.swing.JFrame {
 
     private static Query query = new Query();

@@ -1,14 +1,11 @@
 package query_eval;
 
-import InterfaceGrafica.TelaConsulta;
 import crawler.PrintColor;
 import indice.estrutura.Ocorrencia;
 import indice.teste.Indexer;
-import static indice.teste.Indexer.usedMemory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ptstemmer.Stemmer;
@@ -44,18 +41,18 @@ public class Query {
         String wikipath = "dataset/wikiSample"; 
         indexer = new Indexer(wikipath);
         //Carregamento completo do índice
-        indexer.inicialize();
+        indexer.initialize();
         
         // Preprocessamento de valores necessários para o modelo vetorial e BM25
         idxPrecomp = new IndicePreCompModelo(indexer.getIndice());
         
         //Preprocessamento dos documentos relevantes nas coleções de referência
         String docsRelevantesIrlanda = "dataset/docsRelevantes/Irlanda.dat";
-        avaliacao.preProcessa(docsRelevantesIrlanda);
+        avaliacao.preProcessa(docsRelevantesIrlanda,"irlanda");
         String docsRelevantesBh = "dataset/docsRelevantes/Belo Horizonte.dat";
-        avaliacao.preProcessa(docsRelevantesBh);
+        avaliacao.preProcessa(docsRelevantesBh,"belo horizonte");
         String docsRelevantesSp = "dataset/docsRelevantes/São Paulo.dat";
-        avaliacao.preProcessa(docsRelevantesSp);
+        avaliacao.preProcessa(docsRelevantesSp,"sao paulo");
         
         //Preprocessamento dos títulos por documentos
         String docsTitlesPath = "dataset/titlePerDoc.dat";
@@ -88,7 +85,7 @@ public class Query {
                 term = ptStemmer.getWordStem(term);
                 if(!mapQueryOcur.containsKey(term)){
                 //docid = -1 -> consulta
-                    mapQueryOcur.put(term, new Ocorrencia(1,-1));                    
+                    mapQueryOcur.put(term, new Ocorrencia(1,1));                    
                 }else{
                     count = mapQueryOcur.get(term).getFreq() + 1;
                     mapQueryOcur.get(term).setFreq(count);
@@ -122,9 +119,9 @@ public class Query {
         //for (String docTitle : resultsTitles) {
         //    System.out.println(docTitle);
         //}        
-        System.out.println(PrintColor.GREEN + "Tempo de busca: " + ((finalTime - initTime) / 1000) + " s" + PrintColor.RESET);
-        
-        avaliacao.avalia(resultsIds);
+        System.out.println(PrintColor.GREEN + "Tempo de busca: " + ((finalTime - initTime)) + " ms" + PrintColor.RESET);
+        System.out.println(PrintColor.GREEN + "QTD resultados: " + resultsIds.size());
+        avaliacao.avalia(resultsIds,query);
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[0] + "\t");
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[1] + "\t");
         System.out.print(PrintColor.BLUE + "Precisão: " + avaliacao.getPrecisao()[2] + "\t");

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import indice.estrutura.Ocorrencia;
+import java.util.Collections;
 
 public class VectorRankingModel implements RankingModel {
 
@@ -12,14 +13,14 @@ public class VectorRankingModel implements RankingModel {
 
     public static double tf(int freqTerm) {
         if (freqTerm > 0) {
-            return 1 + Math.log(freqTerm);
+            return 1 + Math.log(freqTerm) / Math.log(2);
         } else {
             return 0;
         }
     }
 
     public static double idf(int numDocs, int numDocsTerm) {
-        return Math.log(numDocs / numDocsTerm);
+        return Math.log(numDocs / numDocsTerm) / Math.log(2);
     }
 
     public static double tfIdf(int numDocs, int freqTerm, int numDocsTerm) {
@@ -38,34 +39,48 @@ public class VectorRankingModel implements RankingModel {
      * documento (use o idxPrecompVals.getNormaDocumento) Apos ter o peso para
      * cada documento, rode o UtilQuery.getOrderedList para retornar a lista de
      * documentos ordenados pela consulta
+     * @param mapQueryOcur
+     * @param lstOcorrPorTermoDocs
+     * @return 
      */
     @Override
-    public List<Integer> getOrderedDocs(Map<String, Ocorrencia> mapQueryOcur,
-            Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs) {
+    public List<Integer> getOrderedDocs(Map<String, Ocorrencia> mapQueryOcur,Map<String, List<Ocorrencia>> lstOcorrPorTermoDocs) {
 
-        Map<Integer, Double> dj_weight = new HashMap<Integer, Double>();
+        Map<Integer, Double> dj_weight = new HashMap<>();
 
-        double wiq;
+        
+        Ocorrencia ocurQuery;
         double wij;
-        Ocorrencia ocur;
+        double wiq;
+
         for (String term : mapQueryOcur.keySet()) {
-            ocur = mapQueryOcur.get(term);
-            wiq = tfIdf(idxPrecompVals.getNumDocumentos(), ocur.getFreq(),
-                    lstOcorrPorTermoDocs.get(term).size());
-
+            ocurQuery = mapQueryOcur.get(term);
+            wiq = tfIdf(idxPrecompVals.getNumDocumentos(), ocurQuery.getFreq(), lstOcorrPorTermoDocs.get(term).size());
+            
+            
             for (Ocorrencia docOcur : lstOcorrPorTermoDocs.get(term)) {
-                wij = tfIdf(idxPrecompVals.getNumDocumentos(), docOcur.getFreq(),
-                        lstOcorrPorTermoDocs.get(term).size());        
-
-                dj_weight.put(docOcur.getDocId(), wij * wiq / this.idxPrecompVals.getNormaDocumento(docOcur.getDocId()));
+                wij = tfIdf(idxPrecompVals.getNumDocumentos(), docOcur.getFreq(),lstOcorrPorTermoDocs.get(term).size());        
+                double weight = wij * wiq;
+                
+                if(dj_weight.containsKey(docOcur.getDocId())){
+                    Double previousWeight = dj_weight.get(docOcur.getDocId());
+                    Double newWeight = previousWeight + weight;
+                    dj_weight.put(docOcur.getDocId(), newWeight);
+                    
+                }else{
+                    dj_weight.put(docOcur.getDocId(), weight);
+                }
+                
             }
         }
+        
         for (Integer djId : dj_weight.keySet()) {
-            Double novoPeso = dj_weight.get(djId) / idxPrecompVals.getNormaPorDocumento().get(djId);
+            Double novoPeso = dj_weight.get(djId) / idxPrecompVals.getNormaDocumento(djId);
             dj_weight.put(djId, novoPeso);
         }
-
-        return UtilQuery.getOrderedList(dj_weight);
+   
+        List<Integer> rank = UtilQuery.getOrderedList(dj_weight);
+        return rank;
     }
    
 

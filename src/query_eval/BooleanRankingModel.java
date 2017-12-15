@@ -57,6 +57,7 @@ public class BooleanRankingModel implements RankingModel {
 
             }
         }
+        
         List<Integer> itg = new ArrayList<>();
         itg.addAll(docs);
         return itg;
@@ -72,20 +73,27 @@ public class BooleanRankingModel implements RankingModel {
         List<Integer> docs = new ArrayList<>();
         Iterator it = lstOcorrPorTermoDocs.keySet().iterator();
         String term = (String) it.next();
-
+        System.out.println(term);
         for (Ocorrencia ocor : lstOcorrPorTermoDocs.get(term)) {
+            if(ocor.getDocId() == 53672){System.out.println("PEIDO");}
             docs.add(ocor.getDocId());
         }
 
         while (it.hasNext()) {
             term = (String) it.next();
-            List<Ocorrencia> newList = lstOcorrPorTermoDocs.get(term);
-            System.out.println("NEWLIST SIZE: " + newList.size());
+            System.out.println(term);
+            
+            List<Ocorrencia> ocurrencesPerTerm = lstOcorrPorTermoDocs.get(term);
+            List<Integer> docsForThisTerm = new ArrayList<>();
+            System.out.println("NEWLIST SIZE: " + ocurrencesPerTerm.size());
+            
             for (Ocorrencia ocor : lstOcorrPorTermoDocs.get(term)) {
-                docs.add(ocor.getDocId());
+                if(ocor.getDocId() == 53672){System.out.println("PEIDO2");}
+                docsForThisTerm.add(ocor.getDocId());
             }
+            
             System.out.println("DOCS SIZE ANTES: " + docs.size());
-            docs.retainAll(newList);
+            docs.retainAll(docsForThisTerm);
             System.out.println("DOCS SIZE DEPOIS: " + docs.size());
         }
         return docs;

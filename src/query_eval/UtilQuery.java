@@ -8,8 +8,7 @@ import java.util.Map;
 import util.Tupla;
 
 public class UtilQuery {
-	public static List<Integer> getOrderedList(Map<Integer,Double> mapDocsWeights)
-	{
+	public static List<Integer> getOrderedList(Map<Integer,Double> mapDocsWeights){
 		ArrayList<Tupla<Integer,Double>> lstDocsWeight = new ArrayList<Tupla<Integer,Double>>();
 		
 		for(int docId : mapDocsWeights.keySet())
@@ -27,4 +26,5 @@ public class UtilQuery {
 		
 		
 	}
+        
 }

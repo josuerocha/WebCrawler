@@ -35,7 +35,6 @@ public class Indexer {
     private Indice indice;
     private int pageCount = 0;
     
-    
     private static Map<Integer, String> docIdPerTitle = new HashMap<>();
 
     /**
@@ -73,8 +72,8 @@ public class Indexer {
                     try {
                         // Lê conteudo do arquivo HTML
                         String content = ArquivoUtil.leTexto(htmlFile);
-                        System.out.println(" ");
-                        System.out.print(PrintColor.BLUE + htmlFile.getName() + PrintColor.RESET);
+                       // System.out.println(" ");
+                       // System.out.print(PrintColor.BLUE + htmlFile.getName() + PrintColor.RESET);
 
                         // Obtem o id do documento, a partir dos numeros do nome do arquivo
                         Matcher matcher = docIdPattern.matcher(htmlFile.getName());
@@ -90,6 +89,9 @@ public class Indexer {
                         ex.printStackTrace();
                     }
 
+                    if(pageCount % 10000 == 0){
+                        System.gc();
+                    }
                 }
             }
         } else {
@@ -141,7 +143,7 @@ public class Indexer {
         Map<String, Integer> termFrequency = new HashMap<>();
 
         String[] terms = content.split("[\\W^ç]+");
-        System.out.println(" " + terms.length);
+        //System.out.println(" " + terms.length);
 
         for (String term : terms) {
             //Verifica se o termo esta vazio
@@ -214,15 +216,17 @@ public class Indexer {
         
         List<String> results = new ArrayList<>();
         for(Integer docId : resultsIds){
+            
             String docTitle = docIdPerTitle.get(docId);
             results.add(docTitle);
         }
         return results;        
     }
 
-    public void inicialize() {        
+    public void initialize() {        
         long usedMemBefore = usedMemory();
-        //long initTime = System.currentTimeMillis();                
+        //long initTime = System.currentTimeMillis();    
+        System.out.println("Indexando");
         getFiles();
         //long finalTime = System.currentTimeMillis();;
         long usedMemAfter = usedMemory();

@@ -6,6 +6,16 @@ import java.util.Map;
 
 import indice.estrutura.Indice;
 import indice.estrutura.Ocorrencia;
+import java.util.ArrayList;
+import java.util.Collections;
+import com.objectplanet.chart.*; 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Frame;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 
 public class IndicePreCompModelo {
 
@@ -16,21 +26,25 @@ public class IndicePreCompModelo {
 
     private int numDocumentos = 0;
     private double avgLenPerDocument = 0;
-    private Map<Integer, Integer> tamPorDocumento = new HashMap<Integer, Integer>();
-    private Map<Integer, Double> normaPorDocumento = new HashMap<Integer, Double>();
+    private Map<Integer, Integer> tamPorDocumento = new HashMap<>();
+    private Map<Integer, Double> normaPorDocumento = new HashMap<>();
+    private Map<String,Double> termPerIdf = new HashMap<>();
 
     private Indice idx;
 
     public IndicePreCompModelo(Indice idx) {
         this.idx = idx;
         precomputeValues(idx);
+        computeTermData();
     }
+    
 
     /**
      * Acumula o (tfxidf)^2 de mais uma ocorrencia (oc) no somatorio para
      * calcular a norma por documento Usar a propria norma para acumular o
      * somatorio
      *
+     * @param numDocsTerm
      * @param lstOcc
      * @param oc
      */
@@ -42,7 +56,88 @@ public class IndicePreCompModelo {
             normaPorDocumento.put(oc.getDocId(), tfidfSquared);
         }
     }
-
+    
+     /**
+     * Calcula a frequencia e IDF de cada termo 
+     */
+    private void computeTermData(){
+        List<TermData> termData = new ArrayList<>();
+        
+        for(String term : idx.getListTermos()){
+            List<Ocorrencia> ocurrences = idx.getListOccur(term);
+            int ni = ocurrences.size();
+            double idf = VectorRankingModel.idf(numDocumentos,ni);
+            double tf = 0;
+            int freqTermo = 0;
+            
+            for(Ocorrencia occur : ocurrences){
+                freqTermo += occur.getFreq();
+                tf = VectorRankingModel.tf(occur.getFreq());
+            }
+            
+            
+            termData.add(new TermData(term,idf,freqTermo,tf));    
+        }
+        
+        Collections.sort(termData);
+        
+        System.out.println("LOWER IDFs (LOWEST TO HIGHEST):");
+        for(int i=0; i<13; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " IDF: " + termData.get(i).getIdf());
+        }
+        
+        System.out.println("MEDIUM IDFs (LOWEST TO HIGHEST):");
+        for(int i=30000; i<30011; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " IDF: " + termData.get(i).getIdf());
+        }
+        
+        System.out.println("");
+        System.out.println("HIGHER IDFs (LOWEST TO HIGHEST)");
+        for(int i=termData.size()-11; i< termData.size()-1; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " IDF: " + termData.get(i).getIdf());
+        }
+        
+        TermData.orderByFrequency();
+        
+        Collections.sort(termData);
+        
+        System.out.println(" ");
+        
+        System.out.println("LOWER FREQUENCIES (LOWEST TO HIGHEST):");
+        for(int i=0; i<10; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " FREQ: " + termData.get(i).getGlobalFreq());
+        }
+        
+        System.out.println("");
+        System.out.println("HIGHER FREQUENCIES (LOWEST TO HIGHEST)");
+        for(int i=termData.size()-11; i< termData.size()-1; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " FREQ: " + termData.get(i).getGlobalFreq());
+        }
+        
+        TermData.orderByTf();
+        Collections.sort(termData);
+        
+        System.out.println("LOWER TFs (LOWEST TO HIGHEST):");
+        for(int i=0; i<13; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " IDF: " + termData.get(i).getTf());
+        }
+        
+        System.out.println("MEDIUM TFs (LOWEST TO HIGHEST):");
+        for(int i=termData.size()-2000; i< termData.size()-1991; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " IDF: " + termData.get(i).getTf());
+        }
+        
+        System.out.println("");
+        System.out.println("HIGHER TFs (LOWEST TO HIGHEST)");
+        for(int i=termData.size()-11; i< termData.size()-1; i++){
+            System.out.println("Termo: " + termData.get(i).getTerm() + " IDF: " + termData.get(i).getTf());
+        }
+        
+        saveToFile(termData);
+        
+    }
+   
+    
     /**
      * Atualiza o tamPorDocumento com mais uma cocorrencia
      *
@@ -89,10 +184,27 @@ public class IndicePreCompModelo {
         this.avgLenPerDocument /= this.numDocumentos;
 
         for (Integer docid : normaPorDocumento.keySet()) {
-            normaPorDocumento.put(docid, Math.sqrt(this.normaPorDocumento.get(docid)));
+            normaPorDocumento.put(docid, Math.sqrt(normaPorDocumento.get(docid)));
         }
         //System.out.println("SAIU FOR 3");
 
+    }
+    
+    private void saveToFile(List<TermData> termData){
+        BufferedWriter fileWriter = null;
+        try{
+            fileWriter = new BufferedWriter(new FileWriter("termdata.csv",false));
+            
+            int cont = 1;
+            for(TermData data : termData){
+                
+                fileWriter.write( cont + "," + data.getGlobalFreq() + "," + data.getIdf());
+                fileWriter.newLine();
+                cont++;
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public int getDocumentLength(int docId) {

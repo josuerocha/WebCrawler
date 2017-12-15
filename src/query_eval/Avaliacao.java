@@ -4,37 +4,45 @@ import crawler.PrintColor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import util.ArquivoUtil;
+import util.StringUtil;
 
 public class Avaliacao {
 
     private double precisao[] = new double[4];
     private double revocacao[] = new double[4];
-    private List<Integer> docsRelevantes = new ArrayList<>();
+    Map<String,Set<Integer>> relevantDocsMap = new HashMap<>();
     /**
-     * Função inicial que é exucutada ao iniciar a tela de consulta, 
+     * Função que é executada ao iniciar a tela de consulta, 
      * ler os arquivos (BeloHorizonte.bat, Irlanda.bat e SaoPaulo.bat) e salva em uma lista.
      *
-     * @param docsRelevPath
+     * @param filepath
+     * @param queryname
      * @return
      */
-    public void preProcessa(String docsRelevPath) {
-
-        File docsRelevFile = new File(docsRelevPath);
-        String content = "";
-        if (docsRelevFile.exists()) {
+    public void preProcessa(String filepath,String queryname) {
+        Set<Integer> docsRelevantes = new HashSet<>();
+        
+        File file = new File(filepath);
+        String content;
+        if (file.exists()) {
             try {
-                content = ArquivoUtil.leTexto(docsRelevFile).trim();
+                content = ArquivoUtil.leTexto(file).trim();
                 //System.out.println(PrintColor.PURPLE + content + PrintColor.RESET);
                 String vector[] = content.split(",");
                 for (String docId : vector) {
-                    if (!docsRelevantes.contains(docId)) {
-                        docsRelevantes.add(Integer.parseInt(docId));
+                    int docIdInt = Integer.parseInt(docId);
+                    if (!docsRelevantes.contains(docIdInt)) {
+                        docsRelevantes.add(docIdInt);
                     }
                 }
-
+ 
+               relevantDocsMap.put(queryname, docsRelevantes);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -47,53 +55,56 @@ public class Avaliacao {
      * @param results
      * @return
      */
-    public void avalia(List<Integer> results) {
-        List<Integer> fracaoResults;
+    public void avalia(List<Integer> results,String query) {
+        
+        if("irlanda".equals(query) || "sao paulo".equals(query) || "belo horizonte".equals(query)){
+            List<Integer> fracaoResults;
+            Set<Integer> relevantDocs;
 
-        if (results.size() >= 5) {
+            query = query.toLowerCase();
+            query = StringUtil.replaceAcento(query);
+            relevantDocs = relevantDocsMap.get(query);
+
             //Precisao @5
             fracaoResults = results.subList(0, 4);
             System.out.println("fracaoResults SIZE: " + fracaoResults.size());
-            double retorno[] = calcula(fracaoResults);
+            double retorno[] = calcula(fracaoResults,relevantDocs);
             precisao[0] = retorno[0];
             revocacao[0] = retorno[1];
 
-            if (results.size() >= 10) {
-                //Precisao @10
-                fracaoResults = results.subList(0, 9);
-                retorno = calcula(fracaoResults);
-                precisao[1] = retorno[0];
-                revocacao[1] = retorno[1];
 
-                if (results.size() >= 25) {
-                    //Precisao @25
-                    fracaoResults = results.subList(0, 24);
-                    retorno = calcula(fracaoResults);
-                    precisao[2] = retorno[0];
-                    revocacao[2] = retorno[1];
+            //Precisao @10
+            fracaoResults = results.subList(0, 9);
+            retorno = calcula(fracaoResults,relevantDocs);
+            precisao[1] = retorno[0];
+            revocacao[1] = retorno[1];
 
-                    if (results.size() >= 50) {
-                        //Precisao @50
-                        fracaoResults = results.subList(0, 49);
-                        retorno = calcula(fracaoResults);
-                        precisao[3] = retorno[0];
-                        revocacao[3] = retorno[1];
 
-                    }
-                }
-            }
+            //Precisao @25
+            fracaoResults = results.subList(0, 24);
+            retorno = calcula(fracaoResults,relevantDocs);
+            precisao[2] = retorno[0];
+            revocacao[2] = retorno[1];
+
+
+            //Precisao @50
+            fracaoResults = results.subList(0, 49);
+            retorno = calcula(fracaoResults,relevantDocs);
+            precisao[3] = retorno[0];
+            revocacao[3] = retorno[1];
         }
     }
     /**
-     * Calcula a precisão e revocação dada uma lista parcial de resultados.
+     * Calcula a precisão e revocação dada uma lista de resultados.
      *
-     * @param results
+     * @param fracaoResults
      * @return
      */
-    public double[] calcula(List<Integer> fracaoResults) {
+    public double[] calcula(List<Integer> fracaoResults,Set docsRelevantes) {
         List<Integer> intersection = new ArrayList<>();
         double retorno[] = new double[2];
         double precisao, revocacao;
+        
         for (Integer docResult : fracaoResults) {
             if (docsRelevantes.contains(docResult)) {
                 intersection.add(docResult);
